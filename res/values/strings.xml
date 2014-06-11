@@ -1,0 +1,39 @@
+<resources>
+
+    <string name="app_name">执行力</string>
+    
+	<!--     common -->
+    <string name="sending_request">正在发送请求</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="back">返回</string>
+    <string name="common_tip">温馨提示</string>
+    
+	<!--     login页面 -->
+    <string name="account">请输入账号</string>
+    <string name="password">请输入密码</string>
+    <string name="login">登 录</string>
+    <string name="auto_save_password">记住密码</string>
+    <string name="register2">注册帐号</string>
+    <string name="more_login_setting">更多选项</string>
+    <string name="auto_login">自动登录</string>
+    <string name="silence_login">静音登录</string>
+    <string name="info_accounts">允许手机/电脑同时在线</string>
+    <string name="info_troopmessage">接收群消息</string>
+    
+	<!--     register注册页面 -->
+    <string name="qr_register">用户注册</string>
+    <string name="reg_account">账号*</string>
+    <string name="reg_account_tip">请输入邮箱</string>
+    <string name="reg_pwd">密码*</string>
+    <string name="reg_pwd_tip">请输入密码</string>
+    <string name="reg_pwd2">确认*</string>
+    <string name="reg_pwd2_tip">请再次输入密码</string>
+    <string name="reg_submit">注册</string>
+    <string name="reg_realName">真实姓名</string>
+    <string name="reg_email">邮件</string>
+    <string name="reg_phoneNum">手机</string>
+    <string name="reg_qq">qq</string>
+    <string name="register_tip">提示 \n带*项为必填项\n</string>
+
+</resources>
