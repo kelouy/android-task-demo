@@ -200,8 +200,8 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 						util.setPasswd(passwordEdit.getText().toString());
 
 						/*
-						 * UserDB db = new UserDB(LoginActivity.this);
-						 * db.addUser(list);
+						 UserDB db = new UserDB(LoginActivity.this);
+						 db.addUser(list);
 						 */
 
 						Intent i = new Intent(LoginActivity.this,
