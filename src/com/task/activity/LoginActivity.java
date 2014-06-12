@@ -188,38 +188,38 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 		}
 		Log.e(TAG, "getmsg from brocastreceive");
 		if (msg != null) {
-			if(msg.isSuccess()){
-			switch (msg.getType()) {
-			case LOGIN:// LoginActivity只处理登录的消息
-				User user = (User) msg.getObject();
-				if (user != null) {
-					// 保存用户信息
-					SharePreferenceUtil util = new SharePreferenceUtil(
-							LoginActivity.this, Constants.SAVE_USER);
-					util.setId(accountsEdit.getText().toString());
-					util.setPasswd(passwordEdit.getText().toString());
-					
+			if (msg.isSuccess()) {
+				switch (msg.getType()) {
+				case LOGIN:// LoginActivity只处理登录的消息
+					User user = (User) msg.getObject();
+					if (user != null) {
+						// 保存用户信息
+						SharePreferenceUtil util = new SharePreferenceUtil(
+								LoginActivity.this, Constants.SAVE_USER);
+						util.setId(accountsEdit.getText().toString());
+						util.setPasswd(passwordEdit.getText().toString());
 
-					/*UserDB db = new UserDB(LoginActivity.this);
-					db.addUser(list);*/
+						/*
+						 * UserDB db = new UserDB(LoginActivity.this);
+						 * db.addUser(list);
+						 */
 
-					Intent i = new Intent(LoginActivity.this,
-							MainActivity.class);
-					i.putExtra(Constants.MSGKEY, user);
-					startActivity(i);
-					finish();
-				} else {
-					DialogFactory.ToastDialog(LoginActivity.this, "QQ登录",
-							"亲！您的帐号或密码错误哦");
-					if (mDialog.isShowing())
-						mDialog.dismiss();
+						Intent i = new Intent(LoginActivity.this,
+								MainActivity.class);
+						i.putExtra(Constants.MSGKEY, user);
+						startActivity(i);
+						finish();
+					} else {
+						DialogFactory.ToastDialog(LoginActivity.this, res.getString(R.string.common_tip),
+								"亲！账号或密码错误。");
+					}
+					break;
+				default:
+					break;
 				}
-				break;
-			default:
-				break;
-			}
 			} else {
-				DialogFactory.ToastDialog(LoginActivity.this, res.getString(R.string.common_tip),msg.getMsg());
+				DialogFactory.ToastDialog(LoginActivity.this,
+						res.getString(R.string.common_tip), msg.getMsg());
 			}
 		}
 	}
