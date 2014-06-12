@@ -182,34 +182,32 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 	
 	// 依据自己需求处理父类广播接收者收取到的消息
 	public void getMessage(TranObject msg) {
+		if (mDialog != null) {
+			mDialog.dismiss();
+			mDialog = null;
+		}
 		Log.e(TAG, "getmsg from brocastreceive");
-		/*if (msg != null) {
-			// System.out.println("Login:" + msg);
+		if (msg != null) {
+			if(msg.isSuccess()){
 			switch (msg.getType()) {
 			case LOGIN:// LoginActivity只处理登录的消息
-				List<User> list = (List<User>) msg.getObject();
-				if (list.size() > 0) {
+				User user = (User) msg.getObject();
+				if (user != null) {
 					// 保存用户信息
 					SharePreferenceUtil util = new SharePreferenceUtil(
 							LoginActivity.this, Constants.SAVE_USER);
-					util.setId(mAccounts.getText().toString());
-					util.setPasswd(mPassword.getText().toString());
-					util.setEmail(list.get(0).getEmail());
-					util.setName(list.get(0).getName());
-					util.setImg(list.get(0).getImg());
+					util.setId(accountsEdit.getText().toString());
+					util.setPasswd(passwordEdit.getText().toString());
+					
 
-					UserDB db = new UserDB(LoginActivity.this);
-					db.addUser(list);
+					/*UserDB db = new UserDB(LoginActivity.this);
+					db.addUser(list);*/
 
 					Intent i = new Intent(LoginActivity.this,
-							FriendListActivity.class);
-					i.putExtra(Constants.MSGKEY, msg);
+							MainActivity.class);
+					i.putExtra(Constants.MSGKEY, user);
 					startActivity(i);
-
-					if (mDialog.isShowing())
-						mDialog.dismiss();
 					finish();
-					Toast.makeText(getApplicationContext(), "登录成功", 0).show();
 				} else {
 					DialogFactory.ToastDialog(LoginActivity.this, "QQ登录",
 							"亲！您的帐号或密码错误哦");
@@ -220,7 +218,10 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 			default:
 				break;
 			}
-		}*/
+			} else {
+				DialogFactory.ToastDialog(LoginActivity.this, res.getString(R.string.common_tip),msg.getMsg());
+			}
+		}
 	}
 
 	@Override
@@ -267,14 +268,14 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						/*if (application.isClientStart()) {// 如果连接还在，说明服务还在运行
+						if (application.isClientStart()) {// 如果连接还在，说明服务还在运行
 							// 关闭服务
 							Intent service = new Intent(LoginActivity.this,
-									GetMsgService.class);
+									MyService.class);
 							stopService(service);
 						}
 						close();// 调用父类自定义的循环关闭方法
-*/					}
+					}
 				}).setNegativeButton(res.getString(R.string.cancel), null).create().show();
 	}
 
