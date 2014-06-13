@@ -34,10 +34,18 @@
             android:name=".RegisterActivity"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
         
 		<!--         service -->
 		<service android:name="com.task.tools.MyService">
-		    
+		    <intent-filter>
+                <action android:name="com.task.TASK_SYNC_SERVICE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
 		</service>
 	
     </application>

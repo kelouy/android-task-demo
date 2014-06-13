@@ -35,5 +35,12 @@
     <string name="reg_phoneNum">手机</string>
     <string name="reg_qq">qq</string>
     <string name="register_tip">提示 \n带*项为必填项\n</string>
+    
+    
+<!--     fragment4 -->
+	<string name="tab1">消息</string>
+	<string name="tab2">我的同事</string>
+	<string name="tab3">动态</string>
+	<string name="tab4">我</string>
 
 </resources>

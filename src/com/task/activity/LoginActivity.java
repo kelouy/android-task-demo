@@ -168,7 +168,7 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 				ClientOutputThread out = client.getClientOutputThread();
 				TranObject<User> o = new TranObject<User>(TranObjectType.LOGIN);
 				User u = new User();
-				u.setUserId(Integer.parseInt(accounts));
+				u.setUserName(accounts);
 				u.setPassword(Encode.getEncode("MD5", password));
 				o.setObject(u);
 				out.setMsg(o);
@@ -198,7 +198,7 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 								LoginActivity.this, Constants.SAVE_USER);
 						util.setId(accountsEdit.getText().toString());
 						util.setPasswd(passwordEdit.getText().toString());
-
+  
 						/*
 						 UserDB db = new UserDB(LoginActivity.this);
 						 db.addUser(list);

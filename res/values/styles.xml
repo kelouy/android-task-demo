@@ -53,5 +53,18 @@
         <item name="android:textSize">15sp</item>
         <item name="android:gravity">center</item>
     </style>
+    
+      <!-- tab标签布局 -->
+    <style name="main_tab_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/tab_selector_tv_color</item>
+        <item name="android:gravity">center_horizontal|bottom</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:background">@drawable/tab_selector_checked_bg</item>
+    </style>
 
 </resources>

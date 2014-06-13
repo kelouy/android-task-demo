@@ -13,4 +13,6 @@ public class Constants {
 	public static final String BACKKEY_ACTION="com.jackie.backKey";//返回键发送广播的action
 	public static final int NOTIFY_ID = 0x911;//通知ID
 	public static final String DBNAME = "task.db";//数据库名称
+	
+	public static final String TASK_SYNC_SERVICE = "com.task.TASK_SYNC_SERVICE";
 }

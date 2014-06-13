@@ -1,0 +1,121 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#dedddd"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:background="@drawable/title_background"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/login_name"
+            android:layout_width="fill_parent"
+            android:layout_height="48dip"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:gravity="center"
+            android:text="@string/tab4"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/version_msg"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="5dip"
+        android:background="@drawable/shape_top" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="版本信息"
+            android:textColor="#000000" />
+ 
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/change_user"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="1dip"
+        android:background="@drawable/shape_middle" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="切换账号"
+            android:textColor="#000000" />
+        
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/about_us"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="1dip"
+        android:background="@drawable/shape_middle" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="关于我们"
+            android:textColor="#000000" />
+        
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/help"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="1dip"
+        android:background="@drawable/shape_bottom" >
+ 
+            
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="帮助"
+            android:textColor="#000000" />
+        
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/clear"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="10dip"
+        android:background="@drawable/shape_total" >
+        
+        <TextView
+            android:id="@+id/login_context"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="清除缓存"
+            android:textColor="#000000" />
+        
+    </RelativeLayout>
+    
+    
+
+</LinearLayout>

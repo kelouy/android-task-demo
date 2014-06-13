@@ -121,6 +121,7 @@ public final class R {
         public static final int system_item_bg_unread=0x7f040037;
         public static final int system_item_name_read=0x7f040038;
         public static final int system_item_name_unread=0x7f040039;
+        public static final int tab_selector_tv_color=0x7f040089;
         public static final int tag_btn_bg1=0x7f04007c;
         public static final int tag_btn_bg2=0x7f04007d;
         public static final int tag_btn_bg3=0x7f04007e;
@@ -172,58 +173,99 @@ public final class R {
         public static final int login_reg_normal=0x7f020013;
         public static final int login_reg_pressed=0x7f020014;
         public static final int login_regist_bg=0x7f020015;
-        public static final int menu_exit=0x7f020016;
-        public static final int menu_setting=0x7f020017;
-        public static final int op_bg_selector=0x7f020018;
-        public static final int progressbar=0x7f020019;
-        public static final int pull_to_refresh_header_background=0x7f02001a;
-        public static final int selector_btn_back=0x7f02001b;
-        public static final int shape_bg=0x7f02001c;
-        public static final int shape_dialog=0x7f02001d;
-        public static final int shape_line=0x7f02001e;
-        public static final int splash=0x7f02001f;
-        public static final int title_bar=0x7f020020;
-        public static final int top_back_left=0x7f020021;
-        public static final int top_back_leftpress=0x7f020022;
+        public static final int main_footer_bg=0x7f020016;
+        public static final int menu_exit=0x7f020017;
+        public static final int menu_setting=0x7f020018;
+        public static final int op_bg_selector=0x7f020019;
+        public static final int progressbar=0x7f02001a;
+        public static final int pull_to_refresh_header_background=0x7f02001b;
+        public static final int selector_btn_back=0x7f02001c;
+        public static final int shape_bg=0x7f02001d;
+        public static final int shape_bottom=0x7f02001e;
+        public static final int shape_dialog=0x7f02001f;
+        public static final int shape_line=0x7f020020;
+        public static final int shape_middle=0x7f020021;
+        public static final int shape_top=0x7f020022;
+        public static final int shape_total=0x7f020023;
+        public static final int splash=0x7f020024;
+        public static final int tab_bg_halo=0x7f020025;
+        public static final int tab_fenxiang_normal=0x7f020026;
+        public static final int tab_fenxiang_pressed=0x7f020027;
+        public static final int tab_renwu_normal=0x7f020028;
+        public static final int tab_renwu_pressed=0x7f020029;
+        public static final int tab_selector_checked_bg=0x7f02002a;
+        public static final int tab_selector_fenxiang=0x7f02002b;
+        public static final int tab_selector_renwu=0x7f02002c;
+        public static final int tab_selector_set=0x7f02002d;
+        public static final int tab_selector_tongshi=0x7f02002e;
+        public static final int tab_settings_normal=0x7f02002f;
+        public static final int tab_settings_pressed=0x7f020030;
+        public static final int tab_tongshi_normal=0x7f020031;
+        public static final int tab_tongshi_pressed=0x7f020032;
+        public static final int title_background=0x7f020033;
+        public static final int title_bar=0x7f020034;
+        public static final int top_back_left=0x7f020035;
+        public static final int top_back_leftpress=0x7f020036;
     }
     public static final class id {
-        public static final int auto_login=0x7f08000e;
-        public static final int auto_save_password=0x7f080007;
-        public static final int button1=0x7f080010;
-        public static final int button2=0x7f080011;
-        public static final int friend_menu_add=0x7f08001a;
-        public static final int friend_menu_exit=0x7f08001b;
-        public static final int image=0x7f080002;
-        public static final int input=0x7f080003;
-        public static final int login_accounts=0x7f080004;
-        public static final int login_btn=0x7f080006;
-        public static final int login_menu_exit=0x7f08001d;
-        public static final int login_menu_setting=0x7f08001c;
-        public static final int login_password=0x7f080005;
-        public static final int loginpage=0x7f080001;
-        public static final int menu=0x7f080009;
-        public static final int more=0x7f08000a;
-        public static final int more_image=0x7f08000c;
-        public static final int more_text=0x7f08000b;
-        public static final int moremenu=0x7f08000d;
-        public static final int reg_account=0x7f080014;
-        public static final int reg_back_btn=0x7f080012;
-        public static final int reg_password=0x7f080015;
-        public static final int reg_password2=0x7f080016;
-        public static final int regist_btn=0x7f080008;
-        public static final int register_btn=0x7f080017;
-        public static final int setting_ip=0x7f080018;
-        public static final int setting_port=0x7f080019;
-        public static final int silence_login=0x7f08000f;
-        public static final int textView2=0x7f080013;
+        public static final int about_us=0x7f080007;
+        public static final int auto_login=0x7f080018;
+        public static final int auto_save_password=0x7f080011;
+        public static final int button1=0x7f08001a;
+        public static final int button2=0x7f08001b;
+        public static final int change_user=0x7f080006;
+        public static final int clear=0x7f080009;
+        public static final int fragment1=0x7f080001;
+        public static final int fragment2=0x7f080002;
+        public static final int fragment3=0x7f080003;
+        public static final int friend_menu_add=0x7f08002a;
+        public static final int friend_menu_exit=0x7f08002b;
+        public static final int help=0x7f080008;
+        public static final int image=0x7f08000c;
+        public static final int input=0x7f08000d;
+        public static final int login_accounts=0x7f08000e;
+        public static final int login_btn=0x7f080010;
+        public static final int login_context=0x7f08000a;
+        public static final int login_menu_exit=0x7f08002d;
+        public static final int login_menu_setting=0x7f08002c;
+        public static final int login_name=0x7f080004;
+        public static final int login_password=0x7f08000f;
+        public static final int loginpage=0x7f08000b;
+        public static final int menu=0x7f080013;
+        public static final int more=0x7f080014;
+        public static final int more_image=0x7f080016;
+        public static final int more_text=0x7f080015;
+        public static final int moremenu=0x7f080017;
+        public static final int realtabcontent=0x7f08001c;
+        public static final int reg_account=0x7f080024;
+        public static final int reg_back_btn=0x7f080022;
+        public static final int reg_password=0x7f080025;
+        public static final int reg_password2=0x7f080026;
+        public static final int regist_btn=0x7f080012;
+        public static final int register_btn=0x7f080027;
+        public static final int setting_ip=0x7f080028;
+        public static final int setting_port=0x7f080029;
+        public static final int silence_login=0x7f080019;
+        public static final int tab_rb_1=0x7f08001e;
+        public static final int tab_rb_2=0x7f08001f;
+        public static final int tab_rb_3=0x7f080020;
+        public static final int tab_rb_4=0x7f080021;
+        public static final int tab_rg_menu=0x7f08001d;
+        public static final int textView2=0x7f080023;
         public static final int tvLoad=0x7f080000;
+        public static final int version_msg=0x7f080005;
     }
     public static final class layout {
         public static final int dialog_layout=0x7f030000;
-        public static final int login=0x7f030001;
-        public static final int main=0x7f030002;
-        public static final int register=0x7f030003;
-        public static final int setting_view=0x7f030004;
+        public static final int fragment1=0x7f030001;
+        public static final int fragment2=0x7f030002;
+        public static final int fragment3=0x7f030003;
+        public static final int fragment4=0x7f030004;
+        public static final int login=0x7f030005;
+        public static final int main=0x7f030006;
+        public static final int main_fragment=0x7f030007;
+        public static final int register=0x7f030008;
+        public static final int setting_view=0x7f030009;
     }
     public static final class menu {
         public static final int friend_list=0x7f070000;
@@ -265,6 +307,12 @@ public final class R {
          */
         public static final int sending_request=0x7f050001;
         public static final int silence_login=0x7f05000d;
+        /**      fragment4 
+         */
+        public static final int tab1=0x7f05001d;
+        public static final int tab2=0x7f05001e;
+        public static final int tab3=0x7f05001f;
+        public static final int tab4=0x7f050020;
     }
     public static final class style {
         /** 
@@ -299,5 +347,8 @@ public final class R {
         /**  设置屏幕变暗 
          */
         public static final int dialog=0x7f060002;
+        /**  tab标签布局 
+         */
+        public static final int main_tab_style=0x7f060006;
     }
 }
