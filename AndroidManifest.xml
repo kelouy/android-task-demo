@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="com.task.tools.MyApplication"
+        android:name="com.task.tools.component.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
@@ -40,7 +40,7 @@
         </activity>
         
 		<!--         service -->
-		<service android:name="com.task.tools.MyService">
+		<service android:name="com.task.tools.component.MyService">
 		    <intent-filter>
                 <action android:name="com.task.TASK_SYNC_SERVICE" />
 

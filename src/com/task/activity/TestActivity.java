@@ -9,8 +9,8 @@ import com.task.common.bean.Department;
 import com.task.common.bean.User;
 import com.task.common.transbean.TranObject;
 import com.task.common.transbean.TranObjectType;
-import com.task.tools.MyApplication;
-import com.task.tools.MyService;
+import com.task.tools.component.MyApplication;
+import com.task.tools.component.MyService;
 
 import android.app.Activity;
 import android.content.Intent;

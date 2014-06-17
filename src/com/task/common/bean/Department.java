@@ -18,6 +18,37 @@ public class Department implements java.io.Serializable {
 	private Timestamp createTime;
 	private Timestamp lastUpdateTime;
 	
+	@FieldMeta(isField=false)
+	private boolean isShown;
+	@FieldMeta(isField=false)
+	private int count;
+	@FieldMeta(isField=false)
+	private int firstPositionInList;
+	
+	public boolean isShown() {
+		return isShown;
+	}
+
+	public void setShown(boolean isShown) {
+		this.isShown = isShown;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public int getFirstPositionInList() {
+		return firstPositionInList;
+	}
+
+	public void setFirstPositionInList(int firstPositionInList) {
+		this.firstPositionInList = firstPositionInList;
+	}
+
 	@FieldMeta(isField = false)//自定义注解，表现该字段非数据库字段
 	private List<User> users = new ArrayList<User>();
 

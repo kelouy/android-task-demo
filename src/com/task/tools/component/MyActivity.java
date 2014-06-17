@@ -1,4 +1,4 @@
-package com.task.tools;
+package com.task.tools.component;
 
 import com.task.common.transbean.TranObject;
 import com.task.common.utils.Constants;

@@ -22,8 +22,8 @@ import com.task.common.transbean.TranObject;
 import com.task.common.transbean.TranObjectType;
 import com.task.common.utils.DialogFactory;
 import com.task.common.utils.Encode;
-import com.task.tools.MyActivity;
-import com.task.tools.MyApplication;
+import com.task.tools.component.MyActivity;
+import com.task.tools.component.MyApplication;
 
 public class RegisterActivity extends MyActivity implements OnClickListener {
 

@@ -4,11 +4,11 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/fragment2"
-        android:layout_width="wrap_content"
+    <com.task.tools.view.WorkmateListView 
+        android:id="@+id/workmatelistview"
         android:layout_height="wrap_content"
-        android:text="Large Text2222"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_width="fill_parent">
+        
+    </com.task.tools.view.WorkmateListView>
 
 </LinearLayout>

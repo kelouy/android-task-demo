@@ -25,6 +25,8 @@ public class User implements java.io.Serializable {
 	private String phoneNum;
 	
 	@FieldMeta(isField=false)
+	private int deptId; 
+	@FieldMeta(isField=false)
 	private Department department;
 
 	public User() {
@@ -154,5 +156,15 @@ public class User implements java.io.Serializable {
 	public void setHeadUrl(String headUrl) {
 		this.headUrl = headUrl;
 	}
+
+	public int getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(int deptId) {
+		this.deptId = deptId;
+	}
+
+
 
 }

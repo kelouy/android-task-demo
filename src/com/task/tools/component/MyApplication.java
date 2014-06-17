@@ -1,4 +1,4 @@
-package com.task.tools;
+package com.task.tools.component;
 
 import com.task.client.Client;
 import com.task.common.utils.Constants;
