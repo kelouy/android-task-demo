@@ -240,7 +240,8 @@ public class WorkmateListView extends ListView {
 		wrapper = new AdapterWrapper(getContext(), (StickyListHeadersAdapter) adapter);
 		//TODO   给header设置分隔线
 		wrapper.setDivider(mDivider);
-		wrapper.setDividerHeight(mDividerHeight);
+		//wrapper.setDividerHeight(mDividerHeight);
+		wrapper.setDividerHeight(0);
 		
 		
 		

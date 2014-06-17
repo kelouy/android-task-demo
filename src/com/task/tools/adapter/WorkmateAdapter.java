@@ -75,6 +75,7 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 			holder = new ItemViewHolder();
 			convertView = LayoutInflater.from(context).inflate(R.layout.workmate_list_item, null);
 			holder.textViewInfo = (TextView) convertView.findViewById(R.id.tvTitle);
+			holder.view = convertView.findViewById(R.id.rlItem);
 			convertView.setTag(holder);
 		} else {
 			holder = (ItemViewHolder) convertView.getTag();
@@ -198,7 +199,7 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 	}
 
 	public class ItemViewHolder {
-
+		View view;
 		TextView textViewInfo;
 	}
 
