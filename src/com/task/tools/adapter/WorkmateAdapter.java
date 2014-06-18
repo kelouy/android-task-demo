@@ -10,6 +10,7 @@ import com.task.tools.interfaces.ItemClickedListener;
 import com.task.tools.interfaces.ItemHeaderClickedListener;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,8 @@ import android.widget.TextView;
 
 public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAdapter {
 
-	private List<User> mMessageList;
-	private List<Department> mMessageListGroup;
+	private List<User> mUserList;
+	private List<Department> mDeptGroup;
 	
 	private ItemClickedListener mItemClickedListener;
 	private ItemHeaderClickedListener mItemHeaderClickedListener;
@@ -35,32 +36,32 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 	 * @param message_list	list数据
 	 * @param isOpen  初始化时是否展开
 	 */
-	public WorkmateAdapter(Context context, List<User> message_list, boolean isOpen) {
+	public WorkmateAdapter(Context context, List<User> userlist, boolean isOpen) {
 		this.context = context;
-		this.mMessageList = message_list;
+		this.mUserList = userlist;
 		this.mIsOpen = isOpen;
-		initMessageList(message_list);
+		initMessageList(userlist);
 	}
 
-	private void initMessageList(List<User> message_list) {
-		this.mMessageList = message_list;
-		if (message_list != null && message_list.size() > 0) {
+	private void initMessageList(List<User> userlist) {
+		this.mUserList = userlist;
+		if (userlist != null && userlist.size() > 0) {
 			getSectionIndicesAndGroupNames();
 		}
 	}
 
 	@Override
 	public int getCount() {
-		return mMessageList == null ? 0 : mMessageList.size();
+		return mUserList == null ? 0 : mUserList.size();
 	}
 
 	public int getRealCount() {
-		return mMessageList == null ? 0 : mMessageList.size();
+		return mUserList == null ? 0 : mUserList.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return mMessageList.get(position);
+		return mUserList.get(position);
 	}
 
 	@Override
@@ -70,6 +71,7 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
+		Log.v("getView", "position="+position+"  convertView="+convertView+"  parent="+parent);
 		ItemViewHolder holder;
 		if (convertView == null) {
 			holder = new ItemViewHolder();
@@ -80,10 +82,10 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 		} else {
 			holder = (ItemViewHolder) convertView.getTag();
 		}
-		holder.textViewInfo.setText(mMessageList.get(position).getUserName());
+		holder.textViewInfo.setText(mUserList.get(position).getUserName());
 		
 		//若合起分组，则里面的view不显示
-		holder.textViewInfo.setVisibility(mMessageListGroup.get(mMessageList.get(position).getDeptId()).isShown() ? View.VISIBLE : View.GONE);
+		holder.view.setVisibility(mDeptGroup.get(mUserList.get(position).getDeptId()).isShown() ? View.VISIBLE : View.GONE);
 
 		convertView.setOnClickListener(new View.OnClickListener() {
 			
@@ -103,28 +105,28 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 	 * 分组  数据源group by deptname
 	 */
 	private void getSectionIndicesAndGroupNames() {
-		mMessageListGroup = new ArrayList<Department>();
+		mDeptGroup = new ArrayList<Department>();
 		Department gp;
 		int countGp = 0;
 		String deptName = "";
-		for (int i = 0; i < mMessageList.size(); i++) {
-			String deptName2 = mMessageList.get(i).getDeptName();
+		for (int i = 0; i < mUserList.size(); i++) {
+			String deptName2 = mUserList.get(i).getDeptName();
 			if (!deptName2.equals(deptName)) {
 				
-				if(mMessageListGroup.size()>0) {
-					mMessageListGroup.get(mMessageListGroup.size()-1).setCount(countGp);
+				if(mDeptGroup.size()>0) {
+					mDeptGroup.get(mDeptGroup.size()-1).setCount(countGp);
 				}
 				deptName = deptName2;
 				countGp = 1;
-				mMessageList.get(i).setDeptId(mMessageListGroup.size());
+				mUserList.get(i).setDeptId(mDeptGroup.size());
 				gp = new Department();
 				gp.setDeptName(deptName);
 				gp.setFirstPositionInList(i);
 				gp.setShown(mIsOpen);
-				mMessageListGroup.add(gp);
+				mDeptGroup.add(gp);
 			} else {
 				countGp ++;
-				mMessageList.get(i).setDeptId(mMessageListGroup.size() - 1);
+				mUserList.get(i).setDeptId(mDeptGroup.size() - 1);
 			}
 
 		}
@@ -133,7 +135,7 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 
 	@Override
 	public View getHeaderView(final int position, View convertView, ViewGroup parent) {
-
+		Log.v("getHeaderView", "position="+position+"  convertView="+convertView+"  parent="+parent);
 		ItemHeaderViewHolder holder = null;
 		if (convertView == null) {
 			holder = new ItemHeaderViewHolder();
@@ -147,7 +149,7 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 		}
 
 		
-		Department gp = mMessageListGroup.get(mMessageList.get(position).getDeptId());
+		Department gp = mDeptGroup.get(mUserList.get(position).getDeptId());
 		holder.textViewGroupName.setText(gp.getDeptName());
 		
 		holder.textViewGroupCount.setText("[ " + gp.getCount() +" ]");
@@ -163,7 +165,7 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 
 	@Override
 	public long getHeaderId(int position) {
-		return mMessageList.get(position).getDeptId();
+		return mUserList.get(position).getDeptId();
 	}
 
 	/**
@@ -171,7 +173,7 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 	 * @Description:
 	 */
 	public void onListHeaderClicked(int position) {
-		Department gp = mMessageListGroup.get(mMessageList.get(position).getDeptId());
+		Department gp = mDeptGroup.get(mUserList.get(position).getDeptId());
 		gp.setShown(!gp.isShown());
 		WorkmateAdapter.this.notifyDataSetChanged();
 	}

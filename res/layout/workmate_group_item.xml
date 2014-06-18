@@ -5,7 +5,7 @@
     android:paddingTop="10dip"
     android:paddingBottom="10dip"
     android:clickable="true"
-    android:background="@drawable/selector_list_header_view" >
+    android:background="@drawable/workmate_head_selector" >
 
     
     <ImageView
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/list_group_tagimg"
-        android:textColor="@color/white" />
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/list_group_count"
@@ -31,6 +31,6 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="20dip"
-        android:textColor="@color/white" />
+        android:textColor="@color/black" />
 
 </RelativeLayout>

@@ -20,6 +20,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -28,7 +29,7 @@ import android.widget.ListView;
 
 public class WorkmateListView extends ListView {
 
-	private int mScreenWidth;
+	private int mScreenWidth;//手机屏幕宽度
 
 	private OnScrollListener mOnScrollListenerDelegate;
 	private boolean mAreHeadersSticky = true;
@@ -91,14 +92,16 @@ public class WorkmateListView extends ListView {
 
 	public WorkmateListView(Context context) {
 		this(context, null);
-		init(context);
 	}
 
 	public WorkmateListView(Context context, AttributeSet attrs) {
 		this(context, attrs, android.R.attr.listViewStyle);
-		init(context);
 	}
 
+	/**
+	 * 初始化获取手机屏幕宽度
+	 * @param paramContext
+	 */
 	private void init(Context paramContext) {
 		DisplayMetrics localDisplayMetrics = new DisplayMetrics();
 		((MainActivity) paramContext).getWindowManager().getDefaultDisplay().getMetrics(localDisplayMetrics);
