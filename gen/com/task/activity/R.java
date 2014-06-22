@@ -230,19 +230,20 @@ public final class R {
         public static final int clear=0x7f080009;
         public static final int fragment1=0x7f080001;
         public static final int fragment3=0x7f080003;
-        public static final int friend_menu_add=0x7f08002f;
-        public static final int friend_menu_exit=0x7f080030;
+        public static final int friend_menu_add=0x7f080030;
+        public static final int friend_menu_exit=0x7f080031;
         public static final int help=0x7f080008;
         public static final int image=0x7f08000c;
         public static final int input=0x7f08000d;
         public static final int list_group_count=0x7f08002c;
         public static final int list_group_name=0x7f08002b;
         public static final int list_group_tagimg=0x7f08002a;
+        public static final int list_head_img=0x7f08002e;
         public static final int login_accounts=0x7f08000e;
         public static final int login_btn=0x7f080010;
         public static final int login_context=0x7f08000a;
-        public static final int login_menu_exit=0x7f080032;
-        public static final int login_menu_setting=0x7f080031;
+        public static final int login_menu_exit=0x7f080033;
+        public static final int login_menu_setting=0x7f080032;
         public static final int login_name=0x7f080004;
         public static final int login_password=0x7f08000f;
         public static final int loginpage=0x7f08000b;
@@ -269,7 +270,7 @@ public final class R {
         public static final int tab_rg_menu=0x7f08001d;
         public static final int textView2=0x7f080023;
         public static final int tvLoad=0x7f080000;
-        public static final int tvTitle=0x7f08002e;
+        public static final int tvTitle=0x7f08002f;
         public static final int version_msg=0x7f080005;
         public static final int workmatelistview=0x7f080002;
     }
