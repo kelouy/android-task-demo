@@ -72,23 +72,28 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		Log.v("getView", "position="+position+"  convertView="+convertView+"  parent="+parent);
+		
 		ItemViewHolder holder;
 		if (convertView == null) {
 			holder = new ItemViewHolder();
 			convertView = LayoutInflater.from(context).inflate(R.layout.workmate_list_item, null);
-			holder.textViewInfo = (TextView) convertView.findViewById(R.id.tvTitle);
+			holder.tvTextView = (TextView) convertView.findViewById(R.id.tvTitle);
+			holder.positionTextView = (TextView) convertView.findViewById(R.id.tvPosition);
+			holder.headImg = (ImageView) convertView.findViewById(R.id.list_head_img);
 			holder.view = convertView.findViewById(R.id.rlItem);
 			convertView.setTag(holder);
 		} else {
 			holder = (ItemViewHolder) convertView.getTag();
 		}
-		holder.textViewInfo.setText(mUserList.get(position).getUserName());
-		
+		boolean isShow = mDeptGroup.get(mUserList.get(position).getDeptId()).isShown();
 		//若合起分组，则里面的view不显示
-		holder.view.setVisibility(mDeptGroup.get(mUserList.get(position).getDeptId()).isShown() ? View.VISIBLE : View.GONE);
-
+		holder.view.setVisibility(isShow ? View.VISIBLE : View.GONE);
+		if(isShow){
+			holder.tvTextView.setText(mUserList.get(position).getUserName());
+			holder.positionTextView.setText(mUserList.get(position).getPositionName());
+			holder.headImg.setImageResource(R.drawable.person_head);
+		}
 		convertView.setOnClickListener(new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				if(mItemClickedListener != null) {
@@ -128,14 +133,15 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 				countGp ++;
 				mUserList.get(i).setDeptId(mDeptGroup.size() - 1);
 			}
-
+			
 		}
+		mDeptGroup.get(mDeptGroup.size()-1).setCount(countGp);
 
 	}
 
 	@Override
 	public View getHeaderView(final int position, View convertView, ViewGroup parent) {
-		Log.v("getHeaderView", "position="+position+"  convertView="+convertView+"  parent="+parent);
+		//Log.v("getHeaderView", "position="+position+"  convertView="+convertView+"  parent="+parent);
 		ItemHeaderViewHolder holder = null;
 		if (convertView == null) {
 			holder = new ItemHeaderViewHolder();
@@ -151,7 +157,6 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 		
 		Department gp = mDeptGroup.get(mUserList.get(position).getDeptId());
 		holder.textViewGroupName.setText(gp.getDeptName());
-		
 		holder.textViewGroupCount.setText("[ " + gp.getCount() +" ]");
 		
 		 if(gp.isShown()) {
@@ -202,7 +207,9 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 
 	public class ItemViewHolder {
 		View view;
-		TextView textViewInfo;
+		TextView tvTextView;
+		TextView positionTextView;
+		ImageView headImg;
 	}
 
 }

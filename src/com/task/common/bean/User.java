@@ -12,9 +12,10 @@ import com.task.common.utils.FieldMeta;
 public class User implements java.io.Serializable {
 	
 	private Integer userId;
+	private Integer positionId;
+	private Integer deptId; 
 	private String userName;
 	private String realName;
-	private String deptName;
 	private String password;
 	private int flag;
 	private String headUrl;
@@ -24,10 +25,11 @@ public class User implements java.io.Serializable {
 	private Timestamp lastLoginTime;
 	private String phoneNum;
 	
-	@FieldMeta(isField=false)
-	private int deptId; 
-	@FieldMeta(isField=false)
-	private Department department;
+	@FieldMeta(isNecessary=true)
+	private String deptName;
+	@FieldMeta(isNecessary=true)
+	private String positionName;
+	
 
 	public User() {
 	}
@@ -37,8 +39,7 @@ public class User implements java.io.Serializable {
 		this.password = password;
 	}
 
-	public User(Department department, String userName, String realName, String password, Byte flag, String headUrl, Integer qq, String email, Timestamp createTime, Timestamp lastLoginTime) {
-		this.department = department;
+	public User(String userName, String realName, String password, Byte flag, String headUrl, Integer qq, String email, Timestamp createTime, Timestamp lastLoginTime) {
 		this.userName = userName;
 		this.realName = realName;
 		this.password = password;
@@ -51,14 +52,6 @@ public class User implements java.io.Serializable {
 	}
 
 	
-
-	public Department getDepartment() {
-		return this.department;
-	}
-
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
 
 	public String getUserName() {
 		return this.userName;
@@ -163,6 +156,22 @@ public class User implements java.io.Serializable {
 
 	public void setDeptId(int deptId) {
 		this.deptId = deptId;
+	}
+
+	public Integer getPositionId() {
+		return positionId;
+	}
+
+	public void setPositionId(Integer positionId) {
+		this.positionId = positionId;
+	}
+
+	public String getPositionName() {
+		return positionName;
+	}
+
+	public void setPositionName(String positionName) {
+		this.positionName = positionName;
 	}
 
 

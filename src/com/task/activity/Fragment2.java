@@ -30,11 +30,12 @@ public class Fragment2 extends RoboFragment {
 		super.onCreate(savedInstanceState);
 		Log.v(TAG, "onCreate...");
 		list = new ArrayList<User>(); 
-		for(int i=0;i<15;i++){
-			User u = new User();
-			u.setDeptName("部门"+i);
-			for(int j=0;j<i+2;j++){
-				u.setUserName("person "+j*i);
+		for(int i=0;i<10;i++){
+			for(int j=0;j<10;j++){
+				User u = new User();
+				u.setDeptName("部门"+i);
+				u.setUserName("唐声杰 "+(i*10+j+1));
+				u.setPositionName("position : xxx");
 				list.add(u); 
 			}
 		}

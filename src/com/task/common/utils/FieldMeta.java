@@ -13,5 +13,14 @@ import java.lang.annotation.Target;
 @Inherited 		//说明子类可以继承父类中的该注解
 public @interface FieldMeta {
 
+	/**
+	 * 是否数据字段
+	 * @return
+	 */
 	boolean isField() default true;
+	/**
+	 * 是否必要加载数据
+	 * @return
+	 */
+	boolean isNecessary() default false;
 }
