@@ -3,6 +3,8 @@ package com.task.tools.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.task.activity.R;
 import com.task.common.bean.Department;
 import com.task.common.bean.User;
@@ -10,6 +12,7 @@ import com.task.tools.interfaces.ItemClickedListener;
 import com.task.tools.interfaces.ItemHeaderClickedListener;
 
 import android.content.Context;
+import android.graphics.Bitmap.Config;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +25,8 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 
 	private List<User> mUserList;
 	private List<Department> mDeptGroup;
-	
+	ImageLoader imageLoader;
+	DisplayImageOptions options;
 	private ItemClickedListener mItemClickedListener;
 	private ItemHeaderClickedListener mItemHeaderClickedListener;
 
@@ -36,10 +40,17 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 	 * @param message_list	list数据
 	 * @param isOpen  初始化时是否展开
 	 */
+	@SuppressWarnings("static-access")
 	public WorkmateAdapter(Context context, List<User> userlist, boolean isOpen) {
 		this.context = context;
 		this.mUserList = userlist;
 		this.mIsOpen = isOpen;
+		this.imageLoader = imageLoader.getInstance();
+		options = new DisplayImageOptions.Builder()
+				.showImageOnLoading(R.drawable.person_head)
+				.showImageForEmptyUri(R.drawable.person_head)
+				.showImageOnFail(R.drawable.person_head).cacheOnDisk(true)
+				.cacheInMemory(true).bitmapConfig(Config.ARGB_8888).build();
 		initMessageList(userlist);
 	}
 
@@ -85,13 +96,15 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 		} else {
 			holder = (ItemViewHolder) convertView.getTag();
 		}
-		boolean isShow = mDeptGroup.get(mUserList.get(position).getDeptId()).isShown();
+		User user = mUserList.get(position);
+		boolean isShow = mDeptGroup.get(user.getDeptId()).isShown();
 		//若合起分组，则里面的view不显示
 		holder.view.setVisibility(isShow ? View.VISIBLE : View.GONE);
 		if(isShow){
-			holder.tvTextView.setText(mUserList.get(position).getUserName());
-			holder.positionTextView.setText(mUserList.get(position).getPositionName());
+			holder.tvTextView.setText(user.getUserName());
+			holder.positionTextView.setText(user.getPositionName());
 			holder.headImg.setImageResource(R.drawable.person_head);
+			imageLoader.displayImage(user.getHeadUrl(), holder.headImg, options);
 		}
 		convertView.setOnClickListener(new View.OnClickListener() {
 			@Override
