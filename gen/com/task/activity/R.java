@@ -230,22 +230,30 @@ public final class R {
         public static final int button2=0x7f08001b;
         public static final int change_user=0x7f080006;
         public static final int clear=0x7f080009;
+        public static final int for_person_deptname=0x7f080029;
+        public static final int for_person_email=0x7f080032;
+        public static final int for_person_phonenum=0x7f08002e;
+        public static final int for_person_positionname=0x7f08002b;
+        public static final int for_person_qq=0x7f080030;
+        public static final int for_person_realname=0x7f080025;
+        public static final int for_person_sex=0x7f080027;
+        public static final int for_person_username=0x7f080023;
         public static final int fragment1=0x7f080001;
         public static final int fragment3=0x7f080003;
-        public static final int friend_menu_add=0x7f080031;
-        public static final int friend_menu_exit=0x7f080032;
+        public static final int friend_menu_add=0x7f080043;
+        public static final int friend_menu_exit=0x7f080044;
         public static final int help=0x7f080008;
         public static final int image=0x7f08000c;
         public static final int input=0x7f08000d;
-        public static final int list_group_count=0x7f08002c;
-        public static final int list_group_name=0x7f08002b;
-        public static final int list_group_tagimg=0x7f08002a;
-        public static final int list_head_img=0x7f08002e;
+        public static final int list_group_count=0x7f08003e;
+        public static final int list_group_name=0x7f08003d;
+        public static final int list_group_tagimg=0x7f08003c;
+        public static final int list_head_img=0x7f080040;
         public static final int login_accounts=0x7f08000e;
         public static final int login_btn=0x7f080010;
         public static final int login_context=0x7f08000a;
-        public static final int login_menu_exit=0x7f080034;
-        public static final int login_menu_setting=0x7f080033;
+        public static final int login_menu_exit=0x7f080046;
+        public static final int login_menu_setting=0x7f080045;
         public static final int login_name=0x7f080004;
         public static final int login_password=0x7f08000f;
         public static final int loginpage=0x7f08000b;
@@ -254,26 +262,36 @@ public final class R {
         public static final int more_image=0x7f080016;
         public static final int more_text=0x7f080015;
         public static final int moremenu=0x7f080017;
+        public static final int person_deptname=0x7f08002a;
+        public static final int person_email=0x7f080033;
+        public static final int person_phone=0x7f08002d;
+        public static final int person_phonenum=0x7f08002f;
+        public static final int person_positionname=0x7f08002c;
+        public static final int person_qq=0x7f080031;
+        public static final int person_realname=0x7f080026;
+        public static final int person_sex=0x7f080028;
+        public static final int person_title=0x7f080022;
+        public static final int person_username=0x7f080024;
         public static final int realtabcontent=0x7f08001c;
-        public static final int reg_account=0x7f080024;
-        public static final int reg_back_btn=0x7f080022;
-        public static final int reg_password=0x7f080025;
-        public static final int reg_password2=0x7f080026;
+        public static final int reg_account=0x7f080036;
+        public static final int reg_back_btn=0x7f080034;
+        public static final int reg_password=0x7f080037;
+        public static final int reg_password2=0x7f080038;
         public static final int regist_btn=0x7f080012;
-        public static final int register_btn=0x7f080027;
-        public static final int rlItem=0x7f08002d;
-        public static final int setting_ip=0x7f080028;
-        public static final int setting_port=0x7f080029;
+        public static final int register_btn=0x7f080039;
+        public static final int rlItem=0x7f08003f;
+        public static final int setting_ip=0x7f08003a;
+        public static final int setting_port=0x7f08003b;
         public static final int silence_login=0x7f080019;
         public static final int tab_rb_1=0x7f08001e;
         public static final int tab_rb_2=0x7f08001f;
         public static final int tab_rb_3=0x7f080020;
         public static final int tab_rb_4=0x7f080021;
         public static final int tab_rg_menu=0x7f08001d;
-        public static final int textView2=0x7f080023;
+        public static final int textView2=0x7f080035;
         public static final int tvLoad=0x7f080000;
-        public static final int tvPosition=0x7f080030;
-        public static final int tvTitle=0x7f08002f;
+        public static final int tvPosition=0x7f080042;
+        public static final int tvTitle=0x7f080041;
         public static final int version_msg=0x7f080005;
         public static final int workmatelistview=0x7f080002;
     }
@@ -286,10 +304,11 @@ public final class R {
         public static final int login=0x7f030005;
         public static final int main=0x7f030006;
         public static final int main_fragment=0x7f030007;
-        public static final int register=0x7f030008;
-        public static final int setting_view=0x7f030009;
-        public static final int workmate_group_item=0x7f03000a;
-        public static final int workmate_list_item=0x7f03000b;
+        public static final int personal_info=0x7f030008;
+        public static final int register=0x7f030009;
+        public static final int setting_view=0x7f03000a;
+        public static final int workmate_group_item=0x7f03000b;
+        public static final int workmate_list_item=0x7f03000c;
     }
     public static final class menu {
         public static final int friend_list=0x7f070000;
@@ -311,6 +330,9 @@ public final class R {
         public static final int more_login_setting=0x7f05000b;
         public static final int ok=0x7f050002;
         public static final int password=0x7f050007;
+        /**  	personalInfo 
+         */
+        public static final int personal_title=0x7f050021;
         /**      register注册页面 
          */
         public static final int qr_register=0x7f050010;

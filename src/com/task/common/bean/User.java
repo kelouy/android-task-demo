@@ -24,6 +24,7 @@ public class User implements java.io.Serializable {
 	private Timestamp createTime;
 	private Timestamp lastLoginTime;
 	private String phoneNum;
+	private Integer sex;
 	
 	@FieldMeta(isNecessary=true)
 	private String deptName;
@@ -172,6 +173,14 @@ public class User implements java.io.Serializable {
 
 	public void setPositionName(String positionName) {
 		this.positionName = positionName;
+	}
+
+	public Integer getSex() {
+		return sex;
+	}
+
+	public void setSex(Integer sex) {
+		this.sex = sex;
 	}
 
 

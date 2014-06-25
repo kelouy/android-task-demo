@@ -1,0 +1,214 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#dedddd"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/title_background"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/person_title"
+            android:layout_width="fill_parent"
+            android:layout_height="48dip"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:gravity="center|center"
+            android:text="@string/personal_title"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="5dip"
+        android:background="@drawable/shape_top" >
+
+        <TextView
+            android:id="@+id/for_person_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="账号："
+            android:textColor="#000000" />
+        <TextView
+            android:id="@+id/person_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/for_person_username"
+            android:textColor="#000000" />
+ 
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="1dip"
+        android:background="@drawable/shape_middle" >
+
+        <TextView
+            android:id="@+id/for_person_realname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="姓名："
+            android:textColor="#000000" />
+        <TextView
+            android:id="@+id/person_realname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/for_person_realname"
+            android:textColor="#000000" />
+        
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="1dip"
+        android:background="@drawable/shape_middle" >
+
+        <TextView
+            android:id="@+id/for_person_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="性别："
+            android:textColor="#000000" />
+        <TextView
+            android:id="@+id/person_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/for_person_sex"
+            android:textColor="#000000" />
+        
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="1dip"
+        android:background="@drawable/shape_middle" >
+
+        <TextView
+            android:id="@+id/for_person_deptname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="部门："
+            android:textColor="#000000" />
+        <TextView
+            android:id="@+id/person_deptname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/for_person_deptname"
+            android:textColor="#000000" />
+        
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="1dip"
+        android:background="@drawable/shape_bottom" >
+ 
+            
+
+        <TextView
+            android:id="@+id/for_person_positionname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="职位："
+            android:textColor="#000000" />
+        <TextView
+            android:id="@+id/person_positionname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/for_person_positionname"
+            android:textColor="@color/red" />
+        
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/person_phone"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="10dip"
+        android:background="@drawable/shape_total" >
+        
+        <TextView
+            android:id="@+id/for_person_phonenum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="电话："
+            android:textColor="#000000" />
+        <TextView
+            android:id="@+id/person_phonenum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/for_person_phonenum"
+            android:textColor="#000000" />
+        
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="10dip"
+        android:background="@drawable/shape_top" >
+
+        <TextView
+            android:id="@+id/for_person_qq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QQ："
+            android:textColor="#000000" />
+        <TextView
+            android:id="@+id/person_qq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/for_person_qq"
+            android:textColor="#000000" />
+ 
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="1dip"
+        android:background="@drawable/shape_bottom" >
+
+        <TextView
+            android:id="@+id/for_person_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="邮箱："
+            android:textColor="#000000" />
+        <TextView
+            android:id="@+id/person_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/for_person_email"
+            android:textColor="#000000" />
+        
+    </RelativeLayout>
+
+</LinearLayout>

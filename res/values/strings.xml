@@ -42,5 +42,8 @@
 	<string name="tab2">我的同事</string>
 	<string name="tab3">动态</string>
 	<string name="tab4">我</string>
+	
+<!-- 	personalInfo -->
+<string name="personal_title">个人信息</string>
 
 </resources>
