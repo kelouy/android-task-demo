@@ -39,6 +39,10 @@
             android:name=".MainActivity"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
+        <activity
+            android:name=".PersonalInfoActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
         
 		<!--         service -->
 		<service android:name="com.task.tools.component.MyService">

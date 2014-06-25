@@ -5,6 +5,9 @@ import java.util.List;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.task.activity.PersonalInfoActivity;
 import com.task.activity.R;
 import com.task.common.bean.Department;
 import com.task.common.bean.User;
@@ -12,6 +15,7 @@ import com.task.tools.interfaces.ItemClickedListener;
 import com.task.tools.interfaces.ItemHeaderClickedListener;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap.Config;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,7 +42,7 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 	 * 
 	 * @param context	activity上下文
 	 * @param message_list	list数据
-	 * @param isOpen  初始化时是否展开
+	 * @param isOpen  初始化时是否展开 
 	 */
 	@SuppressWarnings("static-access")
 	public WorkmateAdapter(Context context, List<User> userlist, boolean isOpen) {
@@ -50,7 +54,11 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 				.showImageOnLoading(R.drawable.person_head)
 				.showImageForEmptyUri(R.drawable.person_head)
 				.showImageOnFail(R.drawable.person_head).cacheOnDisk(true)
-				.cacheInMemory(true).bitmapConfig(Config.ARGB_8888).build();
+				.cacheInMemory(true).bitmapConfig(Config.ARGB_8888)
+				.considerExifParams(true)
+				.displayer(new RoundedBitmapDisplayer(10))//设置圆角
+				//.displayer(new FadeInBitmapDisplayer(100))
+				.build();
 		initMessageList(userlist);
 	}
 
@@ -82,7 +90,7 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		Log.v("getView", "position="+position+"  convertView="+convertView+"  parent="+parent);
+		//Log.v("getView", "position="+position+"  convertView="+convertView+"  parent="+parent);
 		
 		ItemViewHolder holder;
 		if (convertView == null) {
@@ -96,14 +104,13 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 		} else {
 			holder = (ItemViewHolder) convertView.getTag();
 		}
-		User user = mUserList.get(position);
+		final User user = mUserList.get(position);
 		boolean isShow = mDeptGroup.get(user.getDeptId()).isShown();
 		//若合起分组，则里面的view不显示
 		holder.view.setVisibility(isShow ? View.VISIBLE : View.GONE);
 		if(isShow){
 			holder.tvTextView.setText(user.getUserName());
 			holder.positionTextView.setText(user.getPositionName());
-			holder.headImg.setImageResource(R.drawable.person_head);
 			imageLoader.displayImage(user.getHeadUrl(), holder.headImg, options);
 		}
 		convertView.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +118,10 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 			public void onClick(View v) {
 				if(mItemClickedListener != null) {
 					mItemClickedListener.onItemClick(v, position);
+				} else {
+					Intent intent = new Intent(context, PersonalInfoActivity.class);
+					intent.putExtra("user", user);
+					context.startActivity(intent);
 				}
 				
 			}
