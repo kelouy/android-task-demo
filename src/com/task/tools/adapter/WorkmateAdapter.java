@@ -109,7 +109,7 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 		//若合起分组，则里面的view不显示
 		holder.view.setVisibility(isShow ? View.VISIBLE : View.GONE);
 		if(isShow){
-			holder.tvTextView.setText(user.getUserName());
+			holder.tvTextView.setText(user.getRealName());
 			holder.positionTextView.setText(user.getPositionName());
 			imageLoader.displayImage(user.getHeadUrl(), holder.headImg, options);
 		}

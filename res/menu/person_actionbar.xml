@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/person_menu_more"
+        android:orderInCategory="1"
+        android:icon="@drawable/panel_add_icon"
+        android:showAsAction="ifRoom|withText"
+        android:title="@null">
+        <menu>
+	        <item
+	            android:id="@+id/person_menu_updatehead"
+	            android:actionProviderClass="com.task.activity.TestActivity"
+	            android:showAsAction="always|withText"
+	            android:title="上传头像"/>
+	        <item
+	            android:id="@+id/person_menu_updatedata"
+	            android:actionProviderClass="com.task.activity.TestActivity"
+	            android:showAsAction="always|withText"
+	            android:title="修改资料"/>
+	    </menu>
+     </item>
+
+</menu>

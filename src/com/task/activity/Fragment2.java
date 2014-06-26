@@ -67,7 +67,7 @@ public class Fragment2 extends RoboFragment {
 				int index = i*10+j+1;
 				User u = new User();
 				u.setDeptName("部门"+i);
-				u.setUserName("唐声杰 "+index);
+				u.setRealName("唐声杰 "+index);
 				u.setPositionName("position : xxx");
 				u.setHeadUrl(imgs[index % imgs.length]);
 				list.add(u); 

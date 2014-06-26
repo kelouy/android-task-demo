@@ -20,10 +20,6 @@
         <activity 
             android:name=".WelcomeActivity"
             android:theme="@android:style/Theme.NoTitleBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         
         <activity
@@ -36,12 +32,22 @@
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ShowImageActivity"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
-            android:name=".PersonalInfoActivity"
+            android:name=".MainActivity"
             android:theme="@android:style/Theme.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".PersonalInfoActivity" >
+        </activity>
+        <activity
+            android:name=".UpdatePersonalInfoActivity" >
         </activity>
         
 		<!--         service -->

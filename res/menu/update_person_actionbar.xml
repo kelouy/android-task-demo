@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/update_person_menu_more"
+        android:orderInCategory="1"
+        android:icon="@drawable/icon_ok_03"
+        android:showAsAction="ifRoom|withText"
+        android:title="@null">
+     </item>
+
+</menu>
