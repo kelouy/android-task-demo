@@ -108,4 +108,10 @@ public class Department implements java.io.Serializable {
 		this.users = users;
 	}
 
+	@Override
+	public String toString() {
+		return "[" + deptName + "]";
+	}
+
+	
 }
