@@ -6,6 +6,9 @@
     <color name="activitybg">#F5F5F5</color>
     <color name="black_xiangya">#292421</color>
     
+    <color name="circle_color">#323a45</color>
+    <color name="ring_color">#14b9d6</color>
+    
 
     <color name="white">#ffffff</color>
     <color name="gold">#b89766</color>

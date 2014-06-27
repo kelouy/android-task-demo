@@ -114,12 +114,14 @@ public class PersonalInfoActivity extends RoboActivity implements OnClickListene
 				onBackPressed();
 				break;
 			case R.id.person_menu_updatehead : 
-				onBackPressed();
+				Intent intent1 = new Intent(this, PicCutAndUploadActivity.class);
+				intent1.putExtra("user", user);
+				startActivity(intent1);
 				break;
 			case R.id.person_menu_updatedata : 
-				Intent intent = new Intent(this, UpdatePersonalInfoActivity.class);
-				intent.putExtra("user", user);
-				startActivity(intent);
+				Intent intent2 = new Intent(this, UpdatePersonalInfoActivity.class);
+				intent2.putExtra("user", user);
+				startActivity(intent2);
 				break;
 			default : 
 				break;

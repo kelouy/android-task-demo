@@ -49,6 +49,10 @@
         <activity
             android:name=".UpdatePersonalInfoActivity" >
         </activity>
+        <activity
+            android:name=".PicCutAndUploadActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
         
 		<!--         service -->
 		<service android:name="com.task.tools.component.MyService">

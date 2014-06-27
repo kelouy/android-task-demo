@@ -15,4 +15,10 @@ public class MyDate {
 		String date = format.format(new Date(System.currentTimeMillis()));
 		return date;
 	}
+	
+	public static String getDateYYYYMMDDHHMMSS() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmssSSSS");
+		String date = format.format(new Date(System.currentTimeMillis()));
+		return date;
+	}
 }
