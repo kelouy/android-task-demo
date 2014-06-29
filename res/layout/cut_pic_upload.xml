@@ -11,14 +11,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@null"/>
-   <com.task.tools.view.TasksCompletedView
-        android:id="@+id/cut_tasks_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:visibility="gone"
-        tc:radius="30dip"
-        tc:strokeWidth="2dip"
-        tc:circleColor="@color/circle_color"
-        tc:ringColor="@color/ring_color" /> 
 
 </RelativeLayout>

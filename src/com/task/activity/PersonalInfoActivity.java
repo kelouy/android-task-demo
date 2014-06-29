@@ -4,6 +4,8 @@ package com.task.activity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.task.common.bean.User;
+import com.task.common.utils.ActivityTag;
+import com.task.common.utils.Constants;
 
 import android.app.ActionBar;
 import android.content.Intent;
@@ -116,7 +118,7 @@ public class PersonalInfoActivity extends RoboActivity implements OnClickListene
 			case R.id.person_menu_updatehead : 
 				Intent intent1 = new Intent(this, PicCutAndUploadActivity.class);
 				intent1.putExtra("user", user);
-				startActivity(intent1);
+				startActivityForResult(intent1, ActivityTag.PIC_CUT_AND_UPLOAD_HEAD);
 				break;
 			case R.id.person_menu_updatedata : 
 				Intent intent2 = new Intent(this, UpdatePersonalInfoActivity.class);
@@ -141,6 +143,25 @@ public class PersonalInfoActivity extends RoboActivity implements OnClickListene
 			default : 
 				break;
 		}
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		debug("requestCode:"+requestCode+"  resultCode:"+resultCode);
+		switch(requestCode){
+			case ActivityTag.PIC_CUT_AND_UPLOAD_HEAD : 
+				afterResult(data);
+				break;
+			default : break;
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+	
+	//从上传头像页面返回后重置头像图片
+	private void afterResult(Intent intent) {
+		String fileName =  intent.getStringExtra("fileName");
+		if(!TextUtils.isEmpty(fileName))
+			imageLoader.displayImage(Constants.IMG_ROOT_URL+fileName, pHeadIMG, options);
 	}
 	
 	/*************************************/

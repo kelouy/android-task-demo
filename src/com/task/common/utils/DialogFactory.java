@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 
 public class DialogFactory {
-
 	public static Dialog creatRequestDialog(final Context context, String tip) {
 
 		final Dialog dialog = new Dialog(context, R.style.dialog);
@@ -21,15 +20,16 @@ public class DialogFactory {
 		int width = Utils.getScreenWidth(context);
 		lp.width = (int) (0.6 * width);
 
-		TextView titleTxtv = (TextView) dialog.findViewById(R.id.tvLoad);
+		TextView msgTV = (TextView) dialog.findViewById(R.id.tvLoad);
 		if (tip == null || tip.length() == 0) {
-			titleTxtv.setText(R.string.sending_request);
+			msgTV.setText(R.string.sending_request);
 		} else {
-			titleTxtv.setText(tip);
+			msgTV.setText(tip);
 		}
-
+ 
 		return dialog;
 	}
+	
 
 	public static void ToastDialog(Context context, String title, String msg) {
 		new AlertDialog.Builder(context).setTitle(title).setMessage(msg)

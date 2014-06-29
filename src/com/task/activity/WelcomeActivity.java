@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import com.task.common.utils.Constants;
-import com.task.common.utils.SharePreferenceUtil;
+import com.task.tools.component.SharePreferenceUtil;
 
 import android.app.Activity;
 import android.content.Intent;

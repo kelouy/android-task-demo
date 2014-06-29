@@ -2,17 +2,9 @@ package com.task.activity;
 
 import java.io.File;
 
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
-import com.lidroid.xutils.http.client.entity.BodyParamsEntity;
-import com.task.common.utils.Constants;
-import com.task.common.utils.FileUtils;
-import com.task.common.utils.MyDate;
-import com.task.tools.view.TasksCompletedView;
-
+import roboguice.activity.RoboActivity;
+import roboguice.inject.InjectExtra;
+import roboguice.inject.InjectView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,22 +14,43 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-import roboguice.activity.RoboActivity;
-import roboguice.inject.InjectView;
 
-public class PicCutAndUploadActivity extends RoboActivity {
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+import com.task.client.Client;
+import com.task.client.ClientOutputThread;
+import com.task.common.bean.User;
+import com.task.common.transbean.TranObject;
+import com.task.common.transbean.TranObjectType;
+import com.task.common.utils.ActivityTag;
+import com.task.common.utils.Constants;
+import com.task.common.utils.Encode;
+import com.task.common.utils.FileUtils;
+import com.task.common.utils.MyDate;
+import com.task.tools.component.MyActivity;
+import com.task.tools.component.MyApplication;
+import com.task.tools.component.MyDialog;
+
+public class PicCutAndUploadActivity extends MyActivity {
 	private static String TAG = "PicCutAndUploadActivity";
+	private String fileName;
+	private MyApplication application;
 	@InjectView(R.id.cut_img) ImageView cutImg;
-	@InjectView(R.id.cut_tasks_view) TasksCompletedView progressBar;
+	@InjectExtra("user") User user;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.cut_pic_upload);
+		application = (MyApplication) this.getApplicationContext();
 		ShowPickDialog();
+		//showDialog();
+		//dialog.setInfo("上传");
 	}
 
 	private void ShowPickDialog() {
@@ -54,7 +67,7 @@ public class PicCutAndUploadActivity extends RoboActivity {
 				 * intent.setType(""image/*");
 				 */
 				intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-				startActivityForResult(intent, 1);
+				startActivityForResult(intent, ActivityTag.PIC_TAKE);
 
 			}
 		}).setPositiveButton("拍照", new DialogInterface.OnClickListener() {
@@ -63,7 +76,7 @@ public class PicCutAndUploadActivity extends RoboActivity {
 				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 				//指定调用相机拍照后的照片存储的路径
 				intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "temp.png")));
-				startActivityForResult(intent, 2);
+				startActivityForResult(intent, ActivityTag.PIC_LIB);
 			}
 		}).setNegativeButton("取消",new DialogInterface.OnClickListener() {
 			
@@ -78,14 +91,14 @@ public class PicCutAndUploadActivity extends RoboActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
-			case 1:
+			case ActivityTag.PIC_TAKE:
 				startPhotoZoom(data.getData());
 				break;
-			case 2:
+			case ActivityTag.PIC_LIB:
 				File temp = new File(Environment.getExternalStorageDirectory()+ "/temp.png");
 				startPhotoZoom(Uri.fromFile(temp));
 				break;
-			case 3:
+			case ActivityTag.PIC_CUT:
 				if(data != null){
 					picCutedCallback(data);
 				}else{
@@ -115,7 +128,7 @@ public class PicCutAndUploadActivity extends RoboActivity {
 		intent.putExtra("outputX", 500);
 		intent.putExtra("outputY", 500);
 		intent.putExtra("return-data", true);
-		startActivityForResult(intent, 3);
+		startActivityForResult(intent, ActivityTag.PIC_CUT);
 	}
 	
 	/**
@@ -128,42 +141,43 @@ public class PicCutAndUploadActivity extends RoboActivity {
 			Bitmap photo = extras.getParcelable("data");
 			cutImg.setImageBitmap(photo);
 			String url = Environment.getExternalStorageDirectory()+"/taskimagecache/";
-			String fileName = url+"temp.png";
 			FileUtils.addBitmapToSD(url, "temp.png", photo);
 			
 			//上传图片到服务器
+			fileName = MyDate.getDateYYYYMMDDHHMMSS()+".png";
 			RequestParams params = new RequestParams();
 			//params.addBodyParameter("fileName", MyDate.getDateYYYYMMDDHHMMSS()+".png");
-			params.addBodyParameter("file", new File(url));
+			params.addBodyParameter("file", new File(url,"temp.png"));
 			//params.setBodyEntity(new BodyParamsEntity("multipart/form-data"));
 			HttpUtils http = new HttpUtils(); 
 			http.send(HttpMethod.POST,
-				Constants.IMG_SERVER_URL+"?name="+fileName,
+				Constants.IMG_SERVER_URL+"&name="+fileName,
 			    params,
 			    new RequestCallBack<String>() {
 
 			        @Override
 			        public void onStart() {
-			        	progressBar.setVisibility(View.VISIBLE);
+			        	showDialog();
 			        }
 
 			        @Override
 			        public void onLoading(long total, long current, boolean isUploading) {
+			        	debug("total:"+total+"  current:"+current+"   isUploading:"+isUploading);
 			           if (isUploading) {
-			        	   progressBar.setProgress((int) (current/total * 100));
+			        	   dialog.setInfo("上传"+(int)(current/total)*100+"/100…");
 			            } 
 			        }
 
 			        @Override
 			        public void onSuccess(ResponseInfo<String> responseInfo) {
-			        	progressBar.setVisibility(View.GONE);
-			        	Toast.makeText(PicCutAndUploadActivity.this, "图片上传成功！", Toast.LENGTH_SHORT).show();
+			        	//closeDialog();
+			        	//Toast.makeText(PicCutAndUploadActivity.this, "图片上传成功！", Toast.LENGTH_SHORT).show();
 			        }
 
 					@Override
 					public void onFailure(com.lidroid.xutils.exception.HttpException arg0, String arg1) {
-						progressBar.setVisibility(View.GONE);
 						Toast.makeText(PicCutAndUploadActivity.this, "图片上传出错！", Toast.LENGTH_SHORT).show();
+						onBackPressed();
 					}
 			});
 		}else {
@@ -171,10 +185,72 @@ public class PicCutAndUploadActivity extends RoboActivity {
 		}
 	}
 	
+	private void submit() {
+		if (application.isClientStart()) {
+			Client client = application.getClient();
+			ClientOutputThread out = client.getClientOutputThread();
+			TranObject<User> o = new TranObject<User>(TranObjectType.UPDATE_HEAD);
+			user.setHeadUrl(fileName);
+			o.setObject(user);
+			o.setFromUser(user.getUserId());
+			out.setMsg(o);
+		} else {
+			Toast.makeText(PicCutAndUploadActivity.this, "后台服务器连接失败！", Toast.LENGTH_SHORT).show();
+			onBackPressed();
+		}
+
+	}
+	
+	@Override
+	public void getMessage(TranObject<?> msg) {
+		if(msg.getType() == TranObjectType.UPDATE_HEAD ){
+			closeDialog();
+			Intent intent = new Intent();
+			if(msg.isSuccess()){
+				intent.putExtra("fileName", fileName);
+			} else {
+				intent.putExtra("fileName", "");
+				Toast.makeText(PicCutAndUploadActivity.this, "上传出错！", Toast.LENGTH_SHORT).show();
+			}
+			setResult(ActivityTag.PIC_CUT_AND_UPLOAD_HEAD, intent);
+			finish();
+		}
+	}
+	
 	
 	/**********************/
+	
+	@Override
+	public void onBackPressed() {
+		closeDialog();
+		finish();
+	}
+	
+	/**
+	 * 点击登录按钮后，弹出验证对话框
+	 */
+	private MyDialog dialog =null;
+	private void showDialog(){
+		if (dialog != null) {
+			dialog.dismiss();
+			dialog = null;
+		}
+		dialog = new MyDialog(this);
+		dialog.show();
+	}
+	private void closeDialog(){
+		if (dialog != null) {
+			dialog.dismiss();
+			dialog = null;
+		}
+	}
+	
+
+	
 	void debug(String s){
 		Log.v(TAG, s);
 	}
+
+
 	
 }
