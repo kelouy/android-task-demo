@@ -3,6 +3,8 @@ package com.task.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lidroid.xutils.DbUtils;
+import com.lidroid.xutils.exception.DbException;
 import com.task.common.bean.User;
 import com.task.tools.adapter.WorkmateAdapter;
 import com.task.tools.interfaces.ItemClickedListener;
@@ -22,12 +24,14 @@ public class Fragment2 extends RoboFragment {
 	private static final String TAG = "Fragment2";
 	private WorkmateListView workmateListView;
 	private WorkmateAdapter workmateAdapter;
-	private List<User> list;
+	private List<User> list =  new ArrayList<User>();
+	private DbUtils db;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		debug("onCreate...");
+		db = DbUtils.create(this.getActivity());
 		String[] imgs = {
 			"http://images.vancl.com/product/0/0/4/0049402/Big/0049402-7201103181319445202.jpg",
 			"http://p3.vanclimg.com/product/0/1/8/0184323/big/0184323-1j201210291031293250.jpg",
@@ -61,25 +65,14 @@ public class Fragment2 extends RoboFragment {
 			"http://news.xinhuanet.com/tech/2013-03/15/11119124442937_671d.jpg",
 			"http://news.xinhuanet.com/fashion/2013-02/21/11192124372433_31d.jpg"
 		};
-		list = new ArrayList<User>(); 
-		for(int i=0;i<10;i++){
-			for(int j=0;j<10;j++){
-				int index = i*10+j+1;
-				User u = new User();
-				u.setDeptName("部门"+i);
-				u.setRealName("唐声杰 "+index);
-				u.setPositionName("position : xxx");
-				u.setHeadUrl(imgs[index % imgs.length]);
-				list.add(u); 
-			}
-		}
-		/**/
+		
 	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		debug("onCreateView...");
+		initData();
 		View view = inflater.inflate(R.layout.fragment2, container, false);
 		workmateListView = (WorkmateListView) view.findViewById(R.id.workmatelistview);
 		workmateAdapter = new WorkmateAdapter(getActivity(), list, false);
@@ -92,6 +85,20 @@ public class Fragment2 extends RoboFragment {
 			}
 		});
 		return view;
+	}
+	
+	//设置
+	private void initData() {
+		List<User> tmpList = null;
+		try {
+			tmpList = db.findAll(User.class);
+		} catch (DbException e) {
+			e.printStackTrace();
+		}
+		if(tmpList != null){
+			list.clear();
+			list.addAll(tmpList);
+		}
 	}
 
 

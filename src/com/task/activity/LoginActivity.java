@@ -3,6 +3,7 @@ package com.task.activity;
 
 import roboguice.inject.InjectView;
 
+import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.task.client.Client;
 import com.task.client.ClientOutputThread;
@@ -59,6 +60,7 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 	private								MyApplication application;
 	private String TAG = "LoginActivity";
 	private boolean mShowMenu = false;// “更多登录选项”的内容是否显示
+	private Gson gson = new Gson();
 	
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -166,11 +168,11 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 				showRequestDialog();
 				Client client = application.getClient();
 				ClientOutputThread out = client.getClientOutputThread();
-				TranObject<User> o = new TranObject<User>(TranObjectType.LOGIN);
+				TranObject o = new TranObject(TranObjectType.LOGIN);
 				User u = new User();
 				u.setUserName(accounts);
 				u.setPassword(Encode.getEncode("MD5", password));
-				o.setObject(u);
+				o.setJson(gson.toJson(u));
 				out.setMsg(o);
 			} else {
 				DialogFactory.ToastDialog(LoginActivity.this, res.getString(R.string.common_tip),
@@ -191,7 +193,7 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 			if (msg.isSuccess()) {
 				switch (msg.getType()) {
 				case LOGIN:// LoginActivity只处理登录的消息
-					User user = (User) msg.getObject();
+					User user = gson.fromJson(msg.getJson(),User.class);
 					if (user != null) {
 						// 保存用户信息
 						SharePreferenceUtil util = new SharePreferenceUtil(

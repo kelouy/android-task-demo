@@ -35,7 +35,7 @@ public abstract class MyActivity extends RoboActivity {
 	 * 抽象方法
 	 * @param msg  传递给子类处理的消息对象
 	 */
-	public abstract void getMessage(TranObject<?> msg);
+	public abstract void getMessage(TranObject msg);
 	
 	
 	/**

@@ -47,7 +47,7 @@ public class PersonalInfoActivity extends RoboActivity implements OnClickListene
 		debug("onCreate……  ");
 		setContentView(R.layout.personal_info);
 		initActionBar();
-		initData();
+		initData(user);
 		initImage();
 	}
 	
@@ -79,7 +79,7 @@ public class PersonalInfoActivity extends RoboActivity implements OnClickListene
 	}
 	
 	//初始化数据 
-	private void initData(){
+	private void initData(User user){
 		if(null != user){
 			if(!TextUtils.isEmpty(user.getRealName())){
 				pRealNameTV.setText(user.getRealName());
@@ -123,7 +123,7 @@ public class PersonalInfoActivity extends RoboActivity implements OnClickListene
 			case R.id.person_menu_updatedata : 
 				Intent intent2 = new Intent(this, UpdatePersonalInfoActivity.class);
 				intent2.putExtra("user", user);
-				startActivity(intent2);
+				startActivityForResult(intent2, ActivityTag.PERSONNAL_INFO);
 				break;
 			default : 
 				break;
@@ -150,15 +150,25 @@ public class PersonalInfoActivity extends RoboActivity implements OnClickListene
 		debug("requestCode:"+requestCode+"  resultCode:"+resultCode);
 		switch(requestCode){
 			case ActivityTag.PIC_CUT_AND_UPLOAD_HEAD : 
-				afterResult(data);
+				setHeadImg(data);
+				break;
+			case ActivityTag.PERSONNAL_INFO : 
+				setUser(data);
 				break;
 			default : break;
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 	
+	//重置个人信息
+	private void setUser(Intent intent) {
+		User u = (User) intent.getSerializableExtra("user");
+		if(u != null)
+			initData(u);
+	}
+
 	//从上传头像页面返回后重置头像图片
-	private void afterResult(Intent intent) {
+	private void setHeadImg(Intent intent) {
 		String fileName =  intent.getStringExtra("fileName");
 		if(!TextUtils.isEmpty(fileName))
 			imageLoader.displayImage(Constants.IMG_ROOT_URL+fileName, pHeadIMG, options);

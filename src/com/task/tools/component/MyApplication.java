@@ -3,6 +3,7 @@ package com.task.tools.component;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.task.client.Client;
+import com.task.common.bean.User;
 import com.task.common.utils.Constants;
 
 import android.app.Application;
@@ -12,6 +13,7 @@ public class MyApplication extends Application {
 	private String TAG = "MyApplication";
 	private Client client;// 客户端
 	private boolean isClientStart;// 客户端连接是否启动
+	private User my;
 
 	@Override
 	public void onCreate() {
@@ -38,5 +40,13 @@ public class MyApplication extends Application {
 
 	public void setClientStart(boolean isClientStart) {
 		this.isClientStart = isClientStart;
+	}
+
+	public User getMy() {
+		return my;
+	}
+
+	public void setMy(User my) {
+		this.my = my;
 	}
 }

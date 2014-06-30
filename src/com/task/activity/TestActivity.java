@@ -52,7 +52,7 @@ public class TestActivity extends Activity {
 				Log.e(TAG, "out.setMsg TranObjectType.TEST……");
 				Client client = application.getClient();
 				ClientOutputThread out = client.getClientOutputThread();
-				TranObject<User> o = new TranObject<User>(TranObjectType.TEST);
+				TranObject o = new TranObject(TranObjectType.TEST);
 				out.setMsg(o);
 			}
 		});

@@ -3,7 +3,7 @@ package com.task.common.transbean;
 import java.io.Serializable;
 
 
-public class TranObject<T> implements Serializable {
+public class TranObject implements Serializable {
 
 	/**
 	 * 
@@ -15,7 +15,7 @@ public class TranObject<T> implements Serializable {
 	private String msg;
 	private int fromUser;
 	private int toUser;
-	private T object;
+	private String json;
 	
 	public TranObject(TranObjectType type) {
 		this.type = type;
@@ -39,13 +39,7 @@ public class TranObject<T> implements Serializable {
 	public void setToUser(int toUser) {
 		this.toUser = toUser;
 	}
-	public T getObject() {
-		return object;
-	}
-	public void setObject(T object) {
-		this.object = object;
-	}
-
+	
 	public boolean isSuccess() {
 		return success;
 	}
@@ -60,6 +54,14 @@ public class TranObject<T> implements Serializable {
 
 	public void setMsg(String msg) {
 		this.msg = msg;
+	}
+
+	public String getJson() {
+		return json;
+	}
+
+	public void setJson(String json) {
+		this.json = json;
 	}
 	
 

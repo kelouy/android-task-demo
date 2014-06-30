@@ -39,6 +39,7 @@ public class RegisterActivity extends MyActivity implements OnClickListener {
 	EditText pwdEdit2;
 	@Inject
 	Resources res;
+	Gson gson = new Gson();
 
 	private String TAG = "RegisterActivity";
 	private MyApplication application;
@@ -105,11 +106,11 @@ public class RegisterActivity extends MyActivity implements OnClickListener {
 					showRequestDialog();//显示提示友好界面
 					Client client = application.getClient();
 					ClientOutputThread out = client.getClientOutputThread();
-					TranObject<User> o = new TranObject<User>(TranObjectType.REGISTER);
+					TranObject o = new TranObject(TranObjectType.REGISTER);
 					User u = new User();
 					u.setUserName(userName);
 					u.setPassword(Encode.getEncode("MD5", passwd));
-					o.setObject(u);
+					o.setJson(gson.toJson(u));
 					out.setMsg(o);
 				} else {
 					DialogFactory.ToastDialog(this, res.getString(R.string.reg_submit), "亲！未连接上服务器，请检查你的网络是否畅通或者联系管理员。");
@@ -124,7 +125,7 @@ public class RegisterActivity extends MyActivity implements OnClickListener {
 	public void getMessage(TranObject msg) {
 		switch (msg.getType()) {
 			case REGISTER :
-				User u = (User) msg.getObject();
+				User u = gson.fromJson(msg.getJson(),User.class);
 				if (mDialog != null) {
 					mDialog.dismiss();
 					mDialog = null;

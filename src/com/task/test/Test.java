@@ -32,7 +32,7 @@ public class Test {
 					switch (msg.getType()) {
 						case TEST :
 							Gson gson = new Gson();
-							System.out.println( "get message:" + gson.toJson(msg.getObject()));
+							System.out.println( "get message:" + msg.getJson());
 							break;
  
 						default :
@@ -42,7 +42,7 @@ public class Test {
 			});
 			
 			ClientOutputThread out = client.getClientOutputThread();
-			TranObject<Department> tranObject = new TranObject<Department>(TranObjectType.TEST);
+			TranObject tranObject = new TranObject(TranObjectType.TEST);
 			out.setMsg(tranObject);
 		}
 	}

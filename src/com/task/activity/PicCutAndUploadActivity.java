@@ -17,6 +17,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -40,6 +41,7 @@ public class PicCutAndUploadActivity extends MyActivity {
 	private static String TAG = "PicCutAndUploadActivity";
 	private String fileName;
 	private MyApplication application;
+	private Gson gson = new Gson();
 	@InjectView(R.id.cut_img) ImageView cutImg;
 	@InjectExtra("user") User user;
 	
@@ -83,7 +85,7 @@ public class PicCutAndUploadActivity extends MyActivity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
-				PicCutAndUploadActivity.this.finish();
+				onBackPressed();
 			}
 		}).show();
 	}
@@ -189,9 +191,9 @@ public class PicCutAndUploadActivity extends MyActivity {
 		if (application.isClientStart()) {
 			Client client = application.getClient();
 			ClientOutputThread out = client.getClientOutputThread();
-			TranObject<User> o = new TranObject<User>(TranObjectType.UPDATE_HEAD);
+			TranObject o = new TranObject(TranObjectType.UPDATE_HEAD);
 			user.setHeadUrl(fileName);
-			o.setObject(user);
+			o.setJson(gson.toJson(user));
 			o.setFromUser(user.getUserId());
 			out.setMsg(o);
 		} else {
@@ -202,7 +204,7 @@ public class PicCutAndUploadActivity extends MyActivity {
 	}
 	
 	@Override
-	public void getMessage(TranObject<?> msg) {
+	public void getMessage(TranObject msg) {
 		if(msg.getType() == TranObjectType.UPDATE_HEAD ){
 			closeDialog();
 			Intent intent = new Intent();
@@ -223,6 +225,9 @@ public class PicCutAndUploadActivity extends MyActivity {
 	@Override
 	public void onBackPressed() {
 		closeDialog();
+		Intent intent = new Intent();
+		intent.putExtra("fileName", "");
+		setResult(ActivityTag.PIC_CUT_AND_UPLOAD_HEAD, intent);
 		finish();
 	}
 	

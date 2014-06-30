@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lidroid.xutils.db.annotation.Id;
 import com.task.common.utils.FieldMeta;
 
 /**
@@ -13,6 +14,7 @@ import com.task.common.utils.FieldMeta;
  */
 public class Department implements java.io.Serializable {
 
+	@Id
 	private Integer deptId;
 	private String deptName;
 	private Timestamp createTime;

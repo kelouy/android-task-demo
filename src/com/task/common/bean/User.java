@@ -4,6 +4,7 @@ package com.task.common.bean;
 
 import java.sql.Timestamp;
 
+import com.lidroid.xutils.db.annotation.Id;
 import com.task.common.utils.FieldMeta;
 
 /**
@@ -11,6 +12,7 @@ import com.task.common.utils.FieldMeta;
  */
 public class User implements java.io.Serializable {
 	
+	@Id
 	private Integer userId;
 	private Integer positionId;
 	private Integer deptId; 
@@ -183,6 +185,14 @@ public class User implements java.io.Serializable {
 		this.sex = sex;
 	}
 
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", positionId=" + positionId + ", deptId=" + deptId + ", userName=" + userName + ", realName=" + realName + ", password=" + password + ", flag=" + flag
+				+ ", headUrl=" + headUrl + ", qq=" + qq + ", email=" + email + ", createTime=" + createTime + ", lastLoginTime=" + lastLoginTime + ", phoneNum=" + phoneNum + ", sex=" + sex
+				+ ", deptName=" + deptName + ", positionName=" + positionName + "]";
+	}
+
+	
 
 
 }

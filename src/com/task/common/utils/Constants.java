@@ -17,6 +17,6 @@ public class Constants {
 	
 	public static final String TASK_SYNC_SERVICE = "com.task.TASK_SYNC_SERVICE";
 //	public static final String IMG_SERVER_URL = "http://116.204.65.11/Amall";
-	public static final String IMG_ROOT_URL = "http://172.16.0.6:8080/uploadImg/";
-	public static final String IMG_SERVER_URL = "http://172.16.0.6:8080/task/FileServlet?action=upload";
+	public static final String IMG_ROOT_URL = "http://116.204.65.11/task/uploadImg/";
+	public static final String IMG_SERVER_URL = "http://116.204.65.11/task/FileServlet?action=upload";
 }
