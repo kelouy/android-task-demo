@@ -1,8 +1,8 @@
 package com.task.common.utils;
 
 public class Constants {
-	public static final String SERVER_IP = "192.168.70.4";
-//	public static final String SERVER_IP = "172.16.0.6";
+	//public static final String SERVER_IP = "192.168.70.4";
+	public static final String SERVER_IP = "172.16.0.6";
 	public static final int SERVER_PORT = 8765;
 	public static final int CLIENT_SERVER_PORT = 8766;
 	

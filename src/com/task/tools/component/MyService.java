@@ -115,7 +115,7 @@ public class MyService extends Service {
 		}
 	}
 
-	private List<Department> doGetDept(TranObject msg) {
+	private void doGetDept(TranObject msg) {
 		try {
 			List<Department> list = gson.fromJson(msg.getJson(), new TypeToken<List<Department>>() {
 			}.getType());
@@ -124,11 +124,9 @@ public class MyService extends Service {
 				for (Department u : list)
 					db.save(u);
 			}
-			return list;
 		} catch (Exception e) {
 			debug(e.getMessage());
 		}
-		return null;
 	}
 
 	/**
@@ -143,6 +141,8 @@ public class MyService extends Service {
 				db.deleteAll(User.class);
 				for (User u : list)
 					db.save(u);
+				List<User> lu = db.findAll(User.class);
+				debug("db.findAll(User.class) = "+lu); 
 			}
 		} catch (Exception e) {
 			debug(e.getMessage());

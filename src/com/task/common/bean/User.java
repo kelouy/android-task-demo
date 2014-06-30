@@ -189,7 +189,7 @@ public class User implements java.io.Serializable {
 	public String toString() {
 		return "User [userId=" + userId + ", positionId=" + positionId + ", deptId=" + deptId + ", userName=" + userName + ", realName=" + realName + ", password=" + password + ", flag=" + flag
 				+ ", headUrl=" + headUrl + ", qq=" + qq + ", email=" + email + ", createTime=" + createTime + ", lastLoginTime=" + lastLoginTime + ", phoneNum=" + phoneNum + ", sex=" + sex
-				+ ", deptName=" + deptName + ", positionName=" + positionName + "]";
+				+ ", deptName=" + deptName + ", positionName=" + positionName + "]\n";
 	}
 
 	

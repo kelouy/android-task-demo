@@ -25,7 +25,7 @@ public class Fragment2 extends RoboFragment {
 	private WorkmateListView workmateListView;
 	private WorkmateAdapter workmateAdapter;
 	private List<User> list =  new ArrayList<User>();
-	private DbUtils db;
+	private DbUtils db; 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -72,8 +72,13 @@ public class Fragment2 extends RoboFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		debug("onCreateView...");
-		initData();
 		View view = inflater.inflate(R.layout.fragment2, container, false);
+		try {
+			list = db.findAll(User.class);
+			debug(""+list);
+		} catch (DbException e) {
+			e.printStackTrace();
+		}
 		workmateListView = (WorkmateListView) view.findViewById(R.id.workmatelistview);
 		workmateAdapter = new WorkmateAdapter(getActivity(), list, false);
 		workmateListView.setAdapter(workmateAdapter);
@@ -89,16 +94,13 @@ public class Fragment2 extends RoboFragment {
 	
 	//设置
 	private void initData() {
-		List<User> tmpList = null;
 		try {
-			tmpList = db.findAll(User.class);
+			list = db.findAll(User.class);
+			debug(""+list);
 		} catch (DbException e) {
 			e.printStackTrace();
 		}
-		if(tmpList != null){
-			list.clear();
-			list.addAll(tmpList);
-		}
+		
 	}
 
 
