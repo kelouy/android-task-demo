@@ -26,9 +26,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAdapter {
-
 	private List<User> mUserList;
 	private List<Department> mDeptGroup;
+	private List<Boolean> isShowList;
 	ImageLoader imageLoader;
 	DisplayImageOptions options;
 	private ItemClickedListener mItemClickedListener;
@@ -36,7 +36,6 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 
 	private Context context;
 	
-	private boolean mIsOpen;//初始化View时分组是否展开
 
 	/**
 	 * 
@@ -45,10 +44,10 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 	 * @param isOpen  初始化时是否展开 
 	 */
 	@SuppressWarnings("static-access")
-	public WorkmateAdapter(Context context, List<User> userlist, boolean isOpen) {
+	public WorkmateAdapter(Context context, List<User> userlist, List<Boolean> isShowList) {
 		this.context = context;
 		this.mUserList = userlist;
-		this.mIsOpen = isOpen;
+		this.isShowList = isShowList;
 		this.imageLoader = imageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()
 				.showImageOnLoading(R.drawable.person_head)
@@ -140,6 +139,7 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 		String deptName = "";
 		for (int i = 0; i < mUserList.size(); i++) {
 			String deptName2 = mUserList.get(i).getDeptName();
+			//Log.e("tsj","deptName2="+deptName2);
 			if (!deptName2.equals(deptName)) {
 				
 				if(mDeptGroup.size()>0) {
@@ -151,13 +151,18 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 				gp = new Department();
 				gp.setDeptName(deptName);
 				gp.setFirstPositionInList(i);
-				gp.setShown(mIsOpen);
+				gp.setShown(false);
+				if(mDeptGroup.size()>isShowList.size())
+					isShowList.add(false);
 				mDeptGroup.add(gp);
 			} else {
 				countGp ++;
 				mUserList.get(i).setDeptId(mDeptGroup.size() - 1);
 			}
 			
+		}
+		for(int i=0;i<isShowList.size();i++){
+			mDeptGroup.get(i).setShown(isShowList.get(i));
 		}
 		mDeptGroup.get(mDeptGroup.size()-1).setCount(countGp);
 
@@ -183,9 +188,12 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 		holder.textViewGroupName.setText(gp.getDeptName());
 		holder.textViewGroupCount.setText("[ " + gp.getCount() +" ]");
 		
+		Log.e("","position:"+position+"  gp:"+gp.getDeptId());
 		 if(gp.isShown()) {
+			 isShowList.set(position, true);
 			 holder.imgArrow.setImageResource(R.drawable.ic_group_arrow_open);
 		 } else {
+			 isShowList.set(position, false);
 			 holder.imgArrow.setImageResource(R.drawable.ic_group_arrow_close);
 		 }
 		

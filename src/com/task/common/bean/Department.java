@@ -14,7 +14,7 @@ import com.task.common.utils.FieldMeta;
  */
 public class Department implements java.io.Serializable {
 
-	@Id
+	private int id;
 	private Integer deptId;
 	private String deptName;
 	private Timestamp createTime;
@@ -113,6 +113,14 @@ public class Department implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return "[" + deptName + "]";
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	

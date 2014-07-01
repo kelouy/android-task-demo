@@ -1,6 +1,5 @@
 package com.task.activity;
 
-
 import roboguice.inject.InjectView;
 
 import com.google.gson.Gson;
@@ -40,41 +39,47 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-
-
 /**
  * 登录
  * 
  */
 public class LoginActivity extends MyActivity implements OnClickListener {
-	@InjectView(R.id.regist_btn)  		Button registerBtn;
-	@InjectView(R.id.login_btn) 		Button loginBtn;
-	@InjectView(R.id.login_accounts) 	EditText accountsEdit;
-	@InjectView(R.id.login_password) 	EditText passwordEdit;
-	@InjectView(R.id.auto_save_password) CheckBox autoSavePassword;
-	@InjectView(R.id.more) 				View moreView;// “更多登录选项”的view
-	@InjectView(R.id.more_image) 		ImageView moreImage;// “更多登录选项”的箭头图片
-	@InjectView(R.id.moremenu) 			View moreMenuView;// “更多登录选项”中的内容view
-	@Inject Resources res;
-	private 							MenuInflater mi;// 菜单
-	private								MyApplication application;
+	@InjectView(R.id.regist_btn)
+	Button registerBtn;
+	@InjectView(R.id.login_btn)
+	Button loginBtn;
+	@InjectView(R.id.login_accounts)
+	EditText accountsEdit;
+	@InjectView(R.id.login_password)
+	EditText passwordEdit;
+	@InjectView(R.id.auto_save_password)
+	CheckBox autoSavePassword;
+	@InjectView(R.id.more)
+	View moreView;// “更多登录选项”的view
+	@InjectView(R.id.more_image)
+	ImageView moreImage;// “更多登录选项”的箭头图片
+	@InjectView(R.id.moremenu)
+	View moreMenuView;// “更多登录选项”中的内容view
+	@Inject
+	Resources res;
+	private MenuInflater mi;// 菜单
+	private MyApplication application;
 	private String TAG = "LoginActivity";
 	private boolean mShowMenu = false;// “更多登录选项”的内容是否显示
 	private Gson gson = new Gson();
-	
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
 		application = (MyApplication) this.getApplicationContext();
 		initView();
-		mi = new MenuInflater(this); 
+		mi = new MenuInflater(this);
 	}
 
 	@Override
 	protected void onResume() {// 在onResume方法里面先判断网络是否可用，再启动服务,这样在打开网络连接之后返回当前Activity时，会重新启动服务联网，
 		super.onResume();
-		if (isNetworkAvailable()&&!application.isClientStart()) {
+		if (isNetworkAvailable()) {
 			Intent service = new Intent(this, MyService.class);
 			startService(service);
 		} else {
@@ -117,17 +122,17 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 	public void onClick(View v) {
 
 		switch (v.getId()) {
-		case R.id.more:
-			showMoreView(!mShowMenu);
-			break;
-		case R.id.regist_btn:
-			goRegisterActivity();
-			break;
-		case R.id.login_btn:
-			submit();
-			break;
-		default:
-			break;
+			case R.id.more :
+				showMoreView(!mShowMenu);
+				break;
+			case R.id.regist_btn :
+				goRegisterActivity();
+				break;
+			case R.id.login_btn :
+				submit();
+				break;
+			default :
+				break;
 		}
 	}
 
@@ -175,53 +180,41 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 				o.setJson(gson.toJson(u));
 				out.setMsg(o);
 			} else {
-				DialogFactory.ToastDialog(LoginActivity.this, res.getString(R.string.common_tip),
-						"亲！服务器暂未开放哦");
+				DialogFactory.ToastDialog(LoginActivity.this, res.getString(R.string.common_tip), "亲！服务器暂未开放哦");
 			}
 		}
 	}
 
-	
 	// 依据自己需求处理父类广播接收者收取到的消息
 	public void getMessage(TranObject msg) {
 		if (mDialog != null) {
 			mDialog.dismiss();
 			mDialog = null;
 		}
-		Log.e(TAG, "getmsg from brocastreceive");
 		if (msg != null) {
 			if (msg.isSuccess()) {
 				switch (msg.getType()) {
-				case LOGIN:// LoginActivity只处理登录的消息
-					User user = gson.fromJson(msg.getJson(),User.class);
-					if (user != null) {
-						// 保存用户信息
-						SharePreferenceUtil util = new SharePreferenceUtil(
-								LoginActivity.this, Constants.SAVE_USER);
-						util.setId(accountsEdit.getText().toString());
-						util.setPasswd(passwordEdit.getText().toString());
-  
-						/*
-						 UserDB db = new UserDB(LoginActivity.this);
-						 db.addUser(list);
-						 */
-
-						Intent i = new Intent(LoginActivity.this,
-								MainActivity.class);
-						i.putExtra(Constants.MSGKEY, user);
-						startActivity(i);
-						finish();
-					} else {
-						DialogFactory.ToastDialog(LoginActivity.this, res.getString(R.string.common_tip),
-								"亲！账号或密码错误。");
-					}
-					break;
-				default:
-					break;
+					case LOGIN :// LoginActivity只处理登录的消息
+						User user = gson.fromJson(msg.getJson(), User.class);
+						if (user != null) {
+							// 保存用户信息
+							SharePreferenceUtil util = new SharePreferenceUtil(LoginActivity.this, Constants.SAVE_USER);
+							util.setId(accountsEdit.getText().toString());
+							util.setPasswd(passwordEdit.getText().toString());
+							//跳转到主页面
+							Intent i = new Intent(LoginActivity.this, MainActivity.class);
+							i.putExtra(Constants.MSGKEY, user);
+							startActivity(i);
+							finish();
+						} else {
+							DialogFactory.ToastDialog(LoginActivity.this, res.getString(R.string.common_tip), "亲！账号或密码错误。");
+						}
+						break;
+					default :
+						break;
 				}
 			} else {
-				DialogFactory.ToastDialog(LoginActivity.this,
-						res.getString(R.string.common_tip), msg.getMsg());
+				DialogFactory.ToastDialog(LoginActivity.this, res.getString(R.string.common_tip), msg.getMsg());
 			}
 		}
 	}
@@ -237,14 +230,14 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 	// 菜单选项添加事件处理
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.login_menu_setting:
-			setDialog();
-			break;
-		case R.id.login_menu_exit:
-			exitDialog(LoginActivity.this, res.getString(R.string.common_tip), "亲！您真的要退出吗？");
-			break;
-		default:
-			break;
+			case R.id.login_menu_setting :
+				setDialog();
+				break;
+			case R.id.login_menu_exit :
+				exitDialog(LoginActivity.this, res.getString(R.string.common_tip), "亲！您真的要退出吗？");
+				break;
+			default :
+				break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -265,55 +258,45 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 	 *            内容
 	 */
 	private void exitDialog(Context context, String title, String msg) {
-		new AlertDialog.Builder(context).setTitle(title).setMessage(msg)
-				.setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
+		new AlertDialog.Builder(context).setTitle(title).setMessage(msg).setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						if (application.isClientStart()) {// 如果连接还在，说明服务还在运行
-							// 关闭服务
-							Intent service = new Intent(LoginActivity.this,
-									MyService.class);
-							stopService(service);
-						}
-						close();// 调用父类自定义的循环关闭方法
-					}
-				}).setNegativeButton(res.getString(R.string.cancel), null).create().show();
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				if (application.isClientStart()) {// 如果连接还在，说明服务还在运行
+					// 关闭服务
+					Intent service = new Intent(LoginActivity.this, MyService.class);
+					stopService(service);
+				}
+				close();// 调用父类自定义的循环关闭方法
+			}
+		}).setNegativeButton(res.getString(R.string.cancel), null).create().show();
 	}
 
 	/**
 	 * “设置”菜单选项的功能实现
 	 */
 	private void setDialog() {
-		final View view = LayoutInflater.from(LoginActivity.this).inflate(
-				R.layout.setting_view, null);
-		new AlertDialog.Builder(LoginActivity.this).setTitle("设置服务器ip、port")
-				.setView(view)
-				.setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
+		final View view = LayoutInflater.from(LoginActivity.this).inflate(R.layout.setting_view, null);
+		new AlertDialog.Builder(LoginActivity.this).setTitle("设置服务器ip、port").setView(view).setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// 把ip和port保存到文件中
-						EditText ipEditText = (EditText) view
-								.findViewById(R.id.setting_ip);
-						EditText portEditText = (EditText) view
-								.findViewById(R.id.setting_port);
-						String ip = ipEditText.getText().toString();
-						String port = portEditText.getText().toString();
-						SharePreferenceUtil util = new SharePreferenceUtil(
-								LoginActivity.this, Constants.IP_PORT);
-						if (ip.length() > 0 && port.length() > 0) {
-							util.setIp(ip);
-							util.setPort(Integer.valueOf(port));
-							Toast.makeText(getApplicationContext(),
-									"亲！保存成功，重启生效哦", 0).show();
-							finish();
-						}else{
-							Toast.makeText(getApplicationContext(),
-									"亲！ip和port都不能为空哦", 0).show();
-						}
-					}
-				}).setNegativeButton(res.getString(R.string.cancel), null).create().show();
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// 把ip和port保存到文件中
+				EditText ipEditText = (EditText) view.findViewById(R.id.setting_ip);
+				EditText portEditText = (EditText) view.findViewById(R.id.setting_port);
+				String ip = ipEditText.getText().toString();
+				String port = portEditText.getText().toString();
+				SharePreferenceUtil util = new SharePreferenceUtil(LoginActivity.this, Constants.IP_PORT);
+				if (ip.length() > 0 && port.length() > 0) {
+					util.setIp(ip);
+					util.setPort(Integer.valueOf(port));
+					Toast.makeText(getApplicationContext(), "亲！保存成功，重启生效哦", 0).show();
+					finish();
+				} else {
+					Toast.makeText(getApplicationContext(), "亲！ip和port都不能为空哦", 0).show();
+				}
+			}
+		}).setNegativeButton(res.getString(R.string.cancel), null).create().show();
 	}
 
 	/**
@@ -323,8 +306,7 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 	 * @return
 	 */
 	private boolean isNetworkAvailable() {
-		ConnectivityManager mgr = (ConnectivityManager) getApplicationContext()
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		ConnectivityManager mgr = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo[] info = mgr.getAllNetworkInfo();
 		if (info != null) {
 			for (int i = 0; i < info.length; i++) {
@@ -337,18 +319,12 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 	}
 
 	private void toast(Context context) {
-		new AlertDialog.Builder(context)
-				.setTitle(res.getString(R.string.common_tip))
-				.setMessage("亲！您的网络连接未打开哦")
-				.setPositiveButton("前往打开",
-						new DialogInterface.OnClickListener() {
+		new AlertDialog.Builder(context).setTitle(res.getString(R.string.common_tip)).setMessage("亲！您的网络连接未打开哦").setPositiveButton("前往打开", new DialogInterface.OnClickListener() {
 
-							public void onClick(DialogInterface dialog,
-									int which) {
-								Intent intent = new Intent(
-										android.provider.Settings.ACTION_WIRELESS_SETTINGS);
-								startActivity(intent);
-							}
-						}).setNegativeButton(res.getString(R.string.cancel), null).create().show();
+			public void onClick(DialogInterface dialog, int which) {
+				Intent intent = new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS);
+				startActivity(intent);
+			}
+		}).setNegativeButton(res.getString(R.string.cancel), null).create().show();
 	}
 }

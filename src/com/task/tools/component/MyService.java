@@ -6,6 +6,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.os.StrictMode;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -139,10 +140,13 @@ public class MyService extends Service {
 			}.getType());
 			if (list != null && list.size() > 0) {
 				db.deleteAll(User.class);
-				for (User u : list)
+				for (User u : list){
+					if(!TextUtils.isEmpty(u.getHeadUrl()))
+						u.setHeadUrl(Constants.IMG_ROOT_URL+u.getHeadUrl());
 					db.save(u);
-				List<User> lu = db.findAll(User.class);
-				debug("db.findAll(User.class) = "+lu); 
+				}
+				//List<User> lu = db.findAll(User.class);
+				//debug("db.findAll(User.class) = "+lu); 
 			}
 		} catch (Exception e) {
 			debug(e.getMessage());
@@ -177,13 +181,19 @@ public class MyService extends Service {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//每次登陆都更新用户数据
+
+		// 每次登陆都更新用户数据
+		List<User> userListTmp = null;
 		try {
-			TranObject o = new TranObject(TranObjectType.GET_USER);
-			out.setMsg(o);
+			userListTmp = db.findAll(User.class);
+			if(userListTmp == null || userListTmp.size() == 0){
+				TranObject o = new TranObject(TranObjectType.GET_USER);
+				out.setMsg(o);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		
 	}
 	

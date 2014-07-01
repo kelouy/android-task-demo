@@ -18,7 +18,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.db.sqlite.Selector;
+import com.lidroid.xutils.db.sqlite.WhereBuilder;
+import com.lidroid.xutils.exception.DbException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
@@ -165,13 +169,12 @@ public class PicCutAndUploadActivity extends MyActivity {
 			        @Override
 			        public void onLoading(long total, long current, boolean isUploading) {
 			        	debug("total:"+total+"  current:"+current+"   isUploading:"+isUploading);
-			           if (isUploading) {
-			        	   dialog.setInfo("上传"+(int)(current/total)*100+"/100…");
-			            } 
+			        	dialog.setInfo((int)(current/total)*100+"%");
 			        }
 
 			        @Override
 			        public void onSuccess(ResponseInfo<String> responseInfo) {
+			        	submit();
 			        	//closeDialog();
 			        	//Toast.makeText(PicCutAndUploadActivity.this, "图片上传成功！", Toast.LENGTH_SHORT).show();
 			        }
@@ -209,7 +212,15 @@ public class PicCutAndUploadActivity extends MyActivity {
 			closeDialog();
 			Intent intent = new Intent();
 			if(msg.isSuccess()){
-				intent.putExtra("fileName", fileName);
+				user.setHeadUrl(Constants.IMG_ROOT_URL+fileName);
+				intent.putExtra("fileName", user.getHeadUrl());
+				try {
+					DbUtils db = DbUtils.create(this);
+					db.deleteById(User.class, user.getUserId());
+					db.save(user);
+				} catch (DbException e) {
+					e.printStackTrace();
+				}
 			} else {
 				intent.putExtra("fileName", "");
 				Toast.makeText(PicCutAndUploadActivity.this, "上传出错！", Toast.LENGTH_SHORT).show();

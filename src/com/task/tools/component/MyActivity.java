@@ -23,7 +23,7 @@ public abstract class MyActivity extends RoboActivity {
 		public void onReceive(Context context, Intent intent) {
 			TranObject msg = (TranObject) intent.getSerializableExtra(Constants.MSGKEY);
 			if (msg != null) {//如果不是空，说明是消息广播
-				Log.e("BroadcastReceiver", "收到广播消息"+msg);
+				Log.e("BroadcastReceiver", "收到广播消息:"+msg.getType());
 				getMessage(msg);// 把收到的消息传递给子类
 			} else {//如果是空消息，说明是关闭应用的广播
 				close();

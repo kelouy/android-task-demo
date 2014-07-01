@@ -6,7 +6,7 @@ import com.lidroid.xutils.db.annotation.Id;
 
 public class Position implements java.io.Serializable {
 	
-	@Id
+	private int id;
 	private int positionId;
 	private String positionName;
 	private Timestamp createTime;
@@ -35,6 +35,12 @@ public class Position implements java.io.Serializable {
 	}
 	public void setLastUpdateTime(Timestamp lastUpdateTime) {
 		this.lastUpdateTime = lastUpdateTime;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	

@@ -12,7 +12,7 @@ import com.task.common.utils.FieldMeta;
  */
 public class User implements java.io.Serializable {
 	
-	@Id
+	private int id;
 	private Integer userId;
 	private Integer positionId;
 	private Integer deptId; 
@@ -190,6 +190,14 @@ public class User implements java.io.Serializable {
 		return "User [userId=" + userId + ", positionId=" + positionId + ", deptId=" + deptId + ", userName=" + userName + ", realName=" + realName + ", password=" + password + ", flag=" + flag
 				+ ", headUrl=" + headUrl + ", qq=" + qq + ", email=" + email + ", createTime=" + createTime + ", lastLoginTime=" + lastLoginTime + ", phoneNum=" + phoneNum + ", sex=" + sex
 				+ ", deptName=" + deptName + ", positionName=" + positionName + "]\n";
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	

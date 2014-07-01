@@ -94,10 +94,12 @@ public class PersonalInfoActivity extends RoboActivity implements OnClickListene
 				pPhoneNumTV.setText(user.getPhoneNum());
 			if(!TextUtils.isEmpty(user.getPositionName()))
 				pPositionNameTV.setText(user.getPositionName());
-			if(user.getQq() != null)
-				pQqTV.setText(user.getQq());
-			if(user.getSex()!=null) 
-				pSexTV.setText(user.getSex());
+			if(user.getQq() > 0)
+				pQqTV.setText(user.getQq()+"");
+			if(user.getSex() == 0 ) 
+				pSexTV.setText("女");
+			else
+				pSexTV.setText("男");
 			
 		}
 	}
@@ -171,7 +173,7 @@ public class PersonalInfoActivity extends RoboActivity implements OnClickListene
 	private void setHeadImg(Intent intent) {
 		String fileName =  intent.getStringExtra("fileName");
 		if(!TextUtils.isEmpty(fileName))
-			imageLoader.displayImage(Constants.IMG_ROOT_URL+fileName, pHeadIMG, options);
+			imageLoader.displayImage(fileName, pHeadIMG, options);
 	}
 	
 	/*************************************/
