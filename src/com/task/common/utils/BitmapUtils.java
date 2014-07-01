@@ -91,7 +91,7 @@ public class BitmapUtils {
 	 * @param reqWidth
 	 * @param reqHeight
 	 * @return
-	 */
+	
 	public static Bitmap decodeSampledBitmapFromNet(String url, int reqWidth, int reqHeight){
 		HttpURLConnection conn = null;
 		try {
@@ -137,5 +137,5 @@ public class BitmapUtils {
 				conn.disconnect();
 		}
 		return null;
-	}
+	} */
 }

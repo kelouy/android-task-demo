@@ -112,7 +112,7 @@ public class Department implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "[" + deptName + "]";
+		return  deptName;
 	}
 
 	public int getId() {

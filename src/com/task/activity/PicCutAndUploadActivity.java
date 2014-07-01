@@ -2,7 +2,6 @@ package com.task.activity;
 
 import java.io.File;
 
-import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectExtra;
 import roboguice.inject.InjectView;
 import android.app.AlertDialog;
@@ -18,11 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.db.sqlite.Selector;
-import com.lidroid.xutils.db.sqlite.WhereBuilder;
-import com.lidroid.xutils.exception.DbException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
@@ -34,7 +29,6 @@ import com.task.common.transbean.TranObject;
 import com.task.common.transbean.TranObjectType;
 import com.task.common.utils.ActivityTag;
 import com.task.common.utils.Constants;
-import com.task.common.utils.Encode;
 import com.task.common.utils.FileUtils;
 import com.task.common.utils.MyDate;
 import com.task.tools.component.MyActivity;
@@ -214,13 +208,6 @@ public class PicCutAndUploadActivity extends MyActivity {
 			if(msg.isSuccess()){
 				user.setHeadUrl(Constants.IMG_ROOT_URL+fileName);
 				intent.putExtra("fileName", user.getHeadUrl());
-				try {
-					DbUtils db = DbUtils.create(this);
-					db.deleteById(User.class, user.getUserId());
-					db.save(user);
-				} catch (DbException e) {
-					e.printStackTrace();
-				}
 			} else {
 				intent.putExtra("fileName", "");
 				Toast.makeText(PicCutAndUploadActivity.this, "上传出错！", Toast.LENGTH_SHORT).show();

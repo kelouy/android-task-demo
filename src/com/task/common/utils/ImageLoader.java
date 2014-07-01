@@ -28,7 +28,7 @@ import android.util.Log;
 import android.view.View;
 
 public class ImageLoader {
-
+	/*
 	private final static String TAG = "ImageLoader";// 调试
 	private final static String mSavePath = "/mnt/sdcard/ImageLoader/cache/images"; // 图片sd存储路径
 	private final static long IMAGE_MAX_SAVE_TIME = 1000 * 60 * 60 * 24;// 图片最长保存时间1天
@@ -104,22 +104,10 @@ public class ImageLoader {
 		});
 	}
 
-	/**
-	 * 从缓存中取出图片
-	 * 
-	 * @param url
-	 * @return
-	 */
 	private Bitmap getBitmapFromCache(String url) {
 		return mImageCache.get(url);
 	}
 
-	/**
-	 * 从sd卡中获取图片
-	 * 
-	 * @param url
-	 * @return
-	 */
 	private Bitmap getBitmapFromSD(String url,int reqWidth,int reqHeight) {
 		if (!checkSD()) {
 			debug("sd card not ready.");
@@ -142,11 +130,6 @@ public class ImageLoader {
 	}
 	
 	
-	/**
-	 * 检测当前网络是否可用
-	 * 
-	 * @return
-	 */
 	private boolean isNetworkAvailable() {
 		ConnectivityManager connManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
 		if (connManager.getActiveNetworkInfo() != null) {
@@ -156,12 +139,6 @@ public class ImageLoader {
 		return false;
 	}
 	
-	/**
-	 * 添加图片到sd卡中
-	 * 
-	 * @param url
-	 * @param bmp
-	 */
 	private void addBitmapToSD(String url, Bitmap bmp) {
 		if (!checkSD()) {
 			debug("sd not ready");
@@ -199,21 +176,10 @@ public class ImageLoader {
 		}
 	}
 
-	/**
-	 * 检测当前sd卡是否可以使用
-	 * 
-	 * @return
-	 */
 	private boolean checkSD() {
 		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED) ? true : false;
 	}
 
-	/**
-	 * 检测是否有空间存储图片
-	 * 
-	 * @param bmp
-	 * @return
-	 */
 	private boolean checkSpace(Bitmap bmp) {
 		long size = getBitmapsize(bmp);
 		long sdSize = getAvailableStore(Environment.getExternalStorageDirectory().getPath());
@@ -226,25 +192,13 @@ public class ImageLoader {
 		return false;
 	}
 
-	/**
-	 * 返回图片大小
-	 * 
-	 * @param bitmap
-	 * @return
-	 */
 	public long getBitmapsize(Bitmap bitmap) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
 			return bitmap.getByteCount();// 只支持3.1以上的版本
 		}
 		return bitmap.getRowBytes() * bitmap.getHeight();
 	}
-
-	/**
-	 * 获取本机剩余空间
-	 * 
-	 * @param filePath
-	 * @return
-	 */
+	
 	public static long getAvailableStore(String filePath) {
 		StatFs statFs = new StatFs(filePath);
 		long blocSize = statFs.getBlockSizeLong();
@@ -253,55 +207,26 @@ public class ImageLoader {
 		return availableSpare;
 	}
 
-	/**
-	 * 根据url返回文件名
-	 * 
-	 * @param url
-	 * @return
-	 */
 	private String getImageName(String url) {
 		int index = url.lastIndexOf('/');
 		return url.substring(index + 1);
 	}
 
-	/**
-	 * 检测图片是否过期
-	 * 
-	 * @param lastmodifytime
-	 * @return
-	 */
 	private boolean checkImageDirty(long lastmodifytime) {
 		long curtime = System.currentTimeMillis();
 		return (curtime - lastmodifytime) > IMAGE_MAX_SAVE_TIME ? true : false;
 	}
 
-	/**
-	 * 将图片存入缓存
-	 * 
-	 * @param url
-	 * @param bmp
-	 */
 	private void addBitmapToCache(String url, Bitmap bmp) {
 		mImageCache.put(url, bmp);
 	}
 
-	/**
-	 * 图片载入回调
-	 * 
-	 * @author Administrator
-	 */
 	public interface ImageLoaderListener {
-		/**
-		 * 图片加载完成后回调
-		 * 
-		 * @param v
-		 * @param bmp
-		 * @param url
-		 */
 		public void onImageLoad(View v, Bitmap bmp, String url);
 	}
 
 	public void debug(String s) {
 		Log.e(TAG, s);
 	}
+	*/
 }

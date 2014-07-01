@@ -76,7 +76,7 @@
                 android:orientation="horizontal" >
 
                 <RadioButton
-                    android:id="@+id/radioMale"
+                    android:id="@+id/update_radioMale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
@@ -84,7 +84,7 @@
                 </RadioButton>
 
                 <RadioButton
-                    android:id="@+id/radioFemale"
+                    android:id="@+id/update_radioFemale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="女" >
@@ -251,7 +251,7 @@
                 android:textSize="18.0sp" />
 
             <EditText
-                android:id="@+id/update_phone"
+                android:id="@+id/update_email"
                 android:layout_width="1px"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10.0dip"
@@ -268,4 +268,17 @@
     	
     </LinearLayout>
 
+     <Button
+        android:id="@+id/update_person_submit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:layout_marginTop="20.0dip"
+        android:clickable="false"
+        android:background="@drawable/login_button_bg"
+        android:gravity="center"
+        android:text="提交"
+        android:textColor="#ff333333"
+        android:textSize="18.0sp" />
 </LinearLayout>

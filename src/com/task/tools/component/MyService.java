@@ -12,6 +12,8 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.DbUtils;
+import com.lidroid.xutils.db.sqlite.WhereBuilder;
+import com.lidroid.xutils.exception.DbException;
 import com.task.client.Client;
 import com.task.client.ClientInputThread;
 import com.task.client.ClientOutputThread;
@@ -72,6 +74,8 @@ public class MyService extends Service {
 					case LOGIN : 
 						doLogin(msg);
 						break;
+					case UPDATE_HEAD : 
+						doUpdateHead(msg);
 					case GET_USER : 
 						doGetUser(msg);
 						break;
@@ -89,11 +93,26 @@ public class MyService extends Service {
 					broadCast.putExtra(Constants.MSGKEY, msg);
 					sendBroadcast(broadCast);// 把收到的消息已广播的形式发送出去
 				}
-				
+
 			});
 			initLocalData();
 		}
 	}
+	
+
+	private void doUpdateHead(TranObject msg) {
+		if(msg.isSuccess()){
+			User user = gson.fromJson(msg.getJson(), User.class);
+			user.setHeadUrl(Constants.IMG_ROOT_URL+user.getHeadUrl());
+			try {
+				db.delete(User.class, WhereBuilder.b("userId", "==", user.getUserId()));
+				db.save(user);
+			} catch (DbException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	
 	
 	private void doLogin(TranObject msg) {

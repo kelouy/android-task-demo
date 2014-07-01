@@ -134,7 +134,7 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 	 */
 	private void getSectionIndicesAndGroupNames() {
 		mDeptGroup = new ArrayList<Department>();
-		Department gp;
+		Department dept;
 		int countGp = 0;
 		String deptName = "";
 		for (int i = 0; i < mUserList.size(); i++) {
@@ -148,13 +148,12 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 				deptName = deptName2;
 				countGp = 1;
 				mUserList.get(i).setDeptId(mDeptGroup.size());
-				gp = new Department();
-				gp.setDeptName(deptName);
-				gp.setFirstPositionInList(i);
-				gp.setShown(false);
-				if(mDeptGroup.size()>isShowList.size())
+				dept = new Department();
+				dept.setDeptName(deptName);
+				dept.setFirstPositionInList(i);
+				if(mDeptGroup.size() == isShowList.size())
 					isShowList.add(false);
-				mDeptGroup.add(gp);
+				mDeptGroup.add(dept);
 			} else {
 				countGp ++;
 				mUserList.get(i).setDeptId(mDeptGroup.size() - 1);
@@ -184,16 +183,13 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 		}
 
 		
-		Department gp = mDeptGroup.get(mUserList.get(position).getDeptId());
-		holder.textViewGroupName.setText(gp.getDeptName());
-		holder.textViewGroupCount.setText("[ " + gp.getCount() +" ]");
+		Department dept = mDeptGroup.get(mUserList.get(position).getDeptId());
+		holder.textViewGroupName.setText(dept.getDeptName());
+		holder.textViewGroupCount.setText("[ " + dept.getCount() +" ]");
 		
-		Log.e("","position:"+position+"  gp:"+gp.getDeptId());
-		 if(gp.isShown()) {
-			 isShowList.set(position, true);
+		 if(dept.isShown()) {
 			 holder.imgArrow.setImageResource(R.drawable.ic_group_arrow_open);
 		 } else {
-			 isShowList.set(position, false);
 			 holder.imgArrow.setImageResource(R.drawable.ic_group_arrow_close);
 		 }
 		
@@ -210,8 +206,10 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 	 * @Description:
 	 */
 	public void onListHeaderClicked(int position) {
-		Department gp = mDeptGroup.get(mUserList.get(position).getDeptId());
-		gp.setShown(!gp.isShown());
+		int index = mUserList.get(position).getDeptId();
+		Department dept = mDeptGroup.get(index);
+		dept.setShown(!dept.isShown());
+		isShowList.set(index, dept.isShown());
 		WorkmateAdapter.this.notifyDataSetChanged();
 	}
 	

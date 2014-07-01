@@ -43,5 +43,8 @@ public class Position implements java.io.Serializable {
 		this.id = id;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return positionName;
+	}
 }
