@@ -162,18 +162,23 @@ public class PersonalInfoActivity extends RoboActivity implements OnClickListene
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 	
-	//重置个人信息
+	//重置个人信息 
 	private void setUser(Intent intent) {
-		User u = (User) intent.getSerializableExtra("user");
-		if(u != null)
-			initData(u);
+		boolean flag = intent.getBooleanExtra("changed", false);
+		if(flag){
+			User u = (User) intent.getSerializableExtra("user");
+			if(u != null)
+				initData(u);
+		}
 	}
 
 	//从上传头像页面返回后重置头像图片
 	private void setHeadImg(Intent intent) {
 		String fileName =  intent.getStringExtra("fileName");
-		if(!TextUtils.isEmpty(fileName))
+		if(!TextUtils.isEmpty(fileName)){
 			imageLoader.displayImage(fileName, pHeadIMG, options);
+			pHeadIMG.setOnClickListener(this);
+		}
 	}
 	
 	/*************************************/

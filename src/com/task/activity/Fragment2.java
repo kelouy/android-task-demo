@@ -6,8 +6,12 @@ import java.util.List;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
 import com.lidroid.xutils.exception.DbException;
+import com.task.client.ClientOutputThread;
 import com.task.common.bean.User;
+import com.task.common.transbean.TranObject;
+import com.task.common.transbean.TranObjectType;
 import com.task.tools.adapter.WorkmateAdapter;
+import com.task.tools.component.MyApplication;
 import com.task.tools.interfaces.ItemClickedListener;
 import com.task.tools.interfaces.ItemHeaderClickedListener;
 import com.task.tools.view.WorkmateListView;
@@ -25,6 +29,7 @@ public class Fragment2 extends RoboFragment {
 	private static final String TAG = "Fragment2";
 	private WorkmateListView workmateListView;
 	private WorkmateAdapter workmateAdapter;
+	private MyApplication application;
 	private List<User> list =  new ArrayList<User>();
 	private List<Boolean> isShowList = new ArrayList<Boolean>();
 	private DbUtils db; 
@@ -34,6 +39,16 @@ public class Fragment2 extends RoboFragment {
 		super.onCreate(savedInstanceState);
 		debug("onCreate...");
 		db = DbUtils.create(this.getActivity());
+		application = (MyApplication) this.getActivity().getApplication();
+		try{
+			if(application.isClientStart()){
+				TranObject o = new TranObject(TranObjectType.GET_USER);
+				ClientOutputThread out = application.getClient().getClientOutputThread();
+				out.setMsg(o);
+			}
+		}catch (Exception e){
+			debug(e.getMessage());
+		}
 	}
 	
 	@Override

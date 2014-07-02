@@ -20,9 +20,7 @@ public class MyDialog extends Dialog {
     }
     
     public MyDialog(Context context) {
-        super(context);
-        this.context = context;
-        init();
+        this(context,R.style.dialog);
     }
     public MyDialog(Context context, int theme){
         super(context, theme);

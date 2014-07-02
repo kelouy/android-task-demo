@@ -31,6 +31,7 @@ import com.task.common.utils.ActivityTag;
 import com.task.common.utils.Constants;
 import com.task.common.utils.FileUtils;
 import com.task.common.utils.MyDate;
+import com.task.common.utils.MyDialogTools;
 import com.task.tools.component.MyActivity;
 import com.task.tools.component.MyApplication;
 import com.task.tools.component.MyDialog;
@@ -157,13 +158,14 @@ public class PicCutAndUploadActivity extends MyActivity {
 
 			        @Override
 			        public void onStart() {
-			        	showDialog();
+			        	MyDialogTools.showDialog(PicCutAndUploadActivity.this);
+			        	MyDialogTools.setText("开始上传");
 			        }
 
 			        @Override
 			        public void onLoading(long total, long current, boolean isUploading) {
 			        	debug("total:"+total+"  current:"+current+"   isUploading:"+isUploading);
-			        	dialog.setInfo((int)(current/total)*100+"%");
+			        	MyDialogTools.setText((int)(current/total)*100+"%");
 			        }
 
 			        @Override
@@ -203,7 +205,7 @@ public class PicCutAndUploadActivity extends MyActivity {
 	@Override
 	public void getMessage(TranObject msg) {
 		if(msg.getType() == TranObjectType.UPDATE_HEAD ){
-			closeDialog();
+			MyDialogTools.closeDialog();
 			Intent intent = new Intent();
 			if(msg.isSuccess()){
 				user.setHeadUrl(Constants.IMG_ROOT_URL+fileName);
@@ -222,31 +224,13 @@ public class PicCutAndUploadActivity extends MyActivity {
 	
 	@Override
 	public void onBackPressed() {
-		closeDialog();
+		MyDialogTools.closeDialog();
 		Intent intent = new Intent();
 		intent.putExtra("fileName", "");
 		setResult(ActivityTag.PIC_CUT_AND_UPLOAD_HEAD, intent);
 		finish();
 	}
 	
-	/**
-	 * 点击登录按钮后，弹出验证对话框
-	 */
-	private MyDialog dialog =null;
-	private void showDialog(){
-		if (dialog != null) {
-			dialog.dismiss();
-			dialog = null;
-		}
-		dialog = new MyDialog(this);
-		dialog.show();
-	}
-	private void closeDialog(){
-		if (dialog != null) {
-			dialog.dismiss();
-			dialog = null;
-		}
-	}
 	
 
 	

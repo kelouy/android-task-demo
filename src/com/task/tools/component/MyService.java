@@ -76,6 +76,10 @@ public class MyService extends Service {
 						break;
 					case UPDATE_HEAD : 
 						doUpdateHead(msg);
+						break;
+					case UPDATE :
+						doUpdate(msg);
+						break;
 					case GET_USER : 
 						doGetUser(msg);
 						break;
@@ -99,6 +103,18 @@ public class MyService extends Service {
 		}
 	}
 	
+
+	protected void doUpdate(TranObject msg) {
+		if(msg.isSuccess()){
+			User user = gson.fromJson(msg.getJson(), User.class);
+			try {
+				db.delete(User.class, WhereBuilder.b("userId", "==", user.getUserId()));
+				db.save(user);
+			} catch (DbException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 	private void doUpdateHead(TranObject msg) {
 		if(msg.isSuccess()){

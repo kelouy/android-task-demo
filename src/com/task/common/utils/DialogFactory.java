@@ -8,6 +8,7 @@ import android.content.Context;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class DialogFactory {
@@ -34,5 +35,9 @@ public class DialogFactory {
 	public static void ToastDialog(Context context, String title, String msg) {
 		new AlertDialog.Builder(context).setTitle(title).setMessage(msg)
 				.setPositiveButton("确定", null).create().show();
+	}
+	
+	public static void showToast(Context context,  String msg){
+		Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 	}
 }

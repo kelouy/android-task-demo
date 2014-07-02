@@ -25,7 +25,7 @@ public class ShowImageActivity extends RoboActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.show_image);
+		setContentView(R.layout.show_image); 
 		initImage();
 		attacher = new PhotoViewAttacher(mImg);  
 	}
@@ -39,7 +39,7 @@ public class ShowImageActivity extends RoboActivity {
 				.showImageOnFail(R.drawable.person_head).cacheOnDisk(true)
 				.cacheInMemory(true).bitmapConfig(Config.ARGB_8888)
 				.considerExifParams(true)
-				//.displayer(new RoundedBitmapDisplayer(10))//设置圆角
+				//.displayer(new RoundedBitmapDisplayer(10))//设置圆角 
 				.build();
 		imageLoader.displayImage(url, mImg, options);
 		mBackBtn.setOnClickListener(new View.OnClickListener() {

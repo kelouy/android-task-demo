@@ -1,34 +1,40 @@
 package com.task.activity;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
+
 import com.google.gson.Gson;
+import com.google.inject.Inject;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.exception.DbException;
+import com.task.client.ClientOutputThread;
 import com.task.common.bean.Department;
 import com.task.common.bean.Position;
 import com.task.common.bean.User;
 import com.task.common.transbean.TranObject;
+import com.task.common.transbean.TranObjectType;
 import com.task.common.utils.ActivityTag;
+import com.task.common.utils.DialogFactory;
+import com.task.common.utils.MyDialogTools;
 import com.task.tools.component.MyActivity;
 import com.task.tools.component.MyApplication;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -40,6 +46,7 @@ public class UpdatePersonalInfoActivity extends MyActivity {
 
 	private static final String TAG = "UpdatePersonalInfoActivity";
 	private MyApplication application;
+	@InjectExtra("user") User old;	
 	@InjectExtra("user") User user;
 	@InjectView(R.id.update_dept_spinner) Spinner deptSp;
 	@InjectView(R.id.update_posi_spinner) Spinner positionSp;
@@ -51,11 +58,12 @@ public class UpdatePersonalInfoActivity extends MyActivity {
 	@InjectView(R.id.update_radioMale) RadioButton maleRadio;
 	@InjectView(R.id.update_radioFemale) RadioButton femaleRadio;
 	@InjectView(R.id.update_person_submit) Button submitBtn;
+	@Inject Resources res;
 	ActionBar actionBar;
-	DbUtils db;
+	DbUtils db; 
 	Gson gson = new Gson();
 	ArrayAdapter<Department> deptAdapter;
-	ArrayAdapter<Position> positionAdapter;
+	ArrayAdapter<Position> positionAdapter; 
 	List<Department> deptList = new ArrayList<Department>();
 	List<Position> positionList = new ArrayList<Position>();
 	
@@ -69,27 +77,25 @@ public class UpdatePersonalInfoActivity extends MyActivity {
 		if(user == null)
 			onBackPressed();
 		application = (MyApplication) this.getApplicationContext();
-		initActionBar();
+		initActionBar(); 
 		init();
 		initData();
 	}
 	
+	
+	
 	private void init() {
 		if(!TextUtils.isEmpty(user.getRealName()))
 			realNameEdit.setText(user.getRealName());
-		realNameEdit.addTextChangedListener(textWatcher);
 		
 		if(!TextUtils.isEmpty(user.getPhoneNum()))
 			phoneEdit.setText(user.getPhoneNum());
-		phoneEdit.addTextChangedListener(textWatcher);
 		
 		if(user.getQq() > 0)
 			qqEdit.setText(user.getQq()+"");
-		qqEdit.addTextChangedListener(textWatcher);
 		
 		if(!TextUtils.isEmpty(user.getEmail()))
 			emailEdit.setText(user.getEmail());
-		emailEdit.addTextChangedListener(textWatcher);
 		
 		if(user.getSex() == 0)
 			femaleRadio.setChecked(true);
@@ -102,25 +108,34 @@ public class UpdatePersonalInfoActivity extends MyActivity {
 				submit();
 			}
 		});
-		maleRadio.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				debug(buttonView+"");
-				submitBtn.setClickable(true);
-			}
-		});
 	}
 	
 
 	//提交修改
 	private void submit() {
+		
 		user.setRealName(realNameEdit.getText().toString());
 		user.setEmail(emailEdit.getText().toString());
 		if(qqEdit.getText().toString().length() > 0)
 			user.setQq(Integer.parseInt(qqEdit.getText().toString()));
 		user.setPhoneNum(phoneEdit.getText().toString());
-		debug(user.toString());
+		if(femaleRadio.isChecked())
+			user.setSex(0);
+		else 
+			user.setSex(1);
 		
+		if(user.eq(old))
+			return;
+		// 通过Socket验证信息
+		if (application.isClientStart()) {
+			MyDialogTools.showDialog(this,"更新中…");
+			ClientOutputThread out = application.getClient().getClientOutputThread();
+			TranObject o = new TranObject(TranObjectType.UPDATE);
+			o.setJson(gson.toJson(user));
+			out.setMsg(o);
+		} else {
+			DialogFactory.showToast(this,"服务器连接失败！");
+		}
 	}
 
 	private void initData() {
@@ -138,7 +153,8 @@ public class UpdatePersonalInfoActivity extends MyActivity {
 			@Override
 			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
 				Department dept = (Department) adapterView.getItemAtPosition(position);
-				submitBtn.setClickable(true);
+				user.setDeptId(dept.getDeptId());
+				user.setDeptName(dept.getDeptName());
 			}
 
 			@Override
@@ -149,6 +165,8 @@ public class UpdatePersonalInfoActivity extends MyActivity {
 		for(int i=0;i<deptList.size();i++){
 			if(deptList.get(i).getDeptName().equals(user.getDeptName())){
 				deptSp.setSelection(i, true);
+				user.setDeptId(deptList.get(i).getDeptId());
+				old.setDeptId(deptList.get(i).getDeptId());
 				break;
 			}
 		}
@@ -166,7 +184,8 @@ public class UpdatePersonalInfoActivity extends MyActivity {
 			@Override
 			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
 				Position posi = (Position) adapterView.getItemAtPosition(position);
-				submitBtn.setClickable(true);
+				user.setPositionId(posi.getPositionId());
+				user.setPositionName(posi.getPositionName());
 			}
 
 			@Override
@@ -176,7 +195,7 @@ public class UpdatePersonalInfoActivity extends MyActivity {
 		});
 		for(int i=0;i<positionList.size();i++){
 			if(positionList.get(i).getPositionName().equals(user.getPositionName())){
-				deptSp.setSelection(i, true);
+				positionSp.setSelection(i, true);
 				break;
 			}
 		}
@@ -189,7 +208,7 @@ public class UpdatePersonalInfoActivity extends MyActivity {
 			actionBar.setTitle(user.getRealName());
 		else
 			actionBar.setTitle(user.getUserName());
-		actionBar.setIcon(R.drawable.icon_back_nol);
+		//actionBar.setIcon(R.drawable.icon_back_nol);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
@@ -200,37 +219,45 @@ public class UpdatePersonalInfoActivity extends MyActivity {
 		return true;
 	}
 	
-	TextWatcher textWatcher = new TextWatcher() {
-		@Override
-		public void onTextChanged(CharSequence s, int start, int before, int count) {
-			debug(s.toString());
-			submitBtn.setClickable(true);
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()){
+			case android.R.id.home : 
+				onBackPressed();
+				break;
+			default : 
+				break;
 		}
-		
-		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-			
-		}
-		
-		@Override
-		public void afterTextChanged(Editable s) {
-			
-		}
-	};
+		return super.onOptionsItemSelected(item);
+	}
 
 	@Override
 	public void getMessage(TranObject msg) {
-
+		//只处理UPDATE消息
+		if(msg.getType() == TranObjectType.UPDATE){
+			MyDialogTools.closeDialog();
+			if(msg.isSuccess()){
+				Intent i = new Intent();
+				i.putExtra("changed", true);
+				i.putExtra("user", user);
+				setResult(ActivityTag.PERSONNAL_INFO, i);
+				finish();
+			} else{
+				DialogFactory.ToastDialog(this, res.getString(R.string.common_tip), msg.getMsg());
+			}
+				
+		}
 	}
 
 	/***************************/
 	@Override
 	public void onBackPressed() {
 		Intent i = new Intent();
-		i.putExtra("user", user);
+		i.putExtra("changed", false);
 		setResult(ActivityTag.PERSONNAL_INFO, i);
 		finish();
 	}
+	
 	
 	private void debug(String s) {
 		Log.v(TAG, s);

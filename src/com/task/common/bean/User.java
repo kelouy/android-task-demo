@@ -1,10 +1,8 @@
 package com.task.common.bean;
 
-// Generated 2014-6-3 9:50:12 by Hibernate Tools 3.4.0.CR1
 
 import java.sql.Timestamp;
 
-import com.lidroid.xutils.db.annotation.Id;
 import com.task.common.utils.FieldMeta;
 
 /**
@@ -13,20 +11,20 @@ import com.task.common.utils.FieldMeta;
 public class User implements java.io.Serializable {
 	
 	private int id;
-	private Integer userId;
-	private Integer positionId;
-	private Integer deptId; 
+	private int userId;
+	private int positionId;
+	private int deptId; 
 	private String userName;
 	private String realName;
 	private String password;
 	private int flag;
 	private String headUrl;
-	private Integer qq;
+	private int qq;
 	private String email;
 	private Timestamp createTime;
 	private Timestamp lastLoginTime;
 	private String phoneNum;
-	private Integer sex;
+	private int sex;
 	
 	@FieldMeta(isNecessary=true)
 	private String deptName;
@@ -42,7 +40,7 @@ public class User implements java.io.Serializable {
 		this.password = password;
 	}
 
-	public User(String userName, String realName, String password, Byte flag, String headUrl, Integer qq, String email, Timestamp createTime, Timestamp lastLoginTime) {
+	public User(String userName, String realName, String password, Byte flag, String headUrl, int qq, String email, Timestamp createTime, Timestamp lastLoginTime) {
 		this.userName = userName;
 		this.realName = realName;
 		this.password = password;
@@ -54,7 +52,29 @@ public class User implements java.io.Serializable {
 		this.lastLoginTime = lastLoginTime;
 	}
 
-	
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public int getPositionId() {
+		return positionId;
+	}
+
+	public void setPositionId(int positionId) {
+		this.positionId = positionId;
+	}
+
+	public int getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(int deptId) {
+		this.deptId = deptId;
+	}
 
 	public String getUserName() {
 		return this.userName;
@@ -81,11 +101,11 @@ public class User implements java.io.Serializable {
 	}
 
 	
-	public Integer getQq() {
+	public int getQq() {
 		return this.qq;
 	}
 
-	public void setQq(Integer qq) {
+	public void setQq(int qq) {
 		this.qq = qq;
 	}
 
@@ -113,13 +133,6 @@ public class User implements java.io.Serializable {
 		this.lastLoginTime = lastLoginTime;
 	}
 
-	public Integer getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
 
 	public String getDeptName() {
 		return deptName;
@@ -153,21 +166,6 @@ public class User implements java.io.Serializable {
 		this.headUrl = headUrl;
 	}
 
-	public int getDeptId() {
-		return deptId;
-	}
-
-	public void setDeptId(int deptId) {
-		this.deptId = deptId;
-	}
-
-	public Integer getPositionId() {
-		return positionId;
-	}
-
-	public void setPositionId(Integer positionId) {
-		this.positionId = positionId;
-	}
 
 	public String getPositionName() {
 		return positionName;
@@ -177,11 +175,11 @@ public class User implements java.io.Serializable {
 		this.positionName = positionName;
 	}
 
-	public Integer getSex() {
+	public int getSex() {
 		return sex;
 	}
 
-	public void setSex(Integer sex) {
+	public void setSex(int sex) {
 		this.sex = sex;
 	}
 
@@ -200,7 +198,34 @@ public class User implements java.io.Serializable {
 		this.id = id;
 	}
 
-	
+	public boolean eq(User u){
+		if(u.getRealName()!=null&&this.realName!=null){
+			if(!u.getRealName().equals(this.realName))
+				return false;
+		}
+		if(u.getEmail()!=null&&this.email!=null){
+			if(!u.getEmail().equals(this.email))
+				return false;
+		}
+		if(u.getPhoneNum()!=null&&this.phoneNum!=null){
+			if(!u.getPhoneNum().equals(this.phoneNum))
+				return false;
+		}
+		if(u.getQq()>0&&u.getQq()!=this.qq){
+			return false;
+		}
+		if(u.getDeptId()>0&&u.getDeptId()!= this.deptId){
+			return false;
+		}
+		if(u.getPositionId()>0&&u.getPositionId()!=this.positionId){
+			return false;
+		}
+		if(u.getSex()!=this.sex)
+			return false;
+		return true;
+	}
+
+
 
 
 }
