@@ -2,6 +2,7 @@
 <lint>
     <issue id="ExportedService" severity="ignore" />
     <issue id="HandlerLeak" severity="ignore" />
+    <issue id="InlinedApi" severity="ignore" />
     <issue id="NewApi" severity="ignore" />
     <issue id="SdCardPath" severity="ignore" />
 </lint>
