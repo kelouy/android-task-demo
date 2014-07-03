@@ -7,7 +7,9 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost.TabSpec;
@@ -51,6 +53,20 @@ public class MainActivity extends RoboFragmentActivity{
 		                        .setTabListener(this));*/
 	}
 	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		debug("onCreateOptionsMenu "+menu );
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.fragment4_actionbar, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		debug("onOptionsItemSelected "+item.getItemId());
+		return super.onOptionsItemSelected(item);
+	}
+	
 
 	private void initView() {
 		menu = new MenuInflater(this);
@@ -58,7 +74,7 @@ public class MainActivity extends RoboFragmentActivity{
 		// 得到fragment的个数
 		int count = fragments.length;
 		for (int i = 0; i < count; i++) {
-			// 为每一个Tab按钮设置图标、文字和内容
+			// 为每一个Tab按钮设置图标、文字和内容 
 			TabSpec tabSpec = tabHost.newTabSpec(i + "").setIndicator(i + "");
 			// 将Tab按钮添加进Tab选项卡中
 			tabHost.addTab(tabSpec, fragments[i], null);
@@ -116,4 +132,8 @@ public class MainActivity extends RoboFragmentActivity{
 		// TODO Auto-generated method stub
 		
 	}*/
+	
+	private void debug(String s) {
+		Log.v(TAG, s);
+	}
 }

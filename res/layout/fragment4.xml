@@ -6,24 +6,6 @@
     android:orientation="vertical" >
 
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="50dip"
-        android:background="@drawable/title_background"
-        android:gravity="center" >
-
-        <TextView
-            android:id="@+id/login_name"
-            android:layout_width="fill_parent"
-            android:layout_height="48dip"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
-            android:gravity="center"
-            android:text="@string/tab4"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-    </RelativeLayout>
-    
-    <RelativeLayout
         android:id="@+id/version_msg"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

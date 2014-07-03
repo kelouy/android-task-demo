@@ -16,6 +16,7 @@ import com.task.common.transbean.TranObjectType;
 import com.task.common.utils.ActivityTag;
 import com.task.common.utils.Constants;
 import com.task.common.utils.DialogFactory;
+import com.task.common.utils.Encode;
 import com.task.common.utils.MyDialogTools;
 import com.task.common.utils.Utils;
 import com.task.tools.component.MyActivity;
@@ -182,11 +183,11 @@ public class PersonalInfoActivity extends MyActivity implements OnClickListener{
 					DialogFactory.showToast(PersonalInfoActivity.this, "密码不一至！");
 					return;
 				}else if (application.isClientStart()) {
-					//showRequestDialog();
+					//showRequestDialog(); 
 					Client client = application.getClient();
 					ClientOutputThread out = client.getClientOutputThread();
 					TranObject o = new TranObject(TranObjectType.UPDATE_PWD);
-					user.setPassword(pwd);
+					user.setPassword(Encode.getEncode("MD5", pwd));
 					o.setJson(new Gson().toJson(user));
 					out.setMsg(o);
 					MyDialogTools.showDialog(PersonalInfoActivity.this, "更新中…");

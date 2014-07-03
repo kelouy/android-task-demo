@@ -211,7 +211,7 @@ public class User implements java.io.Serializable {
 			if(!u.getPhoneNum().equals(this.phoneNum))
 				return false;
 		}
-		if(u.getQq()>0&&u.getQq()!=this.qq){
+		if(u.getQq()!=this.qq){
 			return false;
 		}
 		if(u.getDeptId()>0&&u.getDeptId()!= this.deptId){
