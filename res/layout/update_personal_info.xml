@@ -158,6 +158,7 @@
         android:layout_marginLeft="10.0dip"
         android:layout_marginRight="10.0dip"
         android:layout_marginTop="20.0dip"
+        android:layout_marginBottom="20.0dip"
         android:background="@drawable/common_button_normal"
         android:orientation="vertical" >
 
@@ -268,17 +269,4 @@
     	
     </LinearLayout>
 
-     <Button
-        android:id="@+id/update_person_submit"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10.0dip"
-        android:layout_marginRight="10.0dip"
-        android:layout_marginTop="20.0dip"
-        android:clickable="true"
-        android:background="@drawable/login_button_bg"
-        android:gravity="center"
-        android:text="提交"
-        android:textColor="#ff333333"
-        android:textSize="18.0sp" />
 </LinearLayout>

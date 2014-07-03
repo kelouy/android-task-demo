@@ -1,27 +1,23 @@
 package com.task.activity;
 
 import android.app.ActionBar;
+import android.app.ActionBar.Tab;
+import android.app.FragmentTransaction;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.Debug;
 import android.support.v4.app.FragmentTabHost;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuInflater;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost.TabSpec;
-import android.widget.TextView;
-
 import com.google.inject.Inject;
+import com.task.tools.component.MyActionBar;
 
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.InjectView;
 
-public class MainActivity extends RoboFragmentActivity {
+public class MainActivity extends RoboFragmentActivity{
 
 	private static final String TAG = "MainActivity";
 	@SuppressWarnings("rawtypes")
@@ -31,8 +27,7 @@ public class MainActivity extends RoboFragmentActivity {
 	FragmentTabHost tabHost;
 	@Inject
 	Resources res;
-	private TextView tvTitle;
-	private ProgressBar pbUpdate;
+	MyActionBar actionBar;
 	private RadioGroup tabGadioGroup;
 	private MenuInflater menu;// 菜单 
 
@@ -41,27 +36,21 @@ public class MainActivity extends RoboFragmentActivity {
 		super.onCreate(savedInstanceState);
 		Log.e(TAG, "onCreate……");
 		setContentView(R.layout.main_fragment);
-		initActionBar();
+		actionBar = new MyActionBar(this);
+		actionBar.show();
 		initView();
+		
+		/*ActionBar actionBar2 = getActionBar();
+		actionBar2.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		                // 依次添加3个Tab页，并为3个Tab标签添加事件监听器
+		                actionBar2.addTab(actionBar2.newTab().setText("第一页")
+		                        .setTabListener(this));
+		                actionBar2.addTab(actionBar2.newTab().setText("第二页")
+		                        .setTabListener(this));
+		                actionBar2.addTab(actionBar2.newTab().setText("第三页")
+		                        .setTabListener(this));*/
 	}
 	
-	private void initActionBar() {
-		ActionBar actionBar = getActionBar();
-		ActionBar.LayoutParams lp = new ActionBar.LayoutParams(
-				ActionBar.LayoutParams.MATCH_PARENT, 
-				ActionBar.LayoutParams.MATCH_PARENT, 
-				Gravity.CENTER);
-		View actionBarView = getLayoutInflater().inflate(R.layout.main_actionbar, null);
-		actionBar.setCustomView(actionBarView, lp);
-		// actionBar.setDisplayHomeAsUpEnabled(true); // 给左上角图标的左边加上一个返回的图标 。对应ActionBar.DISPLAY_HOME_AS_UP
-		actionBar.setDisplayShowHomeEnabled(false);// 使左上角图标可点击，对应id为android.R.id.home，对应ActionBar.DISPLAY_SHOW_HOME
-		actionBar.setDisplayShowTitleEnabled(false);
-		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-		actionBar.setDisplayShowCustomEnabled(true); // 使自定义的普通View能在title栏显示，即actionBar.setCustomView能起作用，对应ActionBar.DISPLAY_SHOW_CUSTOM
-		tvTitle = (TextView) actionBar.getCustomView().findViewById(android.R.id.title);
-		pbUpdate = (ProgressBar) actionBar.getCustomView().findViewById(R.id.main_progressBar);
-		actionBar.show();
-	}
 
 	private void initView() {
 		menu = new MenuInflater(this);
@@ -83,21 +72,22 @@ public class MainActivity extends RoboFragmentActivity {
 				switch (checkedId) {
 					case R.id.tab_rb_1 :
 						tabHost.setCurrentTab(0);
-						tvTitle.setText("待办事件");
-						pbUpdate.setVisibility(View.GONE);
+						actionBar.setTitle("待办事件");
 						break;
 					case R.id.tab_rb_2 :
 						tabHost.setCurrentTab(1);
-						tvTitle.setText("我的同事");
-						pbUpdate.setVisibility(View.VISIBLE);
+						actionBar.setTitle("我的同事");
+						actionBar.showProgressBar(false);
 						break;
 					case R.id.tab_rb_3 :
 						tabHost.setCurrentTab(2);
-						tvTitle.setText("动态");
+						actionBar.setTitle("动态");
+						actionBar.showProgressBar(false);
 						break;
 					case R.id.tab_rb_4 :
 						tabHost.setCurrentTab(3);
-						tvTitle.setText("我");
+						actionBar.setTitle("我");
+						actionBar.showProgressBar(false);
 						break;
 					default :
 						break;
@@ -106,4 +96,24 @@ public class MainActivity extends RoboFragmentActivity {
 		});
 		tabHost.setCurrentTab(0);
 	}
+
+
+	/*@Override
+	public void onTabSelected(Tab tab, FragmentTransaction ft) {
+		Log.e(TAG, tab.toString()+"=="+ft.toString());
+	}
+
+
+	@Override
+	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onTabReselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}*/
 }

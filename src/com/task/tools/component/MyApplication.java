@@ -13,7 +13,6 @@ public class MyApplication extends Application {
 	private String TAG = "MyApplication";
 	private Client client;// 客户端
 	private boolean isClientStart;// 客户端连接是否启动
-	private User my;
 
 	@Override
 	public void onCreate() {
@@ -42,11 +41,4 @@ public class MyApplication extends Application {
 		this.isClientStart = isClientStart;
 	}
 
-	public User getMy() {
-		return my;
-	}
-
-	public void setMy(User my) {
-		this.my = my;
-	}
 }

@@ -24,6 +24,7 @@ import com.task.common.bean.User;
 import com.task.common.transbean.TranObject;
 import com.task.common.transbean.TranObjectType;
 import com.task.common.utils.Constants;
+import com.task.common.utils.Utils;
 
 public class MyService extends Service {
 	private String TAG = "MyService";
@@ -108,7 +109,7 @@ public class MyService extends Service {
 		if(msg.isSuccess()){
 			User user = gson.fromJson(msg.getJson(), User.class);
 			try {
-				db.delete(User.class, WhereBuilder.b("userId", "==", user.getUserId()));
+				db.delete(User.class, WhereBuilder.b("userId", "=", user.getUserId()));
 				db.save(user);
 			} catch (DbException e) {
 				e.printStackTrace();
@@ -121,7 +122,7 @@ public class MyService extends Service {
 			User user = gson.fromJson(msg.getJson(), User.class);
 			user.setHeadUrl(Constants.IMG_ROOT_URL+user.getHeadUrl());
 			try {
-				db.delete(User.class, WhereBuilder.b("userId", "==", user.getUserId()));
+				db.delete(User.class, WhereBuilder.b("userId", "=", user.getUserId()));
 				db.save(user);
 			} catch (DbException e) {
 				e.printStackTrace();
@@ -134,7 +135,7 @@ public class MyService extends Service {
 	private void doLogin(TranObject msg) {
 		if(msg.isSuccess()){
 			User user = gson.fromJson(msg.getJson(), User.class);
-			application.setMy(user);
+			Utils.setMy(user);
 		}
 	}
 	private void doGetPosition(TranObject msg) {

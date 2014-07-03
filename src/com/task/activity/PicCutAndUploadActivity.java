@@ -146,7 +146,7 @@ public class PicCutAndUploadActivity extends MyActivity {
 			
 			//上传图片到服务器
 			fileName = MyDate.getDateYYYYMMDDHHMMSS()+".png";
-			RequestParams params = new RequestParams();
+			RequestParams params = new RequestParams(); 
 			//params.addBodyParameter("fileName", MyDate.getDateYYYYMMDDHHMMSS()+".png");
 			params.addBodyParameter("file", new File(url,"temp.png"));
 			//params.setBodyEntity(new BodyParamsEntity("multipart/form-data"));
@@ -208,7 +208,7 @@ public class PicCutAndUploadActivity extends MyActivity {
 			MyDialogTools.closeDialog();
 			Intent intent = new Intent();
 			if(msg.isSuccess()){
-				user.setHeadUrl(Constants.IMG_ROOT_URL+fileName);
+				user.setHeadUrl(fileName);
 				intent.putExtra("fileName", user.getHeadUrl());
 			} else {
 				intent.putExtra("fileName", "");

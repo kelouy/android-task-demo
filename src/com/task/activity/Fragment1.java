@@ -19,6 +19,8 @@ public class Fragment1 extends RoboFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.v(TAG, "onCreate...");
+		//显示actionbar上的progressbar
+		((MainActivity) getActivity()).actionBar.showProgressBar(true);
 	}
 	
 	@Override

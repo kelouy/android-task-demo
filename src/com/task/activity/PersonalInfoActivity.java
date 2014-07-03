@@ -1,30 +1,50 @@
 package com.task.activity;
 
 
+import com.google.gson.Gson;
+import com.google.inject.Inject;
+import com.lidroid.xutils.DbUtils;
+import com.lidroid.xutils.db.sqlite.Selector;
+import com.lidroid.xutils.exception.DbException;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.task.client.Client;
+import com.task.client.ClientOutputThread;
 import com.task.common.bean.User;
+import com.task.common.transbean.TranObject;
+import com.task.common.transbean.TranObjectType;
 import com.task.common.utils.ActivityTag;
 import com.task.common.utils.Constants;
+import com.task.common.utils.DialogFactory;
+import com.task.common.utils.MyDialogTools;
+import com.task.common.utils.Utils;
+import com.task.tools.component.MyActivity;
+import com.task.tools.component.MyApplication;
+import com.task.tools.component.SharePreferenceUtil;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap.Config;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectExtra;
 import roboguice.inject.InjectView;
 
-public class PersonalInfoActivity extends RoboActivity implements OnClickListener{
+public class PersonalInfoActivity extends MyActivity implements OnClickListener{
 	private static String TAG = "PersonalInfoActivity";
 	
 	@InjectExtra(value="user",optional=true) User user;
@@ -37,15 +57,18 @@ public class PersonalInfoActivity extends RoboActivity implements OnClickListene
 	@InjectView(R.id.person_phonenum) TextView pPhoneNumTV;
 	@InjectView(R.id.person_qq) TextView pQqTV;
 	@InjectView(R.id.person_head_img) ImageView pHeadIMG;
+	@Inject Resources res;
 	ActionBar actionBar;
 	ImageLoader imageLoader;
 	DisplayImageOptions options;
+	MyApplication application;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		debug("onCreate……  ");
 		setContentView(R.layout.personal_info);
+		application = (MyApplication) getApplication();
 		initActionBar();
 		initData(user);
 		initImage();
@@ -72,8 +95,11 @@ public class PersonalInfoActivity extends RoboActivity implements OnClickListene
 	//初始化actionbar 
 	private void initActionBar() {
 		actionBar = this.getActionBar();
-		actionBar.setTitle(user.getRealName());
-		actionBar.setIcon(R.drawable.icon_back_nol);
+		if(!TextUtils.isEmpty(user.getRealName()))
+			actionBar.setTitle(user.getRealName());
+		else
+			actionBar.setTitle(user.getUserName());
+		//actionBar.setIcon(R.drawable.icon_back_nol);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		
 	}
@@ -106,8 +132,10 @@ public class PersonalInfoActivity extends RoboActivity implements OnClickListene
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.person_actionbar, menu);
+		if(Utils.getMy()!=null && Utils.getMy().getUserName().equals("admin")){
+			MenuInflater inflater = getMenuInflater();
+			inflater.inflate(R.menu.person_actionbar, menu);
+		}
 		return true;
 	}
 	
@@ -127,12 +155,49 @@ public class PersonalInfoActivity extends RoboActivity implements OnClickListene
 				intent2.putExtra("user", user);
 				startActivityForResult(intent2, ActivityTag.PERSONNAL_INFO);
 				break;
+			case R.id.person_menu_updatepwd : 
+				showUpdatePwdDialog();
+				break;
 			default : 
 				break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 	
+	private void showUpdatePwdDialog() {
+		final View view = LayoutInflater.from(this).inflate(R.layout.setting_pwd, null);
+		new AlertDialog.Builder(this).setTitle("重置密码").setView(view).setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// 把ip和port保存到文件中
+				EditText pwdText = (EditText) view.findViewById(R.id.setting_pwd);
+				EditText pwd2Text = (EditText) view.findViewById(R.id.setting_pwd2);
+				String pwd = pwdText.getText().toString();
+				String pwd2 = pwd2Text.getText().toString();
+				if(TextUtils.isEmpty(pwd)||TextUtils.isEmpty(pwd2)){
+					DialogFactory.showToast(PersonalInfoActivity.this, "密码不能为空！");
+					return;
+				}else if(!pwd.equals(pwd2)){
+					DialogFactory.showToast(PersonalInfoActivity.this, "密码不一至！");
+					return;
+				}else if (application.isClientStart()) {
+					//showRequestDialog();
+					Client client = application.getClient();
+					ClientOutputThread out = client.getClientOutputThread();
+					TranObject o = new TranObject(TranObjectType.UPDATE_PWD);
+					user.setPassword(pwd);
+					o.setJson(new Gson().toJson(user));
+					out.setMsg(o);
+					MyDialogTools.showDialog(PersonalInfoActivity.this, "更新中…");
+					dialog.dismiss();
+				} else {
+					DialogFactory.showToast(PersonalInfoActivity.this, "服务器连接失败！");
+				}
+			}
+		}).setNegativeButton(res.getString(R.string.cancel), null).create().show();
+	}
+
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
@@ -166,9 +231,13 @@ public class PersonalInfoActivity extends RoboActivity implements OnClickListene
 	private void setUser(Intent intent) {
 		boolean flag = intent.getBooleanExtra("changed", false);
 		if(flag){
-			User u = (User) intent.getSerializableExtra("user");
-			if(u != null)
-				initData(u);
+			DbUtils db = DbUtils.create(this);
+			try {
+				user = db.findFirst(Selector.from(User.class).where("userId", "=", user.getUserId()));
+			} catch (DbException e) {
+				e.printStackTrace();
+			}
+			initData(user);
 		}
 	}
 
@@ -176,8 +245,20 @@ public class PersonalInfoActivity extends RoboActivity implements OnClickListene
 	private void setHeadImg(Intent intent) {
 		String fileName =  intent.getStringExtra("fileName");
 		if(!TextUtils.isEmpty(fileName)){
-			imageLoader.displayImage(fileName, pHeadIMG, options);
+			imageLoader.displayImage(Constants.IMG_ROOT_URL+fileName, pHeadIMG, options);
 			pHeadIMG.setOnClickListener(this);
+		}
+	}
+	
+
+	@Override
+	public void getMessage(TranObject msg) {
+		if(msg.getType() == TranObjectType.UPDATE_PWD){
+			MyDialogTools.closeDialog();
+			if(msg.isSuccess())
+				DialogFactory.showToast(PersonalInfoActivity.this, "更新成功！");
+			else
+				DialogFactory.showToast(PersonalInfoActivity.this, msg.getMsg());
 		}
 	}
 	
@@ -190,6 +271,7 @@ public class PersonalInfoActivity extends RoboActivity implements OnClickListene
 	void debug(String s){
 		Log.v(TAG, s);
 	}
+
 
 
 

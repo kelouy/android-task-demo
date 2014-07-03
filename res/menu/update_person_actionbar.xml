@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/update_person_menu_more"
+        android:id="@+id/update_person_submit"
         android:orderInCategory="1"
-        android:icon="@drawable/icon_ok_03"
+        android:icon="@drawable/actionbar_ok"
         android:showAsAction="ifRoom|withText"
         android:title="@null">
      </item>

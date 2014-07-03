@@ -57,7 +57,6 @@ public class UpdatePersonalInfoActivity extends MyActivity {
 	@InjectView(R.id.update_sex_rg) RadioGroup sexRadioGroup;
 	@InjectView(R.id.update_radioMale) RadioButton maleRadio;
 	@InjectView(R.id.update_radioFemale) RadioButton femaleRadio;
-	@InjectView(R.id.update_person_submit) Button submitBtn;
 	@Inject Resources res;
 	ActionBar actionBar;
 	DbUtils db; 
@@ -102,12 +101,6 @@ public class UpdatePersonalInfoActivity extends MyActivity {
 		else
 			maleRadio.setChecked(true);
 		
-		submitBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				submit();
-			}
-		});
 	}
 	
 
@@ -224,6 +217,9 @@ public class UpdatePersonalInfoActivity extends MyActivity {
 		switch(item.getItemId()){
 			case android.R.id.home : 
 				onBackPressed();
+				break; 
+			case R.id.update_person_submit :
+				submit();
 				break;
 			default : 
 				break;
@@ -239,7 +235,6 @@ public class UpdatePersonalInfoActivity extends MyActivity {
 			if(msg.isSuccess()){
 				Intent i = new Intent();
 				i.putExtra("changed", true);
-				i.putExtra("user", user);
 				setResult(ActivityTag.PERSONNAL_INFO, i);
 				finish();
 			} else{

@@ -160,7 +160,7 @@ public class WorkmateAdapter extends BaseAdapter implements StickyListHeadersAda
 			}
 			
 		}
-		for(int i=0;i<isShowList.size();i++){
+		for(int i=0;i<isShowList.size()&&mDeptGroup.size()>i;i++){
 			mDeptGroup.get(i).setShown(isShowList.get(i));
 		}
 		mDeptGroup.get(mDeptGroup.size()-1).setCount(countGp);

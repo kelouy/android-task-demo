@@ -62,7 +62,6 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 	View moreMenuView;// “更多登录选项”中的内容view
 	@Inject
 	Resources res;
-	private MenuInflater mi;// 菜单
 	private MyApplication application;
 	private String TAG = "LoginActivity";
 	private boolean mShowMenu = false;// “更多登录选项”的内容是否显示
@@ -73,7 +72,6 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 		setContentView(R.layout.login);
 		application = (MyApplication) this.getApplicationContext();
 		initView();
-		mi = new MenuInflater(this);
 	}
 
 	@Override
@@ -170,7 +168,6 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 		} else {
 			// 通过Socket验证信息
 			if (application.isClientStart()) {
-				showRequestDialog();
 				Client client = application.getClient();
 				ClientOutputThread out = client.getClientOutputThread();
 				TranObject o = new TranObject(TranObjectType.LOGIN);
@@ -179,8 +176,9 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 				u.setPassword(Encode.getEncode("MD5", password));
 				o.setJson(gson.toJson(u));
 				out.setMsg(o);
+				showRequestDialog();
 			} else {
-				DialogFactory.ToastDialog(LoginActivity.this, res.getString(R.string.common_tip), "亲！服务器暂未开放哦");
+				DialogFactory.ToastDialog(LoginActivity.this, res.getString(R.string.common_tip), "服务器连接失败！");
 			}
 		}
 	}
@@ -222,6 +220,7 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 	@Override
 	// 添加菜单
 	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater mi = new MenuInflater(this);// 菜单
 		mi.inflate(R.menu.login_menu, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -290,10 +289,10 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 				if (ip.length() > 0 && port.length() > 0) {
 					util.setIp(ip);
 					util.setPort(Integer.valueOf(port));
-					Toast.makeText(getApplicationContext(), "亲！保存成功，重启生效哦", 0).show();
+					DialogFactory.showToast(getApplicationContext(), "保存成功，重启生效");
 					finish();
 				} else {
-					Toast.makeText(getApplicationContext(), "亲！ip和port都不能为空哦", 0).show();
+					DialogFactory.showToast(getApplicationContext(), "ip和port都不能为空");
 				}
 			}
 		}).setNegativeButton(res.getString(R.string.cancel), null).create().show();

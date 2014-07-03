@@ -12,7 +12,6 @@ import com.task.common.transbean.TranObject;
 import com.task.common.transbean.TranObjectType;
 import com.task.tools.adapter.WorkmateAdapter;
 import com.task.tools.component.MyApplication;
-import com.task.tools.interfaces.ItemClickedListener;
 import com.task.tools.interfaces.ItemHeaderClickedListener;
 import com.task.tools.view.WorkmateListView;
 
@@ -22,8 +21,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class Fragment2 extends RoboFragment {
 	private static final String TAG = "Fragment2";
