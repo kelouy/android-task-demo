@@ -1,23 +1,21 @@
 package com.task.activity;
 
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
-import android.app.FragmentTransaction;
+import roboguice.activity.RoboFragmentActivity;
+import roboguice.inject.InjectView;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost.TabSpec;
+
 import com.google.inject.Inject;
 import com.task.tools.component.MyActionBar;
-
-import roboguice.activity.RoboFragmentActivity;
-import roboguice.inject.InjectView;
+import com.task.tools.component.popupwindow.ActionItem;
+import com.task.tools.component.popupwindow.TitlePopup;
 
 public class MainActivity extends RoboFragmentActivity{
 
@@ -30,6 +28,7 @@ public class MainActivity extends RoboFragmentActivity{
 	@Inject
 	Resources res;
 	MyActionBar actionBar;
+	private TitlePopup titlePopup;
 	private RadioGroup tabGadioGroup;
 	private MenuInflater menu;// 菜单 
 
@@ -38,8 +37,7 @@ public class MainActivity extends RoboFragmentActivity{
 		super.onCreate(savedInstanceState);
 		Log.e(TAG, "onCreate……");
 		setContentView(R.layout.main_fragment);
-		actionBar = new MyActionBar(this);
-		actionBar.show();
+		initActionBarAndTitlePopup();
 		initView();
 		
 		/*ActionBar actionBar2 = getActionBar();
@@ -52,8 +50,31 @@ public class MainActivity extends RoboFragmentActivity{
 		                actionBar2.addTab(actionBar2.newTab().setText("第三页")
 		                        .setTabListener(this));*/
 	}
+	 
+	private void initActionBarAndTitlePopup() {
+		titlePopup = new TitlePopup(this);
+		titlePopup.addAction(new ActionItem(this, "上传头像", R.drawable.icon_head));
+		titlePopup.addAction(new ActionItem(this, "修改资料", R.drawable.icon_person_data));
+		titlePopup.addAction(new ActionItem(this, "修改密码", R.drawable.icon_pwd));
+		titlePopup.addAction(new ActionItem(this, "系统设置", R.drawable.icon_setting));
+		actionBar = new MyActionBar(this, "待办事件", R.drawable.panel_add_icon, true,false);
+		actionBar.setOnRightBtnClickListener(new MyActionBar.OnRightBtnClickListener() {
+			@Override
+			public void onClick(View view) {  
+				titlePopup.show(view);
+			}
+		});
+		
+		titlePopup.setItemOnClickListener(new TitlePopup.OnItemOnClickListener() {
+			
+			@Override
+			public void onItemClick(ActionItem item, int position) {
+				debug("item position "+position);
+			}
+		});
+	}
 	
-	@Override
+	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		debug("onCreateOptionsMenu "+menu );
 		MenuInflater inflater = getMenuInflater();
@@ -65,7 +86,7 @@ public class MainActivity extends RoboFragmentActivity{
 	public boolean onOptionsItemSelected(MenuItem item) {
 		debug("onOptionsItemSelected "+item.getItemId());
 		return super.onOptionsItemSelected(item);
-	}
+	}*/
 	
 
 	private void initView() {
@@ -88,22 +109,19 @@ public class MainActivity extends RoboFragmentActivity{
 				switch (checkedId) {
 					case R.id.tab_rb_1 :
 						tabHost.setCurrentTab(0);
-						actionBar.setTitle("待办事件");
+						actionBar.setTitleAndShowItem("待办事件",false);
 						break;
 					case R.id.tab_rb_2 :
 						tabHost.setCurrentTab(1);
-						actionBar.setTitle("我的同事");
-						actionBar.showProgressBar(false);
+						actionBar.setTitleAndShowItem("我的同事",false,false);
 						break;
 					case R.id.tab_rb_3 :
 						tabHost.setCurrentTab(2);
-						actionBar.setTitle("动态");
-						actionBar.showProgressBar(false);
+						actionBar.setTitleAndShowItem("动态",false,false);
 						break;
 					case R.id.tab_rb_4 :
 						tabHost.setCurrentTab(3);
-						actionBar.setTitle("我");
-						actionBar.showProgressBar(false);
+						actionBar.setTitleAndShowItem("我",false,true);
 						break;
 					default :
 						break;

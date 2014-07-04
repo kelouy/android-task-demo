@@ -19,37 +19,36 @@ public class Utils {
 		display.getSize(p);
 	}
 
-	/**
-     * @deprecated Use {@link #getScreenWidthAndHeight(Context ,Point )} instead.
+	/** 
+     * 得到设备屏幕的宽度 
      */
-	@Deprecated
 	public static int getScreenWidth(Context context) {
-		WindowManager manager = (WindowManager) context
-				.getSystemService(Context.WINDOW_SERVICE);
-		Display display = manager.getDefaultDisplay();
-		return display.getWidth();
+		return context.getResources().getDisplayMetrics().widthPixels;
 	}
 	
-	@Deprecated
+	/** 
+     * 得到设备屏幕的高度 
+     */
 	public static int getScreenHeight(Context context) {
-		WindowManager manager = (WindowManager) context
-				.getSystemService(Context.WINDOW_SERVICE);
-		Display display = manager.getDefaultDisplay();
-		return display.getHeight();
+		return context.getResources().getDisplayMetrics().heightPixels;
 	}
+	
+	 /** 
+     * 得到设备的密度 
+     */
+    public static float getScreenDensity(Context context) {  
+        return context.getResources().getDisplayMetrics().density;  
+    }  
+      
+    /** 
+     * 把密度转换为像素 
+     */
+    public static int dip2px(Context context, float px) {  
+        final float scale = getScreenDensity(context);  
+        return (int) (px * scale + 0.5);  
+    } 
 
-	public static float getScreenDensity(Context context) {
-		try {
-			DisplayMetrics dm = new DisplayMetrics();
-			WindowManager manager = (WindowManager) context
-					.getSystemService(Context.WINDOW_SERVICE);
-			manager.getDefaultDisplay().getMetrics(dm);
-			return dm.density;
-		} catch (Exception ex) {
 
-		}
-		return 1.0f;
-	}
 
 	public static User getMy() {
 		return my;

@@ -7,18 +7,27 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:gravity="center"
-            android:text="待办事件"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textColor="@android:color/white"/> 
 
 
     <ProgressBar
-        android:id="@+id/main_progressBar"
+        android:id="@+id/actionbar_progressBar"
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:layout_gravity="left|center_vertical"
 		android:layout_marginLeft="12.0dip" />
     
+    
+    <ImageButton 
+        android:id="@+id/actionbar_rightBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         android:background="@drawable/title_button"
+        android:layout_gravity="right|center_vertical"
+        android:paddingTop="2dip"
+        android:paddingBottom="2dip"
+        android:layout_marginRight="5dip"/>
     
  
 </FrameLayout>

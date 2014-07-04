@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -15,8 +16,18 @@ public class MyActionBar {
 	private ActionBar actionBar;
 	private TextView tvTitle;
 	private ProgressBar pbUpdate;
+	private ImageButton rightBtn;
+	private OnRightBtnClickListener onRightBtnClickListener;
 	
-	public MyActionBar(Activity activity) {
+	/**
+	 * 
+	 * @param activity
+	 * @param title	actionbar标题
+	 * @param rightImageBtnId 右上角图片
+	 * @param isShowProgressBar	是否显示progressbar
+	 * @param isShowRightBtn	是否显示右上角图标
+	 */
+	public MyActionBar(Activity activity,String title,int rightImageBtnId,boolean isShowProgressBar,boolean isShowRightBtn) {
 		actionBar = activity.getActionBar();
 		ActionBar.LayoutParams lp = new ActionBar.LayoutParams(
 				ActionBar.LayoutParams.MATCH_PARENT, 
@@ -30,12 +41,58 @@ public class MyActionBar {
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		actionBar.setDisplayShowCustomEnabled(true); // 使自定义的普通View能在title栏显示，即actionBar.setCustomView能起作用，对应ActionBar.DISPLAY_SHOW_CUSTOM
 		tvTitle = (TextView) actionBar.getCustomView().findViewById(android.R.id.title);
-		pbUpdate = (ProgressBar) actionBar.getCustomView().findViewById(R.id.main_progressBar);
-		showProgressBar(true);
+		pbUpdate = (ProgressBar) actionBar.getCustomView().findViewById(R.id.actionbar_progressBar);
+		rightBtn = (ImageButton) actionBar.getCustomView().findViewById(R.id.actionbar_rightBtn);
+		setRightImageBtnSrc(rightImageBtnId);
+		rightBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(onRightBtnClickListener != null)
+					onRightBtnClickListener.onClick(v);
+			}
+		});
+		
+		setTitleAndShowItem(title,isShowProgressBar,isShowRightBtn );
+		show();
+	}
+	
+	/**
+	 * 
+	 * @param title 设置title
+	 * @param isShowProgressBar	是否显示progressbar
+	 * @param isShowRightBtn	是否显示右上角图标
+	 */
+	public void setTitleAndShowItem(String title,boolean isShowProgressBar,boolean isShowRightBtn ) {
+		setTitle(title);
+		showProgressBar(isShowProgressBar);
+		showRightImageBtn(isShowRightBtn);
+	}
+	
+	/**
+	 * 
+	 * @param title 设置title
+	 * @param isShowRightBtn	是否显示右上角图标
+	 */
+	public void setTitleAndShowItem(String title,boolean isShowRightBtn ) {
+		setTitle(title);
+		showRightImageBtn(isShowRightBtn);
 	}
 	
 	public void setTitle(String title){
-		tvTitle.setText(title);
+		if(title != null)
+			tvTitle.setText(title);
+	}
+	
+	public void showRightImageBtn(boolean flag){
+		if(flag)
+			rightBtn.setVisibility(View.VISIBLE);
+		else
+			rightBtn.setVisibility(View.GONE);
+	}
+	
+	public void setRightImageBtnSrc(int id){
+		if(id>0)
+			rightBtn.setImageResource(id);
 	}
 	
 	public void showProgressBar(boolean flag){
@@ -61,5 +118,14 @@ public class MyActionBar {
 	public void hide(){
 		if(actionBar.isShowing())
 			actionBar.hide();
+	}
+	
+
+	public void setOnRightBtnClickListener(OnRightBtnClickListener onRightBtnClickListener) {
+		this.onRightBtnClickListener = onRightBtnClickListener;
+	}
+
+	public static interface OnRightBtnClickListener{
+		void onClick(View view);
 	}
 }
