@@ -2,18 +2,36 @@ package com.task.activity;
 
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.InjectView;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost.TabSpec;
 
+import com.google.gson.Gson;
 import com.google.inject.Inject;
+import com.task.client.Client;
+import com.task.client.ClientOutputThread;
+import com.task.common.bean.User;
+import com.task.common.transbean.TranObject;
+import com.task.common.transbean.TranObjectType;
+import com.task.common.utils.ActivityTag;
+import com.task.common.utils.DialogFactory;
+import com.task.common.utils.Encode;
+import com.task.common.utils.MyDialogTools;
+import com.task.common.utils.Utils;
 import com.task.tools.component.MyActionBar;
+import com.task.tools.component.MyApplication;
 import com.task.tools.component.popupwindow.ActionItem;
 import com.task.tools.component.popupwindow.TitlePopup;
 
@@ -22,21 +40,24 @@ public class MainActivity extends RoboFragmentActivity{
 	private static final String TAG = "MainActivity";
 	@SuppressWarnings("rawtypes")
 	private final Class[] fragments = {Fragment1.class, Fragment2.class, Fragment3.class, Fragment4.class};
+	private TitlePopup titlePopup;
+	private RadioGroup tabGadioGroup;
+	private MenuInflater menu;// 菜单  
 	// 定义FragmentTabHost对象
 	@InjectView(android.R.id.tabhost)
 	FragmentTabHost tabHost;
 	@Inject
 	Resources res;
 	MyActionBar actionBar;
-	private TitlePopup titlePopup;
-	private RadioGroup tabGadioGroup;
-	private MenuInflater menu;// 菜单 
+	MyApplication application;
+	User user = Utils.getMy();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.e(TAG, "onCreate……");
 		setContentView(R.layout.main_fragment);
+		application = (MyApplication) getApplication();
 		initActionBarAndTitlePopup();
 		initView();
 		
@@ -70,8 +91,31 @@ public class MainActivity extends RoboFragmentActivity{
 			@Override
 			public void onItemClick(ActionItem item, int position) {
 				debug("item position "+position);
+				goActivity(position);
 			}
 		});
+	}
+	
+	private void goActivity(int position) {
+		switch(position){
+			case 0: 
+				Intent intent1 = new Intent(this, PicCutAndUploadActivity.class);
+				intent1.putExtra("user", Utils.getMy());
+				startActivityForResult(intent1, ActivityTag.PIC_CUT_AND_UPLOAD_HEAD);
+				break;
+			case 1 : 
+				Intent intent2 = new Intent(this, UpdatePersonalInfoActivity.class);
+				intent2.putExtra("user", Utils.getMy());
+				startActivityForResult(intent2, ActivityTag.PERSONNAL_INFO);
+				break;
+			case 2: 
+				showUpdatePwdDialog();
+				break;
+			case 3:
+				break;
+			default : 
+				break;
+		}
 	}
 	
 	/*@Override
@@ -150,6 +194,49 @@ public class MainActivity extends RoboFragmentActivity{
 		// TODO Auto-generated method stub
 		
 	}*/
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		debug("requestCode="+requestCode+"  resultCode="+resultCode+" data="+data);
+	}
+	
+	
+	private void showUpdatePwdDialog() {
+		final View view = LayoutInflater.from(this).inflate(R.layout.setting_pwd, null);
+		new AlertDialog.Builder(this).setTitle("重置密码").setView(view).setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// 把ip和port保存到文件中
+				EditText pwdText = (EditText) view.findViewById(R.id.setting_pwd);
+				EditText pwd2Text = (EditText) view.findViewById(R.id.setting_pwd2);
+				String pwd = pwdText.getText().toString();
+				String pwd2 = pwd2Text.getText().toString();
+				if(TextUtils.isEmpty(pwd)||TextUtils.isEmpty(pwd2)){
+					DialogFactory.showToast(MainActivity.this, "密码不能为空！");
+					return;
+				}else if(!pwd.equals(pwd2)){
+					DialogFactory.showToast(MainActivity.this, "密码不一至！");
+					return;
+				}else if (application.isClientStart()) {
+					//showRequestDialog(); 
+					Client client = application.getClient();
+					ClientOutputThread out = client.getClientOutputThread();
+					TranObject o = new TranObject(TranObjectType.UPDATE_PWD);
+					user.setPassword(Encode.getEncode("MD5", pwd));
+					o.setJson(new Gson().toJson(user));
+					out.setMsg(o);
+					MyDialogTools.showDialog(MainActivity.this, "更新中…");
+					dialog.dismiss();
+				} else {
+					DialogFactory.showToast(MainActivity.this, "服务器连接失败！");
+				}
+			}
+		}).setNegativeButton(res.getString(R.string.cancel), null).create().show();
+	}
+	
+	/********************************************/
 	
 	private void debug(String s) {
 		Log.v(TAG, s);

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 public class ShowImageActivity extends RoboActivity {
 	
@@ -34,11 +35,10 @@ public class ShowImageActivity extends RoboActivity {
 	private void initImage() {
 		imageLoader = imageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()
-				.showImageOnLoading(R.drawable.person_head)
-				.showImageForEmptyUri(R.drawable.person_head)
-				.showImageOnFail(R.drawable.person_head).cacheOnDisk(true)
+				.cacheOnDisk(true)
 				.cacheInMemory(true).bitmapConfig(Config.ARGB_8888)
 				.considerExifParams(true)
+				.imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
 				//.displayer(new RoundedBitmapDisplayer(10))//设置圆角 
 				.build();
 		imageLoader.displayImage(url, mImg, options);
