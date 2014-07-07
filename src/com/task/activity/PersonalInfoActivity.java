@@ -21,8 +21,6 @@ import com.task.common.utils.MyDialogTools;
 import com.task.common.utils.Utils;
 import com.task.tools.component.MyActivity;
 import com.task.tools.component.MyApplication;
-import com.task.tools.component.SharePreferenceUtil;
-
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -41,7 +39,6 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectExtra;
 import roboguice.inject.InjectView;
 
@@ -71,7 +68,12 @@ public class PersonalInfoActivity extends MyActivity implements OnClickListener{
 		setContentView(R.layout.personal_info);
 		application = (MyApplication) getApplication();
 		initActionBar();
-		initData(user);
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		initData();
 		initImage();
 	}
 	
@@ -106,7 +108,13 @@ public class PersonalInfoActivity extends MyActivity implements OnClickListener{
 	}
 	
 	//初始化数据 
-	private void initData(User user){
+	private void initData(){
+		DbUtils db = DbUtils.create(this);
+		try {
+			user = db.findFirst(Selector.from(User.class).where("userId", "=", user.getUserId()));
+		} catch (DbException e) {
+			e.printStackTrace();
+		}
 		if(null != user){
 			if(!TextUtils.isEmpty(user.getRealName())){
 				pRealNameTV.setText(user.getRealName());
@@ -230,16 +238,10 @@ public class PersonalInfoActivity extends MyActivity implements OnClickListener{
 	
 	//重置个人信息 
 	private void setUser(Intent intent) {
-		boolean flag = intent.getBooleanExtra("changed", false);
+		/*boolean flag = intent.getBooleanExtra("changed", false);
 		if(flag){
-			DbUtils db = DbUtils.create(this);
-			try {
-				user = db.findFirst(Selector.from(User.class).where("userId", "=", user.getUserId()));
-			} catch (DbException e) {
-				e.printStackTrace();
-			}
-			initData(user);
-		}
+			initData();
+		}*/
 	}
 
 	//从上传头像页面返回后重置头像图片

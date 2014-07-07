@@ -3,8 +3,11 @@ package com.task.activity;
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.InjectView;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
@@ -29,6 +32,7 @@ import com.task.common.bean.User;
 import com.task.common.transbean.TranObject;
 import com.task.common.transbean.TranObjectType;
 import com.task.common.utils.ActivityTag;
+import com.task.common.utils.Constants;
 import com.task.common.utils.DialogFactory;
 import com.task.common.utils.Encode;
 import com.task.common.utils.MyDialogTools;
@@ -247,6 +251,36 @@ public class MainActivity extends RoboFragmentActivity{
 	}
 	
 	/********************************************/
+	
+	/**
+	 * 广播接收者，接收GetMsgService发送过来的消息
+	 */
+	private BroadcastReceiver msgReceiver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			TranObject msg = (TranObject) intent.getSerializableExtra(Constants.MSGKEY);
+			if (msg != null) {//如果不是空，说明是消息广播
+				MyDialogTools.closeDialog();
+				Log.e("BroadcastReceiver", "收到广播消息:"+msg.getType());
+			} 
+		}
+	};
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(Constants.ACTION);
+		registerReceiver(msgReceiver, intentFilter);// 注册接受消息广播
+	};
+	
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		unregisterReceiver(msgReceiver);// 注销接受消息广播
+	}
 	
 	private void debug(String s) {
 		Log.v(TAG, s);

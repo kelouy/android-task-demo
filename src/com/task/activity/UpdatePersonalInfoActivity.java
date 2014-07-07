@@ -1,14 +1,12 @@
 package com.task.activity;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.beanutils.BeanUtils;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.lidroid.xutils.DbUtils;
+import com.lidroid.xutils.db.sqlite.Selector;
 import com.lidroid.xutils.exception.DbException;
 import com.task.client.ClientOutputThread;
 import com.task.common.bean.Department;
@@ -34,7 +32,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -84,6 +81,11 @@ public class UpdatePersonalInfoActivity extends MyActivity {
 	
 	
 	private void init() {
+		try {
+			user = db.findFirst(Selector.from(User.class).where("userId", "=", user.getUserId()));
+		} catch (DbException e) {
+			e.printStackTrace();
+		}
 		if(!TextUtils.isEmpty(user.getRealName()))
 			realNameEdit.setText(user.getRealName());
 		
