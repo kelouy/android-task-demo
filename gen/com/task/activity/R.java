@@ -10,10 +10,12 @@ package com.task.activity;
 public final class R {
     public static final class anim {
         public static final int nochange=0x7f040000;
-        public static final int show_img_in=0x7f040001;
-        public static final int show_img_out=0x7f040002;
-        public static final int slide_in_right=0x7f040003;
-        public static final int slide_out_left=0x7f040004;
+        public static final int rexuanzhuan=0x7f040001;
+        public static final int show_img_in=0x7f040002;
+        public static final int show_img_out=0x7f040003;
+        public static final int slide_in_right=0x7f040004;
+        public static final int slide_out_left=0x7f040005;
+        public static final int xuanzhuan=0x7f040006;
     }
     public static final class attr {
         /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
@@ -231,76 +233,78 @@ containing a value of this type.
         public static final int icon_person_data=0x7f020019;
         public static final int icon_pwd=0x7f02001a;
         public static final int icon_setting=0x7f02001b;
-        public static final int list_item=0x7f02001c;
-        public static final int list_item_press=0x7f02001d;
-        public static final int login_bg=0x7f02001e;
-        public static final int login_button_bg=0x7f02001f;
-        public static final int login_button_nor=0x7f020020;
-        public static final int login_button_press=0x7f020021;
-        public static final int login_input=0x7f020022;
-        public static final int login_more=0x7f020023;
-        public static final int login_more_up=0x7f020024;
-        public static final int login_moremenu_back=0x7f020025;
-        public static final int login_pic2=0x7f020026;
-        public static final int login_reg_normal=0x7f020027;
-        public static final int login_reg_pressed=0x7f020028;
-        public static final int login_regist_bg=0x7f020029;
-        public static final int main_footer_bg=0x7f02002a;
-        public static final int menu_exit=0x7f02002b;
-        public static final int menu_moreoverflow_normal_holo_dark=0x7f02002c;
-        public static final int menu_moreoverflow_normal_holo_light=0x7f02002d;
-        public static final int menu_setting=0x7f02002e;
-        public static final int mm_title_btn_compose_normal=0x7f02002f;
-        public static final int mm_title_btn_focused=0x7f020030;
-        public static final int mm_title_btn_keyboard_normal=0x7f020031;
-        public static final int mm_title_btn_normal=0x7f020032;
-        public static final int mm_title_btn_pressed=0x7f020033;
-        public static final int mm_title_btn_qrcode_normal=0x7f020034;
-        public static final int mm_title_btn_receiver_normal=0x7f020035;
-        public static final int mm_title_functionframe_line=0x7f020036;
-        public static final int mm_title_functionframe_pressed=0x7f020037;
-        public static final int op_bg_selector=0x7f020038;
-        public static final int panel_add_icon=0x7f020039;
-        public static final int panel_back_icon=0x7f02003a;
-        public static final int person_head=0x7f02003b;
-        public static final int progressbar=0x7f02003c;
-        public static final int pull_to_refresh_header_background=0x7f02003d;
-        public static final int selector_btn_back=0x7f02003e;
-        public static final int selector_btn_close=0x7f02003f;
-        public static final int selector_btn_more=0x7f020040;
-        public static final int selector_list_header_view=0x7f020041;
-        public static final int selector_list_item_view=0x7f020042;
-        public static final int shape_bg=0x7f020043;
-        public static final int shape_bottom=0x7f020044;
-        public static final int shape_dialog=0x7f020045;
-        public static final int shape_line=0x7f020046;
-        public static final int shape_middle=0x7f020047;
-        public static final int shape_top=0x7f020048;
-        public static final int shape_total=0x7f020049;
-        public static final int splash=0x7f02004a;
-        public static final int tab_bg_halo=0x7f02004b;
-        public static final int tab_fenxiang_normal=0x7f02004c;
-        public static final int tab_fenxiang_pressed=0x7f02004d;
-        public static final int tab_renwu_normal=0x7f02004e;
-        public static final int tab_renwu_pressed=0x7f02004f;
-        public static final int tab_selector_checked_bg=0x7f020050;
-        public static final int tab_selector_fenxiang=0x7f020051;
-        public static final int tab_selector_renwu=0x7f020052;
-        public static final int tab_selector_set=0x7f020053;
-        public static final int tab_selector_tongshi=0x7f020054;
-        public static final int tab_settings_normal=0x7f020055;
-        public static final int tab_settings_pressed=0x7f020056;
-        public static final int tab_tongshi_normal=0x7f020057;
-        public static final int tab_tongshi_pressed=0x7f020058;
-        public static final int title_background=0x7f020059;
-        public static final int title_bar=0x7f02005a;
-        public static final int title_button=0x7f02005b;
-        public static final int title_function_bg=0x7f02005c;
-        public static final int title_list_selector=0x7f02005d;
-        public static final int top_back_left=0x7f02005e;
-        public static final int top_back_leftpress=0x7f02005f;
-        public static final int workmate_head_selector=0x7f020060;
-        public static final int xiaoma=0x7f020061;
+        public static final int icon_settings=0x7f02001c;
+        public static final int icon_settings_bg=0x7f02001d;
+        public static final int list_item=0x7f02001e;
+        public static final int list_item_press=0x7f02001f;
+        public static final int login_bg=0x7f020020;
+        public static final int login_button_bg=0x7f020021;
+        public static final int login_button_nor=0x7f020022;
+        public static final int login_button_press=0x7f020023;
+        public static final int login_input=0x7f020024;
+        public static final int login_more=0x7f020025;
+        public static final int login_more_up=0x7f020026;
+        public static final int login_moremenu_back=0x7f020027;
+        public static final int login_pic2=0x7f020028;
+        public static final int login_reg_normal=0x7f020029;
+        public static final int login_reg_pressed=0x7f02002a;
+        public static final int login_regist_bg=0x7f02002b;
+        public static final int main_footer_bg=0x7f02002c;
+        public static final int menu_exit=0x7f02002d;
+        public static final int menu_moreoverflow_normal_holo_dark=0x7f02002e;
+        public static final int menu_moreoverflow_normal_holo_light=0x7f02002f;
+        public static final int menu_setting=0x7f020030;
+        public static final int mm_title_btn_compose_normal=0x7f020031;
+        public static final int mm_title_btn_focused=0x7f020032;
+        public static final int mm_title_btn_keyboard_normal=0x7f020033;
+        public static final int mm_title_btn_normal=0x7f020034;
+        public static final int mm_title_btn_pressed=0x7f020035;
+        public static final int mm_title_btn_qrcode_normal=0x7f020036;
+        public static final int mm_title_btn_receiver_normal=0x7f020037;
+        public static final int mm_title_functionframe_line=0x7f020038;
+        public static final int mm_title_functionframe_pressed=0x7f020039;
+        public static final int op_bg_selector=0x7f02003a;
+        public static final int panel_add_icon=0x7f02003b;
+        public static final int panel_back_icon=0x7f02003c;
+        public static final int person_head=0x7f02003d;
+        public static final int progressbar=0x7f02003e;
+        public static final int pull_to_refresh_header_background=0x7f02003f;
+        public static final int selector_btn_back=0x7f020040;
+        public static final int selector_btn_close=0x7f020041;
+        public static final int selector_btn_more=0x7f020042;
+        public static final int selector_list_header_view=0x7f020043;
+        public static final int selector_list_item_view=0x7f020044;
+        public static final int shape_bg=0x7f020045;
+        public static final int shape_bottom=0x7f020046;
+        public static final int shape_dialog=0x7f020047;
+        public static final int shape_line=0x7f020048;
+        public static final int shape_middle=0x7f020049;
+        public static final int shape_top=0x7f02004a;
+        public static final int shape_total=0x7f02004b;
+        public static final int splash=0x7f02004c;
+        public static final int tab_bg_halo=0x7f02004d;
+        public static final int tab_fenxiang_normal=0x7f02004e;
+        public static final int tab_fenxiang_pressed=0x7f02004f;
+        public static final int tab_renwu_normal=0x7f020050;
+        public static final int tab_renwu_pressed=0x7f020051;
+        public static final int tab_selector_checked_bg=0x7f020052;
+        public static final int tab_selector_fenxiang=0x7f020053;
+        public static final int tab_selector_renwu=0x7f020054;
+        public static final int tab_selector_set=0x7f020055;
+        public static final int tab_selector_tongshi=0x7f020056;
+        public static final int tab_settings_normal=0x7f020057;
+        public static final int tab_settings_pressed=0x7f020058;
+        public static final int tab_tongshi_normal=0x7f020059;
+        public static final int tab_tongshi_pressed=0x7f02005a;
+        public static final int title_background=0x7f02005b;
+        public static final int title_bar=0x7f02005c;
+        public static final int title_button=0x7f02005d;
+        public static final int title_function_bg=0x7f02005e;
+        public static final int title_list_selector=0x7f02005f;
+        public static final int top_back_left=0x7f020060;
+        public static final int top_back_leftpress=0x7f020061;
+        public static final int workmate_head_selector=0x7f020062;
+        public static final int xiaoma=0x7f020063;
     }
     public static final class id {
         public static final int about_us=0x7f09000a;
@@ -539,7 +543,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:circleColor
+          @attr name com.task.activity:circleColor
         */
         public static final int TasksCompletedView_circleColor = 2;
         /**
@@ -555,7 +559,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:radius
+          @attr name com.task.activity:radius
         */
         public static final int TasksCompletedView_radius = 0;
         /**
@@ -570,7 +574,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:ringColor
+          @attr name com.task.activity:ringColor
         */
         public static final int TasksCompletedView_ringColor = 3;
         /**
@@ -586,7 +590,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:strokeWidth
+          @attr name com.task.activity:strokeWidth
         */
         public static final int TasksCompletedView_strokeWidth = 1;
     };

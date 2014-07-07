@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -27,7 +29,7 @@ public class MyActionBar {
 	 * @param isShowProgressBar	是否显示progressbar
 	 * @param isShowRightBtn	是否显示右上角图标
 	 */
-	public MyActionBar(Activity activity,String title,int rightImageBtnId,boolean isShowProgressBar,boolean isShowRightBtn) {
+	public MyActionBar(final Activity activity,String title,int rightImageBtnId,boolean isShowProgressBar,boolean isShowRightBtn) {
 		actionBar = activity.getActionBar();
 		ActionBar.LayoutParams lp = new ActionBar.LayoutParams(
 				ActionBar.LayoutParams.MATCH_PARENT, 
@@ -47,6 +49,8 @@ public class MyActionBar {
 		rightBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				Animation anim = AnimationUtils.loadAnimation(activity, R.anim.xuanzhuan);
+				v.startAnimation(anim);
 				if(onRightBtnClickListener != null)
 					onRightBtnClickListener.onClick(v);
 			}
@@ -118,6 +122,10 @@ public class MyActionBar {
 	public void hide(){
 		if(actionBar.isShowing())
 			actionBar.hide();
+	}
+	
+	public ImageButton getRightBtn() {
+		return rightBtn;
 	}
 	
 

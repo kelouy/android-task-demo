@@ -13,7 +13,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost.TabSpec;
@@ -70,15 +73,15 @@ public class MainActivity extends RoboFragmentActivity{
 		                        .setTabListener(this));
 		                actionBar2.addTab(actionBar2.newTab().setText("第三页")
 		                        .setTabListener(this));*/
-	}
+	} 
 	 
-	private void initActionBarAndTitlePopup() {
+	private void initActionBarAndTitlePopup() { 
 		titlePopup = new TitlePopup(this);
 		titlePopup.addAction(new ActionItem(this, "上传头像", R.drawable.icon_head));
 		titlePopup.addAction(new ActionItem(this, "修改资料", R.drawable.icon_person_data));
 		titlePopup.addAction(new ActionItem(this, "修改密码", R.drawable.icon_pwd));
 		titlePopup.addAction(new ActionItem(this, "系统设置", R.drawable.icon_setting));
-		actionBar = new MyActionBar(this, "待办事件", R.drawable.panel_add_icon, true,false);
+		actionBar = new MyActionBar(this, "待办事件", R.drawable.icon_settings, true,false);
 		actionBar.setOnRightBtnClickListener(new MyActionBar.OnRightBtnClickListener() {
 			@Override
 			public void onClick(View view) {  
@@ -92,6 +95,13 @@ public class MainActivity extends RoboFragmentActivity{
 			public void onItemClick(ActionItem item, int position) {
 				debug("item position "+position);
 				goActivity(position);
+			}
+		});
+		titlePopup.setOnDismissListener(new PopupWindow.OnDismissListener(){
+			@Override
+			public void onDismiss() {
+				Animation anim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.rexuanzhuan);
+				actionBar.getRightBtn().startAnimation(anim);
 			}
 		});
 	}
