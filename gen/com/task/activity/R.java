@@ -303,100 +303,107 @@ containing a value of this type.
         public static final int title_list_selector=0x7f02005f;
         public static final int top_back_left=0x7f020060;
         public static final int top_back_leftpress=0x7f020061;
-        public static final int workmate_head_selector=0x7f020062;
-        public static final int xiaoma=0x7f020063;
+        public static final int viewpager_line=0x7f020062;
+        public static final int workmate_head_selector=0x7f020063;
+        public static final int xiaoma=0x7f020064;
     }
     public static final class id {
-        public static final int about_us=0x7f09000a;
-        public static final int actionbar_progressBar=0x7f09001e;
-        public static final int actionbar_rightBtn=0x7f09001f;
-        public static final int auto_login=0x7f09001b;
-        public static final int auto_save_password=0x7f090014;
+        public static final int about_us=0x7f09000e;
+        public static final int actionbar_progressBar=0x7f090022;
+        public static final int actionbar_rightBtn=0x7f090023;
+        public static final int auto_login=0x7f09001f;
+        public static final int auto_save_password=0x7f090018;
         public static final int button1=0x7f090001;
-        public static final int button2=0x7f09001d;
-        public static final int change_user=0x7f090009;
-        public static final int clear=0x7f09000c;
+        public static final int button2=0x7f090021;
+        public static final int change_user=0x7f09000d;
+        public static final int clear=0x7f090010;
+        public static final int cursor=0x7f090008;
         public static final int cut_img=0x7f090003;
         public static final int fragment1=0x7f090005;
-        public static final int fragment3=0x7f090007;
-        public static final int fragment4_more=0x7f09004d;
-        public static final int fragment4_updatedata=0x7f09004f;
-        public static final int fragment4_updatehead=0x7f09004e;
-        public static final int fragment4_updatepwd=0x7f090050;
-        public static final int friend_menu_add=0x7f090051;
-        public static final int friend_menu_exit=0x7f090052;
-        public static final int help=0x7f09000b;
-        public static final int image=0x7f09000f;
+        public static final int fragment3=0x7f09000b;
+        public static final int fragment4_more=0x7f090053;
+        public static final int fragment4_updatedata=0x7f090055;
+        public static final int fragment4_updatehead=0x7f090054;
+        public static final int fragment4_updatepwd=0x7f090056;
+        public static final int friend_menu_add=0x7f090057;
+        public static final int friend_menu_exit=0x7f090058;
+        public static final int help=0x7f09000f;
+        public static final int image=0x7f090013;
         public static final int imageButton1=0x7f090000;
         public static final int imageView1=0x7f090002;
-        public static final int input=0x7f090010;
-        public static final int list_group_count=0x7f090048;
-        public static final int list_group_name=0x7f090047;
-        public static final int list_group_tagimg=0x7f090046;
-        public static final int list_head_img=0x7f09004a;
-        public static final int login_accounts=0x7f090011;
-        public static final int login_btn=0x7f090013;
-        public static final int login_context=0x7f09000d;
-        public static final int login_menu_exit=0x7f090054;
-        public static final int login_menu_setting=0x7f090053;
-        public static final int login_password=0x7f090012;
-        public static final int loginpage=0x7f09000e;
-        public static final int menu=0x7f090016;
-        public static final int more=0x7f090017;
-        public static final int more_image=0x7f090019;
-        public static final int more_text=0x7f090018;
-        public static final int moremenu=0x7f09001a;
-        public static final int person_deptname=0x7f09002a;
-        public static final int person_email=0x7f09002f;
-        public static final int person_head_img=0x7f090026;
-        public static final int person_menu_more=0x7f090055;
-        public static final int person_menu_updatedata=0x7f090057;
-        public static final int person_menu_updatehead=0x7f090056;
-        public static final int person_menu_updatepwd=0x7f090058;
-        public static final int person_phone=0x7f09002c;
-        public static final int person_phonenum=0x7f09002d;
-        public static final int person_positionname=0x7f09002b;
-        public static final int person_qq=0x7f09002e;
-        public static final int person_realname=0x7f090028;
-        public static final int person_sex=0x7f090029;
-        public static final int person_username=0x7f090027;
-        public static final int realtabcontent=0x7f090020;
-        public static final int reg_account=0x7f090032;
-        public static final int reg_back_btn=0x7f090030;
-        public static final int reg_password=0x7f090033;
-        public static final int reg_password2=0x7f090034;
-        public static final int regist_btn=0x7f090015;
-        public static final int register_btn=0x7f090035;
-        public static final int rlItem=0x7f090049;
-        public static final int setting_ip=0x7f090038;
-        public static final int setting_port=0x7f090039;
-        public static final int setting_pwd=0x7f090036;
-        public static final int setting_pwd2=0x7f090037;
-        public static final int show_back_btn=0x7f09003b;
-        public static final int show_img=0x7f09003a;
-        public static final int silence_login=0x7f09001c;
-        public static final int tab_rb_1=0x7f090022;
-        public static final int tab_rb_2=0x7f090023;
-        public static final int tab_rb_3=0x7f090024;
-        public static final int tab_rb_4=0x7f090025;
-        public static final int tab_rg_menu=0x7f090021;
-        public static final int textView2=0x7f090031;
-        public static final int title_list=0x7f09003c;
+        public static final int input=0x7f090014;
+        public static final int list_group_count=0x7f09004e;
+        public static final int list_group_name=0x7f09004d;
+        public static final int list_group_tagimg=0x7f09004c;
+        public static final int list_head_img=0x7f090050;
+        public static final int login_accounts=0x7f090015;
+        public static final int login_btn=0x7f090017;
+        public static final int login_context=0x7f090011;
+        public static final int login_menu_exit=0x7f09005a;
+        public static final int login_menu_setting=0x7f090059;
+        public static final int login_password=0x7f090016;
+        public static final int loginpage=0x7f090012;
+        public static final int menu=0x7f09001a;
+        public static final int more=0x7f09001b;
+        public static final int more_image=0x7f09001d;
+        public static final int more_text=0x7f09001c;
+        public static final int moremenu=0x7f09001e;
+        public static final int person_deptname=0x7f09002e;
+        public static final int person_email=0x7f090033;
+        public static final int person_head_img=0x7f09002a;
+        public static final int person_menu_more=0x7f09005b;
+        public static final int person_menu_updatedata=0x7f09005d;
+        public static final int person_menu_updatehead=0x7f09005c;
+        public static final int person_menu_updatepwd=0x7f09005e;
+        public static final int person_phone=0x7f090030;
+        public static final int person_phonenum=0x7f090031;
+        public static final int person_positionname=0x7f09002f;
+        public static final int person_qq=0x7f090032;
+        public static final int person_realname=0x7f09002c;
+        public static final int person_sex=0x7f09002d;
+        public static final int person_username=0x7f09002b;
+        public static final int realtabcontent=0x7f090024;
+        public static final int reg_account=0x7f090036;
+        public static final int reg_back_btn=0x7f090034;
+        public static final int reg_password=0x7f090037;
+        public static final int reg_password2=0x7f090038;
+        public static final int regist_btn=0x7f090019;
+        public static final int register_btn=0x7f090039;
+        public static final int rlItem=0x7f09004f;
+        public static final int setting_ip=0x7f09003c;
+        public static final int setting_port=0x7f09003d;
+        public static final int setting_pwd=0x7f09003a;
+        public static final int setting_pwd2=0x7f09003b;
+        public static final int show_back_btn=0x7f09003f;
+        public static final int show_img=0x7f09003e;
+        public static final int silence_login=0x7f090020;
+        public static final int tab_rb_1=0x7f090026;
+        public static final int tab_rb_2=0x7f090027;
+        public static final int tab_rb_3=0x7f090028;
+        public static final int tab_rb_4=0x7f090029;
+        public static final int tab_rg_menu=0x7f090025;
+        public static final int text1=0x7f090006;
+        public static final int text2=0x7f090007;
+        public static final int textView2=0x7f090035;
+        public static final int title_list=0x7f090040;
         public static final int tvLoad=0x7f090004;
-        public static final int tvPosition=0x7f09004c;
-        public static final int tvTitle=0x7f09004b;
-        public static final int update_dept_spinner=0x7f090041;
-        public static final int update_email=0x7f090045;
-        public static final int update_person_submit=0x7f090059;
-        public static final int update_phone=0x7f090043;
-        public static final int update_posi_spinner=0x7f090042;
-        public static final int update_qq=0x7f090044;
-        public static final int update_radioFemale=0x7f090040;
-        public static final int update_radioMale=0x7f09003f;
-        public static final int update_realname=0x7f09003d;
-        public static final int update_sex_rg=0x7f09003e;
-        public static final int version_msg=0x7f090008;
-        public static final int workmatelistview=0x7f090006;
+        public static final int tvPosition=0x7f090052;
+        public static final int tvTitle=0x7f090051;
+        public static final int update_dept_spinner=0x7f090045;
+        public static final int update_email=0x7f090049;
+        public static final int update_person_submit=0x7f09005f;
+        public static final int update_phone=0x7f090047;
+        public static final int update_posi_spinner=0x7f090046;
+        public static final int update_qq=0x7f090048;
+        public static final int update_radioFemale=0x7f090044;
+        public static final int update_radioMale=0x7f090043;
+        public static final int update_realname=0x7f090041;
+        public static final int update_sex_rg=0x7f090042;
+        public static final int vPager=0x7f090009;
+        public static final int version_msg=0x7f09000c;
+        public static final int viewpager_fragment1=0x7f09004a;
+        public static final int viewpager_fragment2=0x7f09004b;
+        public static final int workmatelistview=0x7f09000a;
     }
     public static final class layout {
         public static final int cut_pic=0x7f030000;
@@ -418,8 +425,10 @@ containing a value of this type.
         public static final int show_image=0x7f030010;
         public static final int title_popup=0x7f030011;
         public static final int update_personal_info=0x7f030012;
-        public static final int workmate_group_item=0x7f030013;
-        public static final int workmate_list_item=0x7f030014;
+        public static final int viewpager_fragment1=0x7f030013;
+        public static final int viewpager_fragment2=0x7f030014;
+        public static final int workmate_group_item=0x7f030015;
+        public static final int workmate_list_item=0x7f030016;
     }
     public static final class menu {
         public static final int fragment4_actionbar=0x7f080000;
@@ -543,7 +552,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.task.activity:circleColor
+          @attr name android:circleColor
         */
         public static final int TasksCompletedView_circleColor = 2;
         /**
@@ -559,7 +568,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.task.activity:radius
+          @attr name android:radius
         */
         public static final int TasksCompletedView_radius = 0;
         /**
@@ -574,7 +583,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.task.activity:ringColor
+          @attr name android:ringColor
         */
         public static final int TasksCompletedView_ringColor = 3;
         /**
@@ -590,7 +599,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.task.activity:strokeWidth
+          @attr name android:strokeWidth
         */
         public static final int TasksCompletedView_strokeWidth = 1;
     };
