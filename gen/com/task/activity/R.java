@@ -543,7 +543,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:circleColor
+          @attr name com.task.activity:circleColor
         */
         public static final int TasksCompletedView_circleColor = 2;
         /**
@@ -559,7 +559,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:radius
+          @attr name com.task.activity:radius
         */
         public static final int TasksCompletedView_radius = 0;
         /**
@@ -574,7 +574,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:ringColor
+          @attr name com.task.activity:ringColor
         */
         public static final int TasksCompletedView_ringColor = 3;
         /**
@@ -590,7 +590,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:strokeWidth
+          @attr name com.task.activity:strokeWidth
         */
         public static final int TasksCompletedView_strokeWidth = 1;
     };

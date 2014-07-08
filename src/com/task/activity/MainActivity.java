@@ -39,6 +39,7 @@ import com.task.common.utils.MyDialogTools;
 import com.task.common.utils.Utils;
 import com.task.tools.component.MyActionBar;
 import com.task.tools.component.MyApplication;
+import com.task.tools.component.menu.MyPersonInfoMenu;
 import com.task.tools.component.popupwindow.ActionItem;
 import com.task.tools.component.popupwindow.TitlePopup;
 
@@ -89,6 +90,7 @@ public class MainActivity extends RoboFragmentActivity{
 		actionBar.setOnRightBtnClickListener(new MyActionBar.OnRightBtnClickListener() {
 			@Override
 			public void onClick(View view) {  
+				//new MyPersonInfoMenu(MainActivity.this,getBaseContext(), view);
 				titlePopup.show(view);
 			}
 		});
