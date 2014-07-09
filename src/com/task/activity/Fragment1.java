@@ -92,6 +92,7 @@ public class Fragment1 extends RoboFragment {
 		offset = (screenW / 2 - bmpW) / 2;// 计算偏移量
 		Matrix matrix = new Matrix();
 		matrix.postTranslate(offset, 0);
+		//matrix.p
 		imageView.setImageMatrix(matrix);// 设置动画初始位置
 	}
 
