@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
-import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost.TabSpec;
@@ -39,16 +38,15 @@ import com.task.common.utils.MyDialogTools;
 import com.task.common.utils.Utils;
 import com.task.tools.component.MyActionBar;
 import com.task.tools.component.MyApplication;
-import com.task.tools.component.menu.MyPersonInfoMenu;
-import com.task.tools.component.popupwindow.ActionItem;
-import com.task.tools.component.popupwindow.TitlePopup;
+import com.task.tools.component.newquickaction3d.ActionItem;
+import com.task.tools.component.newquickaction3d.QuickAction;
 
 public class MainActivity extends RoboFragmentActivity{
 
 	private static final String TAG = "MainActivity";
 	@SuppressWarnings("rawtypes")
 	private final Class[] fragments = {Fragment1.class, Fragment2.class, Fragment3.class, Fragment4.class};
-	private TitlePopup titlePopup;
+	private QuickAction quickAction;
 	private RadioGroup tabGadioGroup;
 	private MenuInflater menu;// 菜单  
 	// 定义FragmentTabHost对象
@@ -81,35 +79,38 @@ public class MainActivity extends RoboFragmentActivity{
 	} 
 	 
 	private void initActionBarAndTitlePopup() { 
-		titlePopup = new TitlePopup(this);
-		titlePopup.addAction(new ActionItem(this, "上传头像", R.drawable.icon_head));
-		titlePopup.addAction(new ActionItem(this, "修改资料", R.drawable.icon_person_data));
-		titlePopup.addAction(new ActionItem(this, "修改密码", R.drawable.icon_pwd));
-		titlePopup.addAction(new ActionItem(this, "系统设置", R.drawable.icon_setting));
-		actionBar = new MyActionBar(this, "待办事件", R.drawable.icon_settings, true,false);
-		actionBar.setOnRightBtnClickListener(new MyActionBar.OnRightBtnClickListener() {
+		quickAction = new QuickAction(this, QuickAction.VERTICAL);
+		quickAction.addActionItem(new ActionItem(0, "上传头像", res.getDrawable(R.drawable.icon_head)));
+		quickAction.addActionItem(new ActionItem(1, "修改资料", res.getDrawable(R.drawable.icon_person_data)));
+		quickAction.addActionItem(new ActionItem(2, "修改密码", res.getDrawable(R.drawable.icon_pwd)));
+		quickAction.addActionItem(new ActionItem(3, "系统设置", res.getDrawable(R.drawable.icon_setting)));
+		quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
+			
 			@Override
-			public void onClick(View view) {  
-				//new MyPersonInfoMenu(MainActivity.this,getBaseContext(), view);
-				titlePopup.show(view);
+			public void onItemClick(QuickAction source, int pos, int actionId) {
+				goActivity(actionId);
 			}
 		});
 		
-		titlePopup.setItemOnClickListener(new TitlePopup.OnItemOnClickListener() {
+		quickAction.setOnDismissListener(new QuickAction.OnDismissListener() {
 			
-			@Override
-			public void onItemClick(ActionItem item, int position) {
-				debug("item position "+position);
-				goActivity(position);
-			}
-		});
-		titlePopup.setOnDismissListener(new PopupWindow.OnDismissListener(){
 			@Override
 			public void onDismiss() {
 				Animation anim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.rexuanzhuan);
 				actionBar.getRightBtn().startAnimation(anim);
 			}
 		});
+		
+		actionBar = new MyActionBar(this, "待办事件", R.drawable.icon_settings, true,false);
+		actionBar.setOnRightBtnClickListener(new MyActionBar.OnRightBtnClickListener() {
+			@Override
+			public void onClick(View view) {  
+				//new MyPersonInfoMenu(MainActivity.this,getBaseContext(), view);
+				//titlePopup.show(view);
+				quickAction.show(view);
+			}
+		});
+		
 	}
 	
 	private void goActivity(int position) {

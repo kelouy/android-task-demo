@@ -42,7 +42,7 @@ public class TitlePopup extends PopupWindow {
 	// 定义列表对象
 	private ListView mListView;
 	// 定义弹窗子类项列表
-	private ArrayList<ActionItem> mActionItems = new ArrayList<ActionItem>();
+	private ArrayList<MaAtionItem> mActionItems = new ArrayList<MaAtionItem>();
 
 	public TitlePopup(Context context) {
 		// 设置布局的参数
@@ -138,7 +138,7 @@ public class TitlePopup extends PopupWindow {
 					textView = (TextView) convertView;
 				}
 
-				ActionItem item = mActionItems.get(position);
+				MaAtionItem item = mActionItems.get(position);
 
 				// 设置文本文字
 				textView.setText(item.mTitle);
@@ -170,7 +170,7 @@ public class TitlePopup extends PopupWindow {
 	/**
 	 * 添加子类项
 	 */
-	public void addAction(ActionItem action) {
+	public void addAction(MaAtionItem action) {
 		if (action != null) {
 			mActionItems.add(action);
 			mIsDirty = true;
@@ -190,7 +190,7 @@ public class TitlePopup extends PopupWindow {
 	/**
 	 * 根据位置得到子类项
 	 */
-	public ActionItem getAction(int position) {
+	public MaAtionItem getAction(int position) {
 		if (position < 0 || position > mActionItems.size())
 			return null;
 		return mActionItems.get(position);
@@ -207,7 +207,7 @@ public class TitlePopup extends PopupWindow {
 	 * @author yangyu 弹窗子类项按钮监听事件
 	 */
 	public static interface OnItemOnClickListener {
-		public void onItemClick(ActionItem item, int position);
+		public void onItemClick(MaAtionItem item, int position);
 	}
 	
 

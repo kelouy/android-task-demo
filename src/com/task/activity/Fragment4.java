@@ -137,7 +137,8 @@ public class Fragment4 extends RoboFragment {
 	}
 	
 	private void debug(String s) {
-		Log.v(TAG, s);
+		if(s != null)
+			Log.v(TAG, s);
 	}
 	
 }
