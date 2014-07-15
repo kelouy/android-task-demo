@@ -147,5 +147,7 @@
     <color name="setting_text1">#ff000000</color>
     <color name="setting_text2">#ff798089</color>
     <color name="setting_bg">#ffe3e6e8</color>
+    
+    <color name="background_list_front">#ffffff</color>
 
 </resources>

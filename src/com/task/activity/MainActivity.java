@@ -76,7 +76,7 @@ public class MainActivity extends RoboFragmentActivity{
 		                        .setTabListener(this));
 		                actionBar2.addTab(actionBar2.newTab().setText("第三页")
 		                        .setTabListener(this));*/
-	} 
+	}   
 	 
 	private void initActionBarAndTitlePopup() { 
 		quickAction = new QuickAction(this, QuickAction.VERTICAL);
@@ -106,7 +106,7 @@ public class MainActivity extends RoboFragmentActivity{
 			@Override
 			public void onClick(View view) {  
 				//new MyPersonInfoMenu(MainActivity.this,getBaseContext(), view);
-				//titlePopup.show(view);
+				//titlePopup.show(view);     
 				quickAction.show(view);
 			}
 		});
